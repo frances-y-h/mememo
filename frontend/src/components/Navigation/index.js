@@ -96,7 +96,7 @@ const Navigation = ({ sessionUser }) => {
 				</div>
 				<div className="nav-div-right tooltip">
 					<i className="fa-solid fa-circle-plus nav-add"></i>
-					<span className="tooltiptext">Add New Note</span>
+					{/* <span className="tooltiptext">New Note</span> */}
 				</div>
 			</div>
 			{/* notes dropdown */}

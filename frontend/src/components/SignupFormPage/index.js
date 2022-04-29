@@ -129,7 +129,7 @@ function SignupFormPage() {
 			<form className="form-control" onSubmit={handleSubmit}>
 				<div className="login-title">
 					<img className="logo" src="/images/logo.svg" alt="mememo" />
-					<h1 className="title">memeo</h1>
+					<h1 className="title">mememo</h1>
 					<div className="slogan">
 						A powerful memo app for hard working bees
 					</div>

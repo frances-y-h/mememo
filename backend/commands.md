@@ -30,3 +30,21 @@ npx dotenv sequelize db:drop
 npx dotenv sequelize db:create
 npx dotenv sequelize db:migrate
 npx dotenv sequelize db:seed:all
+
+# Heroku
+
+git push heroku main:master
+heroku run npm run sequelize db:migrate
+heroku run npm run sequelize db:seed:all
+
+### Check logs
+
+heroku logs
+
+### open a connection to the logs to continuously output to your terminal
+
+heroku logs --tail
+
+### open sitem
+
+heroku open
