@@ -22,6 +22,9 @@ module.exports = {
 				type: Sequelize.STRING.BINARY,
 				allowNull: false,
 			},
+			avatarUrl: {
+				type: Sequelize.TEXT,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

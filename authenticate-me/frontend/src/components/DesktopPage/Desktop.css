@@ -1,0 +1,9 @@
+.desktop-container {
+	display: flex;
+	flex-direction: row;
+}
+
+main {
+	background-color: var(--background);
+	width: 100%;
+}

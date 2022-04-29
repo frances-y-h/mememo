@@ -33,6 +33,18 @@ function SignupFormPage() {
 		);
 	};
 
+	const demoLogin = () => {
+		return dispatch(
+			sessionActions.login({
+				credential: "DemoUser",
+				password: "password",
+			})
+		).catch(async (res) => {
+			const data = await res.json();
+			if (data && data.errors) setErrors(data.errors);
+		});
+	};
+
 	useEffect(() => {
 		if (!sessionUser) {
 			if (errors.length) {
@@ -80,7 +92,7 @@ function SignupFormPage() {
 				}, 250);
 			}
 		}
-	}, [confirmPassword, password, username, email]);
+	}, [confirmPassword, password, username, email, sessionUser]);
 
 	// Sign up button disable toggles
 	useEffect(() => {
@@ -99,7 +111,16 @@ function SignupFormPage() {
 				setDisable(true);
 			}
 		}
-	}, [usernameErr, passwordErr, confirmPasswordErr]);
+	}, [
+		usernameErr,
+		passwordErr,
+		confirmPasswordErr,
+		sessionUser,
+		username,
+		email,
+		password,
+		confirmPassword,
+	]);
 
 	if (sessionUser) return <Redirect to="/desktop" />;
 
@@ -176,7 +197,9 @@ function SignupFormPage() {
 						Sign Up
 					</button>
 					<div className="form-group form-gap15">
-						<div className="form-link">Login as Demo User</div>
+						<div className="form-link" onClick={demoLogin}>
+							Login as Demo User
+						</div>
 						<div className="form-group">
 							<div className="form-link-label">Already have an account?</div>
 							<Link to="/login" className="form-link">

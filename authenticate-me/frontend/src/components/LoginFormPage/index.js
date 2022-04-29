@@ -24,6 +24,18 @@ function LoginFormPage() {
 		);
 	};
 
+	const demoLogin = () => {
+		return dispatch(
+			sessionActions.login({
+				credential: "DemoUser",
+				password: "password",
+			})
+		).catch(async (res) => {
+			const data = await res.json();
+			if (data && data.errors) setErrors(data.errors);
+		});
+	};
+
 	useEffect(() => {
 		if (!sessionUser) {
 			if (errors.length) {
@@ -79,7 +91,9 @@ function LoginFormPage() {
 						Login
 					</button>
 					<div className="form-group form-gap20">
-						<div className="form-link">Login as Demo User</div>
+						<div className="form-link" onClick={demoLogin}>
+							Login as Demo User
+						</div>
 						<div className="form-group">
 							<div className="form-link-label">Don't have an account?</div>
 							<Link to="/signup" className="form-link">
