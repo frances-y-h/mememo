@@ -1,0 +1,25 @@
+/* Buttons */
+.btn {
+	background-color: black;
+	color: white;
+	border: 2px solid transparent;
+	padding: 10px 30px;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	border-radius: 2px;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
+.btn:hover {
+	background-color: white;
+	color: black;
+	border-color: black;
+}
+
+.btn:active {
+	background-color: var(--mid1);
+	color: black;
+	border-color: black;
+}

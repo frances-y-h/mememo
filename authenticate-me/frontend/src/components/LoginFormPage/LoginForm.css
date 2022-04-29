@@ -1,0 +1,152 @@
+body {
+	background-color: var(--background);
+	padding: 0;
+	margin: 0;
+}
+
+.container-ctr {
+	background-image: url("../../../public/images/bg.svg");
+	background-size: 250px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+}
+
+.form-control {
+	padding: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 80%;
+	max-width: 500px;
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 10px;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+	box-sizing: border-box;
+	backdrop-filter: blur(10px);
+}
+
+.login-title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 20px;
+}
+
+.logo {
+	width: 125px;
+}
+
+.title {
+	font-family: "Signika Negative", sans-serif;
+	color: var(--mid1);
+	font-size: 72px;
+	margin: 0;
+}
+
+.slogan {
+	text-align: center;
+}
+
+.error-list {
+	border: 1px solid var(--alert1);
+	border-radius: 5px;
+	width: 60%;
+	min-width: 250px;
+	background-color: var(--alert2);
+	padding: 10px;
+}
+
+.error-list li {
+	font-size: 13px;
+	list-style: square;
+	color: var(--alert1);
+}
+
+/* Log in form */
+.form-group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.form-gap20 {
+	gap: 20px;
+}
+
+.form-input-ctrl {
+	display: flex;
+	gap: 10px;
+	padding: 10px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	background-color: white;
+	color: gray;
+	width: 60%;
+	min-width: 250px;
+}
+
+.form-input-ctrl .input {
+	border: none;
+	background-color: transparent;
+}
+
+input::placeholder {
+	transition: all 0.25s;
+}
+
+input:focus::placeholder {
+	color: transparent;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.form-link-label,
+.form-link {
+	font-size: 14px;
+}
+
+.form-link {
+	text-decoration: none;
+	color: var(--mid4);
+	text-align: center;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.form-link:hover {
+	color: var(--mid1);
+}
+
+@media screen and (max-width: 500px) {
+	.logo {
+		width: 100px;
+	}
+
+	.title {
+		font-family: "Signika Negative", sans-serif;
+		color: var(--mid1);
+		font-size: 50px;
+		margin: 0;
+	}
+
+	.slogan {
+		text-align: center;
+		font-size: 14px;
+	}
+
+	.form-gap20 {
+		gap: 10px;
+	}
+
+	.form-control {
+		width: 90%;
+	}
+}

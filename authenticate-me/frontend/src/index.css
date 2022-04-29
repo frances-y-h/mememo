@@ -1,1 +1,42 @@
-/* TODO Add site wide styles */
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,700;1,200;1,300;1,400;1,700&family=Signika+Negative:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.sandbox.google.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,700,1,0");
+
+@import url("./css/buttons.css");
+
+:root {
+	/* color-scheme: light dark; */
+	--light1: #fdf9dc;
+
+	--mid1: #ffbc2b;
+	--mid2: #fcd615;
+	--mid3: #f3c622;
+	--mid4: #cf9d3c;
+
+	--alert1: #992409;
+	--alert2: #ffdfd8;
+
+	--background: #f6f4ea;
+	--paper: #fbfbfb;
+	--pad: #fff6b6;
+
+	--dark1: #3a3637;
+	--dark2: #23212c;
+
+	--tag1: #473335;
+	--tag2: #6c5ba5;
+	--tag3: #c84639;
+	--tag4: #ce763b;
+	--tag5: #e2af47;
+	--tag6: #e9d6af;
+	--tag7: #6bb4b1;
+	--tag8: #32687a;
+}
+
+* {
+	font-family: "Mulish", sans-serif;
+}
+
+input:focus {
+	outline-color: transparent;
+	outline-style: none;
+}
