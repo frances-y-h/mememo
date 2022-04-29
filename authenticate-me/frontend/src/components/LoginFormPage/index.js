@@ -25,14 +25,16 @@ function LoginFormPage() {
 	};
 
 	useEffect(() => {
-		if (errors.length) {
-			errDiv.current.classList.remove("hidden");
-		} else {
-			errDiv.current.classList.add("hidden");
+		if (!sessionUser) {
+			if (errors.length) {
+				errDiv.current.classList.remove("hidden");
+			} else {
+				errDiv.current.classList.add("hidden");
+			}
 		}
-	}, [errors]);
+	}, [errors, sessionUser]);
 
-	if (sessionUser) return <Redirect to="/" />;
+	if (sessionUser) return <Redirect to="/desktop" />;
 
 	return (
 		<div className="container-ctr">
@@ -51,7 +53,7 @@ function LoginFormPage() {
 						))}
 					</div>
 					<div className="form-input-ctrl">
-						<i class="fa-solid fa-user"></i>
+						<i className="fa-solid fa-user"></i>
 						<input
 							type="text"
 							value={credential}
@@ -63,7 +65,7 @@ function LoginFormPage() {
 					</div>
 
 					<div className="form-input-ctrl">
-						<i class="fa-solid fa-lock"></i>
+						<i className="fa-solid fa-lock"></i>
 						<input
 							type="password"
 							value={password}

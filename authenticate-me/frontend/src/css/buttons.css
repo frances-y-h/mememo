@@ -23,3 +23,9 @@
 	color: black;
 	border-color: black;
 }
+
+.btn:disabled {
+	background-color: gray;
+	color: lightgray;
+	cursor: default;
+}

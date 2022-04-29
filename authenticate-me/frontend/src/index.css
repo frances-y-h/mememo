@@ -40,3 +40,7 @@ input:focus {
 	outline-color: transparent;
 	outline-style: none;
 }
+
+input {
+	width: 100%;
+}

@@ -79,6 +79,10 @@ body {
 	gap: 20px;
 }
 
+.form-gap15 {
+	gap: 15px;
+}
+
 .form-input-ctrl {
 	display: flex;
 	gap: 10px;
@@ -123,6 +127,41 @@ input:focus::placeholder {
 
 .form-link:hover {
 	color: var(--mid1);
+}
+
+.tooltip {
+	position: relative;
+}
+
+.tooltip .tooltiptext {
+	width: fit-content;
+	background-color: var(--mid2);
+	color: black;
+	text-align: center;
+	padding: 5px 10px;
+	border-radius: 6px;
+	position: absolute;
+	font-size: 12px;
+	z-index: 1;
+	top: 120%;
+	left: 0px;
+	transition: all 0.25s;
+}
+
+.tooltip .tooltiptext::after {
+	content: " ";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent var(--mid2) transparent;
+}
+
+.hidden {
+	visibility: hidden;
+	opacity: 0;
 }
 
 @media screen and (max-width: 500px) {
