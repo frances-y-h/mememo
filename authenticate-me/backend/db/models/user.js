@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
 				defaultValue:
 					"https://img.freepik.com/free-vector/honey-comb-pattern_225004-641.jpg?t=st=1651206994~exp=1651207594~hmac=7b6665183684d0230ec73e90477cc28abf9f0261b5c0f002eee8e94d87f63240&w=1800",
 			},
+			scartchPad: {
+				type: DataTypes.TEXT,
+			},
 		},
 		{
 			defaultScope: {
@@ -56,12 +59,14 @@ module.exports = (sequelize, DataTypes) => {
 	);
 
 	User.associate = function (models) {
-		// associations can be defined here
+		User.hasMany(models.Tag, { foreignKey: "userId" });
+		User.hasMany(models.Notebook, { foreignKey: "userId" });
+		User.hasMany(models.Favorites, { foreignKey: "userId" });
 	};
 
 	User.prototype.toSafeObject = function () {
-		const { id, username, email, avatarUrl } = this;
-		return { id, username, email, avatarUrl };
+		const { id, username, email } = this;
+		return { id, username, email };
 	};
 
 	User.prototype.validatePassword = function (password) {
