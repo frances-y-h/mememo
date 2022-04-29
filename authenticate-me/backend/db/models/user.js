@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
 	User.associate = function (models) {
 		User.hasMany(models.Tag, { foreignKey: "userId" });
 		User.hasMany(models.Notebook, { foreignKey: "userId" });
-		User.hasMany(models.Favorites, { foreignKey: "userId" });
+		User.hasMany(models.Favorite, { foreignKey: "userId" });
 	};
 
 	User.prototype.toSafeObject = function () {
@@ -99,7 +99,8 @@ module.exports = (sequelize, DataTypes) => {
 			email,
 			hashedPassword,
 		});
-		return await User.scope("currentUser").findByPk(user.id);
+		const currentUser = await User.scope("currentUser").findByPk(user.id);
+		return currentUser;
 	};
 
 	return User;
