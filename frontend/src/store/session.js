@@ -16,6 +16,7 @@ const removeUser = () => {
 	};
 };
 
+
 export const login = (user) => async (dispatch) => {
 	const { credential, password } = user;
 	const response = await csrfFetch("/api/session", {
@@ -45,6 +46,7 @@ export const signup = (user) => async (dispatch) => {
 	return response;
 };
 
+
 export const restoreUser = () => async (dispatch) => {
 	const response = await csrfFetch("/api/session");
 	const data = await response.json();
@@ -59,6 +61,7 @@ export const logoutUser = () => async (dispatch) => {
 	dispatch(removeUser());
 	return response;
 };
+
 
 const initialState = { user: null };
 

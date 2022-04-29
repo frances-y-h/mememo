@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch } from "react-redux";
+import * as notebooksActions from "../../store/notebooks";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import "./Navigation.css";
 
 const Navigation = ({ sessionUser }) => {
-	const { username, avatarUrl } = sessionUser;
+	const { username, avatarUrl, id } = sessionUser;
+  const {notebooks} = useSelector((state) => state.notebooks);
 
-	console.log(avatarUrl);
 	const dispatch = useDispatch();
 
 	const [showUserDD, setShowUserDD] = useState(false);
@@ -30,6 +31,15 @@ const Navigation = ({ sessionUser }) => {
 		userDD.current.classList.add("nav-dropdown-hide");
 		modal.current.classList.add("nav-dropdown-hide");
 	};
+
+  // useEffect to get all notebooks
+  const test = (e) => {
+    e.preventDefault();
+  }
+
+  useEffect(() => {
+    dispatch(notebooksActions.getAllNotebooks(id));
+  },[])
 
 	useEffect(() => {
 		if (showUserDD) {
@@ -134,18 +144,12 @@ const Navigation = ({ sessionUser }) => {
 			</div>
 			{/* Notebook dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notebooksDDDiv}>
-				<div className="nav-dd-div">
-					<i className="fa-solid fa-book"></i>
-					<div className="nav-dd-title">Notebook 1</div>
-				</div>
-				<div className="nav-dd-div">
-					<i className="fa-solid fa-book"></i>
-					<div className="nav-dd-title">Notebook 2</div>
-				</div>
-				<div className="nav-dd-div">
-					<i className="fa-solid fa-book"></i>
-					<div className="nav-dd-title">Notebook 3</div>
-				</div>
+        {notebooks && notebooks.map((notebook) => (
+          <div className="nav-dd-div">
+            <i className="fa-solid fa-book"></i>
+            <div className="nav-dd-title">{notebook.name}</div>
+          </div>
+        ))}
 				<div className="nav-dd-div nav-new">
 					<i className="fa-regular fa-plus"></i>
 					<i className="fa-solid fa-book"></i>
@@ -173,6 +177,7 @@ const Navigation = ({ sessionUser }) => {
 					<div>Trash</div>
 				</div>
 			</div>
+      <button onClick={test}>Test</button>
 		</nav>
 	);
 };
