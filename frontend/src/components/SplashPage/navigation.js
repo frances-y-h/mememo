@@ -1,0 +1,53 @@
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+import * as sessionActions from "../../store/session";
+
+const Navigation = () => {
+	const dispatch = useDispatch();
+
+	const navBar = useRef();
+
+	const [errors, setErrors] = useState([]);
+
+	const demoLogin = () => {
+		return dispatch(
+			sessionActions.login({
+				credential: "DemoUser",
+				password: "password",
+			})
+		).catch(async (res) => {
+			const data = await res.json();
+			if (data && data.errors) setErrors(data.errors);
+		});
+	};
+
+	useEffect(() => {
+		window.addEventListener("scroll", (e) => {
+			if (window.pageYOffset > 0) {
+				navBar.current.classList.add("nav-shadow");
+			} else {
+				navBar.current.classList.remove("nav-shadow");
+			}
+		});
+	}, []);
+
+	return (
+		<nav className="navigation-wrapper" ref={navBar}>
+			<div className="navigation-logo-wrapper">
+				<img src="/images/logo.svg" alt="mememo" className="navigation-logo" />
+				<h1 className="navigation-title">mememo</h1>
+			</div>
+			<div className="navigation-links">
+				<div className="btn btn-no-border" onClick={demoLogin}>
+					Demo Login
+				</div>
+				<NavLink className="btn btn-mid1" to="/login">
+					Login
+				</NavLink>
+			</div>
+		</nav>
+	);
+};
+
+export default Navigation;

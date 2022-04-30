@@ -8,6 +8,8 @@
 @import url("./css/tooltips.css");
 @import url("./css/modals.css");
 @import url("./css/colorPicker.css");
+@import url("./css/splashPage.css");
+@import url("./css/footer.css");
 
 :root {
 	/* color-scheme: light dark; */
@@ -43,7 +45,16 @@
 }
 
 body {
-	background-color: var(--background);
 	padding: 0;
 	margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: unset;
+	font-size: unset;
 }
