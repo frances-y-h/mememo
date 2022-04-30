@@ -276,7 +276,7 @@ const Tags = () => {
 			</div>
 			{/* Tags Dropdown */}
 			<div className="nav-dd  nav-dropdown-hide" ref={tagsDDDiv}>
-				{tags &&
+				{tags[0] &&
 					tags.map((tag) => (
 						<div className="nav-dd-div" key={tag.id}>
 							<div className="tag" style={{ backgroundColor: `#${tag.color}` }}>

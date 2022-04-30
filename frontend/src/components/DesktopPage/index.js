@@ -18,7 +18,6 @@ import "./Desktop.css";
 const DesktopPage = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
-	const { notebooks } = useSelector((state) => state.notebooks);
 	const { notes } = useSelector((state) => state.notes);
 	const { trash } = useSelector((state) => state.trash);
 
@@ -36,11 +35,7 @@ const DesktopPage = () => {
 
 	return (
 		<div className="desktop-container">
-			<Navigation
-				sessionUser={sessionUser}
-				notebooks={notebooks}
-				notes={notes}
-			/>
+			<Navigation sessionUser={sessionUser} notes={notes} />
 			<Switch>
 				<Route path="/desktop">
 					<Desktop />
@@ -49,7 +44,7 @@ const DesktopPage = () => {
 					<NotesPage notes={notes} />
 				</Route>
 				<Route path="/notebooks">
-					<NotebookPage notebooks={notebooks} />
+					<NotebookPage />
 				</Route>
 				<Route path="/trash">
 					<TrashPage trash={trash} />

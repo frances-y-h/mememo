@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 
-const Notebooks = ({ notebooks }) => {
+const Notebooks = () => {
+	const notebooks = Object.values(useSelector((state) => state.notebooks));
+
 	const [showNotebooks, setShowNotebooks] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
 
@@ -51,7 +54,7 @@ const Notebooks = ({ notebooks }) => {
 			</div>
 			{/* Notebook dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notebooksDDDiv}>
-				{notebooks &&
+				{notebooks[0] &&
 					notebooks.map((notebook) => (
 						<div className="nav-dd-div" key={notebook.id}>
 							<i className="fa-solid fa-book"></i>
