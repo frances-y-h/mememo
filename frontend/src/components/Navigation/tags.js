@@ -87,7 +87,7 @@ const Tags = () => {
 					onClick={(e) => e.stopPropagation()}
 				>
 					<div className="modal-x" onClick={closeModal}>
-						<i class="fa-solid fa-xmark fa-lg"></i>
+						<i className="fa-solid fa-xmark fa-lg"></i>
 					</div>
 					<div className="form-group form-gap30">
 						<div className="form-title">Create new tag</div>
@@ -96,7 +96,7 @@ const Tags = () => {
 							browse.
 						</div>
 						<div className="form-input-ctrl tooltip">
-							<i class="fa-solid fa-tag"></i>
+							<i className="fa-solid fa-tag"></i>
 							<input
 								type="text"
 								required
@@ -112,7 +112,7 @@ const Tags = () => {
 						<div className="color-picker">
 							<div className="color-picker-title">Pick your color</div>
 							<div className="color-palette">
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Default
 									<input
 										type="radio"
@@ -121,11 +121,11 @@ const Tags = () => {
 										checked={color === "777777"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#777777" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Black
 									<input
 										type="radio"
@@ -134,11 +134,11 @@ const Tags = () => {
 										checked={color === "000814"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#000814" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Brown
 									<input
 										type="radio"
@@ -147,11 +147,11 @@ const Tags = () => {
 										checked={color === "473335"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#473335" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Red
 									<input
 										type="radio"
@@ -160,11 +160,11 @@ const Tags = () => {
 										checked={color === "c84639"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#c84639" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Orange
 									<input
 										type="radio"
@@ -173,11 +173,11 @@ const Tags = () => {
 										checked={color === "ce763b"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#ce763b" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Golden
 									<input
 										type="radio"
@@ -186,11 +186,11 @@ const Tags = () => {
 										checked={color === "e2af47"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#e2af47" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Yellow
 									<input
 										type="radio"
@@ -199,11 +199,11 @@ const Tags = () => {
 										checked={color === "e9d6af"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#e9d6af" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Teal
 									<input
 										type="radio"
@@ -212,11 +212,11 @@ const Tags = () => {
 										checked={color === "6bb4b1"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#6bb4b1" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Deep Ocean
 									<input
 										type="radio"
@@ -225,11 +225,11 @@ const Tags = () => {
 										checked={color === "32687a"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#32687a" }}
 									></span>
 								</label>
-								<label class="color-ctnr">
+								<label className="color-ctnr">
 									Purple
 									<input
 										type="radio"
@@ -238,7 +238,7 @@ const Tags = () => {
 										checked={color === "6c5ba5"}
 									/>
 									<span
-										class="color"
+										className="color"
 										style={{ backgroundColor: "#6c5ba5" }}
 									></span>
 								</label>
