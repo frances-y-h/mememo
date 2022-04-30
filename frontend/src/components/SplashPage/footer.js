@@ -13,7 +13,9 @@ const Footer = () => {
 					<li>PostgreSQL</li>
 				</ul>
 			</div>
-			<div className="footer-copyright">copyright & resourse used</div>
+			<div className="footer-copyright">
+				copyright © Frances Lau | Resource used
+			</div>
 		</footer>
 	);
 };

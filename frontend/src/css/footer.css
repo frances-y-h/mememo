@@ -27,5 +27,7 @@ footer ul {
 .footer-copyright {
 	display: flex;
 	justify-content: center;
-	padding: 10px 30px 60px 30px;
+	padding: 20px 30px 80px 30px;
+	font-size: 12px;
+	color: gray;
 }

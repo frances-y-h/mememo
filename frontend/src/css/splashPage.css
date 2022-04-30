@@ -5,5 +5,82 @@
 .splash-page-main {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	background-color: white;
+}
+
+/* Main title */
+.splah-main-wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 50px;
+	gap: 20px;
+}
+
+.splash-slogan {
+	font-size: 40px;
+	font-weight: bolder;
+	text-align: center;
+	line-height: 60px;
+}
+
+.splash-slogan-bee {
+	height: 36px;
+	transform: rotate(30deg);
+	padding-left: 20px;
+}
+
+.splash-main-description {
+	text-align: center;
+	font-size: 18px;
+}
+
+/* Examples */
+.splash-example-wrap {
+	display: grid;
+	grid-template-columns: auto 200px;
+	padding: 30px;
+	gap: 20px;
+	max-width: 1200px;
+}
+
+.laptop {
+	width: 100%;
+}
+
+.splash-example-right {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.splash-example-div {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.splash-example-title {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.splash-example-description {
+	font-size: 0.8rem;
+	line-height: 1.1rem;
+}
+
+@media screen and (max-width: 500px) {
+	.splash-example-wrap {
+		display: flex;
+		flex-direction: column;
+		padding: 30px;
+		gap: 20px;
+	}
+
+	.splash-example-title,
+	.splash-example-description {
+		text-align: center;
+	}
 }

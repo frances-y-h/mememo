@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 
 const Navigation = () => {
 	const dispatch = useDispatch();
+
+	const navBar = useRef();
 
 	const [errors, setErrors] = useState([]);
 
@@ -20,11 +22,21 @@ const Navigation = () => {
 		});
 	};
 
+	useEffect(() => {
+		window.addEventListener("scroll", (e) => {
+			if (window.pageYOffset > 0) {
+				navBar.current.classList.add("nav-shadow");
+			} else {
+				navBar.current.classList.remove("nav-shadow");
+			}
+		});
+	}, []);
+
 	return (
-		<nav className="navigation-wrapper">
+		<nav className="navigation-wrapper" ref={navBar}>
 			<div className="navigation-logo-wrapper">
 				<img src="/images/logo.svg" alt="mememo" className="navigation-logo" />
-				<div className="navigation-title">mememo</div>
+				<h1 className="navigation-title">mememo</h1>
 			</div>
 			<div className="navigation-links">
 				<div className="btn btn-no-border" onClick={demoLogin}>
