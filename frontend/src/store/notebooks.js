@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const GET_ALL_NOTEBOOKS = "notebooks/getAllNotebooks";
 
+// Action
 const getNotebooks = (notebooks) => {
   return {
     type: GET_ALL_NOTEBOOKS,

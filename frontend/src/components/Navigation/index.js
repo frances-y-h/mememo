@@ -1,24 +1,30 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as sessionActions from "../../store/session";
-import * as notebooksActions from "../../store/notebooks";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import "./Navigation.css";
 
-const Navigation = ({ sessionUser }) => {
+const Navigation = ({ sessionUser, notebooks, notes, tags }) => {
 	const { username, avatarUrl, id } = sessionUser;
-  const {notebooks} = useSelector((state) => state.notebooks);
+
 
 	const dispatch = useDispatch();
 
 	const [showUserDD, setShowUserDD] = useState(false);
 	const [showNotes, setShowNotes] = useState(false);
 	const [showNotebooks, setShowNotebooks] = useState(false);
+  const [showTags, setShowTags] = useState(false);
 
 	const userDD = useRef();
+
 	const notesDDDiv = useRef();
 	const notesCaret = useRef();
+
+  const tagsDDDiv = useRef();
+  const tagsCaret = useRef();
+
 	const modal = useRef();
+
 
 	const notebooksDDDiv = useRef();
 	const notebooksCaret = useRef();
@@ -32,14 +38,6 @@ const Navigation = ({ sessionUser }) => {
 		modal.current.classList.add("nav-dropdown-hide");
 	};
 
-  // useEffect to get all notebooks
-  const test = (e) => {
-    e.preventDefault();
-  }
-
-  useEffect(() => {
-    dispatch(notebooksActions.getAllNotebooks(id));
-  },[])
 
 	useEffect(() => {
 		if (showUserDD) {
@@ -70,6 +68,16 @@ const Navigation = ({ sessionUser }) => {
 			notebooksCaret.current.classList.remove("nav-caret-down");
 		}
 	}, [showNotebooks]);
+
+  	useEffect(() => {
+		if (showTags) {
+			tagsDDDiv.current.classList.remove("nav-dropdown-hide");
+			tagsCaret.current.classList.add("nav-caret-down");
+		} else {
+			tagsDDDiv.current.classList.add("nav-dropdown-hide");
+			tagsCaret.current.classList.remove("nav-caret-down");
+		}
+	}, [showTags]);
 
 	return (
 		<nav className="navbar">
@@ -111,18 +119,12 @@ const Navigation = ({ sessionUser }) => {
 			</div>
 			{/* notes dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notesDDDiv}>
-				<div className="nav-dd-div">
-					<i className="fa-regular fa-file-lines"></i>
-					<div className="nav-dd-title">Notes number 1</div>
+        {notes && notes.map((note) => (
+          <div className="nav-dd-div" id={note.id}>
+					  <i className="fa-regular fa-file-lines"></i>
+					<div className="nav-dd-title">{note.title}</div>
 				</div>
-				<div className="nav-dd-div">
-					<i className="fa-regular fa-file-lines"></i>
-					<div className="nav-dd-title">Notes number 2</div>
-				</div>
-				<div className="nav-dd-div">
-					<i className="fa-regular fa-file-lines"></i>
-					<div className="nav-dd-title">Notes number 3</div>
-				</div>
+        ))}
 				<div className="nav-dd-div nav-new">
 					<i className="fa-regular fa-plus"></i>
 					<i className="fa-regular fa-file-lines"></i>
@@ -145,7 +147,7 @@ const Navigation = ({ sessionUser }) => {
 			{/* Notebook dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notebooksDDDiv}>
         {notebooks && notebooks.map((notebook) => (
-          <div className="nav-dd-div">
+          <div className="nav-dd-div" id={notebook.id}>
             <i className="fa-solid fa-book"></i>
             <div className="nav-dd-title">{notebook.name}</div>
           </div>
@@ -157,9 +159,9 @@ const Navigation = ({ sessionUser }) => {
 				</div>
 			</div>
 			{/* Tags */}
-			<div className="nav-div">
+			<div className="nav-div" onClick={() => setShowTags(!showTags)}>
 				<div className="nav-div-left">
-					<div className="nav-caret">
+					<div className="nav-caret" ref={tagsCaret}>
 						<i className="fa-solid fa-caret-right"></i>
 					</div>
 					<i className="fa-solid fa-tags"></i>
@@ -169,6 +171,19 @@ const Navigation = ({ sessionUser }) => {
 					<i className="fa-solid fa-circle-plus nav-add"></i>
 				</div>
 			</div>
+      {/* Tags Dropdown */}
+      <div className="nav-dd  nav-dropdown-hide" ref={tagsDDDiv}>
+        {tags && tags.map((tag) => (
+          <div className="nav-dd-div">
+            <div className="tag" style={{backgroundColor: `#${tag.color}`}} id={tag.id}>{tag.name}</div>
+          </div>
+        ))}
+        <div className="nav-dd-div nav-new">
+					<i className="fa-regular fa-plus"></i>
+					<i className="fa-solid fa-tags"></i>
+					<div className="nav-dd-title">New Tag</div>
+				</div>
+      </div>
 			{/* Trash Can */}
 			<div className="nav-div">
 				<div className="nav-div-left">
@@ -177,7 +192,6 @@ const Navigation = ({ sessionUser }) => {
 					<div>Trash</div>
 				</div>
 			</div>
-      <button onClick={test}>Test</button>
 		</nav>
 	);
 };

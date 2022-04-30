@@ -3,10 +3,14 @@ import thunk from "redux-thunk";
 
 import sessionReducer from "./session";
 import notebookReducer from "./notebooks";
+import noteReducer from "./notes";
+import tagReducer from "./tags"
 
 const rootReducer = combineReducers({
 	session: sessionReducer,
-  notebooks: notebookReducer
+  notebooks: notebookReducer,
+  notes: noteReducer,
+  tags: tagReducer,
 });
 
 let enhancer;
