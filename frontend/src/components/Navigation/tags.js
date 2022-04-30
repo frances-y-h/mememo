@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 const Tags = () => {
-	const { tags } = useSelector((state) => state.tags);
+	const tags = Object.values(useSelector((state) => state.tags));
 	const [showTags, setShowTags] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
 	const [name, setName] = useState("");
@@ -56,7 +56,7 @@ const Tags = () => {
 	// validator
 	useEffect(() => {
 		let tagAlreadyExists;
-		if (tags) {
+		if (tags[0]) {
 			tagAlreadyExists = tags.some((tag) => tag.name === name);
 		}
 
