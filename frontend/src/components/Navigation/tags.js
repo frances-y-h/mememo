@@ -55,7 +55,10 @@ const Tags = () => {
 
 	// validator
 	useEffect(() => {
-		const tagAlreadyExists = tags.some((tag) => tag.name === name);
+		let tagAlreadyExists;
+		if (tags) {
+			tagAlreadyExists = tags.some((tag) => tag.name === name);
+		}
 
 		if (tagAlreadyExists) {
 			setTagErr("Tag name already exists");

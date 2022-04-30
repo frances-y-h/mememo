@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
 
 const Notes = ({ notes }) => {
 	const [showNotes, setShowNotes] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
+	const [showTooltip, setShowTooltip] = useState(false);
 
-  const notesDDDiv = useRef();
+	const notesDDDiv = useRef();
 	const notesCaret = useRef();
 
-  const tooltip = useRef();
+	const tooltip = useRef();
 
 	useEffect(() => {
 		if (showNotes) {
@@ -20,16 +19,16 @@ const Notes = ({ notes }) => {
 		}
 	}, [showNotes]);
 
-  useEffect(() => {
-    if(showTooltip){
-      tooltip.current.classList.remove("hidden");
-    }else {
-      tooltip.current.classList.add("hidden");
-    }
-  }, [showTooltip])
+	useEffect(() => {
+		if (showTooltip) {
+			tooltip.current.classList.remove("hidden");
+		} else {
+			tooltip.current.classList.add("hidden");
+		}
+	}, [showTooltip]);
 
-  return(
-    <>
+	return (
+		<>
 			<div className="nav-div" onClick={() => setShowNotes(!showNotes)}>
 				<div className="nav-div-left">
 					<div className="nav-caret" ref={notesCaret}>
@@ -38,27 +37,34 @@ const Notes = ({ notes }) => {
 					<i className="fa-solid fa-file-lines"></i>
 					<div>Notes</div>
 				</div>
-				<div className="nav-div-right tooltip" onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}>
+				<div
+					className="nav-div-right tooltip"
+					onMouseEnter={() => setShowTooltip(true)}
+					onMouseLeave={() => setShowTooltip(false)}
+				>
 					<i className="fa-solid fa-circle-plus nav-add"></i>
-					<span className="navTooltiptext hidden" ref={tooltip}>New Note</span>
+					<span className="navTooltiptext hidden" ref={tooltip}>
+						New Note
+					</span>
 				</div>
 			</div>
 			{/* notes dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notesDDDiv}>
-        {notes && notes.map((note) => (
-          <div className="nav-dd-div" key={note.id}>
-					  <i className="fa-regular fa-file-lines"></i>
-					<div className="nav-dd-title">{note.title}</div>
-				</div>
-        ))}
+				{notes &&
+					notes.map((note) => (
+						<div className="nav-dd-div" key={note.id}>
+							<i className="fa-regular fa-file-lines"></i>
+							<div className="nav-dd-title">{note.title}</div>
+						</div>
+					))}
 				<div className="nav-dd-div nav-new">
 					<i className="fa-regular fa-plus"></i>
 					<i className="fa-regular fa-file-lines"></i>
 					<div className="nav-dd-title">New Note</div>
 				</div>
 			</div>
-    </>
-  )
+		</>
+	);
 };
 
 export default Notes;
