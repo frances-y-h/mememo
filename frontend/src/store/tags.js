@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 // Actions
-const GET_ALL_TAGS = "tags/getAllTags"
+const GET_ALL_TAGS = "tags/GET_ALL_TAGS";
 
 // Action Creators
 const getTags = (tags) => {
@@ -18,7 +18,7 @@ export const getAllTags = (userId) => async(dispatch) => {
   const data = await response.json();
   dispatch(getTags(data));
   return response;
-}
+};
 
 // Reducer
 const initialState = { tags: null};

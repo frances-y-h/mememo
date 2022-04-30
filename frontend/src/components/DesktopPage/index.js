@@ -1,19 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { Switch, Route, Redirect } from "react-router-dom";
+
 import * as sessionActions from "../../store/session";
 import * as notebooksActions from "../../store/notebooks";
 import * as notesActions from "../../store/notes";
 import * as tagsActions from "../../store/tags";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, Link, NavLink } from "react-router-dom";
+import * as trashActions from "../../store/trash";
+
 import Navigation from "../Navigation";
+import Desktop from "./desktop.js";
+import NotesPage from "./notes.js";
+import NotebookPage from "./notebooks.js";
+import TrashPage from "./trash.js";
 import "./Desktop.css";
 
 const DesktopPage = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
-  const {notebooks} = useSelector((state) => state.notebooks);
-  const {notes} = useSelector((state) => state.notes);
-  const {tags} = useSelector((state) => state.tags);
+  const { notebooks } = useSelector((state) => state.notebooks);
+  const { notes } = useSelector((state) => state.notes);
+  const { tags } = useSelector((state) => state.tags);
+  const { trash } = useSelector((state) => state.trash);
 
 
   // useEffect to get all notebooks
@@ -21,7 +30,8 @@ const DesktopPage = () => {
     if (sessionUser){
       dispatch(notebooksActions.getAllNotebooks(sessionUser.id));
       dispatch(notesActions.getAllNotes(sessionUser.id));
-          dispatch(tagsActions.getAllTags(sessionUser.id));
+      dispatch(tagsActions.getAllTags(sessionUser.id));
+      dispatch(trashActions.getAllTrash(sessionUser.id));
     }
   },[sessionUser, dispatch])
 
@@ -44,9 +54,20 @@ const DesktopPage = () => {
         notes={notes}
         tags={tags}
         />
-			<main>
-        <button onClick={test}>Test</button>
-      </main>
+      <Switch>
+        <Route path="/desktop">
+          <Desktop />
+        </Route>
+        <Route path="/notes">
+          <NotesPage notes={notes}/>
+        </Route>
+        <Route path="/notebooks">
+          <NotebookPage notebooks={notebooks} />
+        </Route>
+        <Route path="/trash">
+          <TrashPage trash={trash} />
+        </Route>
+      </Switch>
 		</div>
 	);
 };

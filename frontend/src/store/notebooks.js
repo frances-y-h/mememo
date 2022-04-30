@@ -1,6 +1,6 @@
 import { csrfFetch } from "./csrf";
 
-const GET_ALL_NOTEBOOKS = "notebooks/getAllNotebooks";
+const GET_ALL_NOTEBOOKS = "notebooks/GET_ALL_NOTEBOOKS";
 
 // Action
 const getNotebooks = (notebooks) => {

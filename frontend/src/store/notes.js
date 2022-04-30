@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 // Action
-const GET_ALL_NOTES = "notes/getAllNotes"
+const GET_ALL_NOTES = "notes/GET_ALL_NOTES"
 
 // Action creator
 const getNotes = (notes) => {
