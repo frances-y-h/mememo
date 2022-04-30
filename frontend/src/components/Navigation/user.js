@@ -18,24 +18,25 @@ const User = ({ sessionUser }) => {
 	};
 
 	const closeModal = () => {
-		userDD.current.classList.add("nav-dropdown-hide");
-		modal.current.classList.add("nav-dropdown-hide");
+		userDD.current.classList.add("hidden");
+		modal.current.classList.add("hidden");
 	};
 
 	useEffect(() => {
 		if (showUserDD) {
-			userDD.current.classList.remove("nav-dropdown-hide");
-			modal.current.classList.remove("nav-dropdown-hide");
+			userDD.current.classList.remove("hidden");
+			modal.current.classList.remove("hidden");
 		} else {
-			userDD.current.classList.add("nav-dropdown-hide");
-			modal.current.classList.add("nav-dropdown-hide");
+			userDD.current.classList.add("hidden");
+			modal.current.classList.add("hidden");
 		}
 	}, [showUserDD]);
 
   return (
     <>
+      {/* modal */}
       <div
-				className="modal nav-dropdown-hide"
+				className="modalBg1 hidden"
 				ref={modal}
 				onClick={closeModal}
 			></div>

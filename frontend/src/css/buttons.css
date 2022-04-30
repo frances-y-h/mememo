@@ -27,5 +27,6 @@
 .btn:disabled {
 	background-color: gray;
 	color: lightgray;
+	/* opacity: 0.5; */
 	cursor: default;
 }

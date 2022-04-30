@@ -1,11 +1,5 @@
-body {
-	background-color: var(--background);
-	padding: 0;
-	margin: 0;
-}
-
 .container-ctr {
-	background-image: url("../../../public/images/bg.svg");
+	background-image: url("../../public/images/bg.svg");
 	background-size: 250px;
 	display: flex;
 	flex-direction: column;
@@ -23,11 +17,12 @@ body {
 	align-items: center;
 	width: 80%;
 	max-width: 500px;
-	background-color: rgba(255, 255, 255, 0.7);
+	background-color: var(--paper);
 	border-radius: 10px;
 	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
 	box-sizing: border-box;
-	backdrop-filter: blur(10px);
+	color: black;
+	position: relative;
 }
 
 .login-title {
@@ -79,12 +74,25 @@ body {
 	gap: 20px;
 }
 
+.form-gap30 {
+	gap: 30px;
+}
+
 .form-gap15 {
 	gap: 15px;
 }
 
+.form-title {
+	font-size: 24px;
+}
+
+.form-description {
+	text-wrap: break-word;
+}
+
 .form-input-ctrl {
 	display: flex;
+	align-items: center;
 	gap: 10px;
 	padding: 10px;
 	border: 1px solid lightgray;
@@ -129,39 +137,18 @@ input:focus::placeholder {
 	color: var(--mid1);
 }
 
-.tooltip {
-	position: relative;
-}
-
-.tooltip .tooltiptext {
-	width: fit-content;
-	background-color: var(--mid2);
-	color: black;
-	text-align: center;
-	padding: 5px 10px;
-	border-radius: 6px;
-	position: absolute;
-	font-size: 12px;
-	z-index: 1;
-	top: 120%;
-	left: 0px;
-	transition: all 0.25s;
-}
-
-.tooltip .tooltiptext::after {
-	content: " ";
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
-	margin-left: -5px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: transparent transparent var(--mid2) transparent;
-}
-
 .hidden {
 	visibility: hidden;
 	opacity: 0;
+}
+
+input:focus {
+	outline-color: transparent;
+	outline-style: none;
+}
+
+input {
+	width: 100%;
 }
 
 @media screen and (max-width: 500px) {

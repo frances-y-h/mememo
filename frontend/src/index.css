@@ -3,6 +3,11 @@
 
 @import url("./css/buttons.css");
 @import url("./css/tags.css");
+@import url("./css/navigation.css");
+@import url("./css/form.css");
+@import url("./css/tooltips.css");
+@import url("./css/modals.css");
+@import url("./css/colorPicker.css");
 
 :root {
 	/* color-scheme: light dark; */
@@ -37,11 +42,8 @@
 	font-family: "Mulish", sans-serif;
 }
 
-input:focus {
-	outline-color: transparent;
-	outline-style: none;
-}
-
-input {
-	width: 100%;
+body {
+	background-color: var(--background);
+	padding: 0;
+	margin: 0;
 }

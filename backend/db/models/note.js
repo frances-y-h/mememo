@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 			},
-			trash: DataTypes.BOOLEAN,
+			trash: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      }
 		},
 		{}
 	);

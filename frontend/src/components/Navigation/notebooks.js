@@ -3,9 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 
 const Notebooks = ({ notebooks }) => {
 	const [showNotebooks, setShowNotebooks] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
 	const notebooksDDDiv = useRef();
 	const notebooksCaret = useRef();
+
+    const tooltip = useRef();
 
   useEffect(() => {
     if (showNotebooks) {
@@ -16,6 +19,14 @@ const Notebooks = ({ notebooks }) => {
       notebooksCaret.current.classList.remove("nav-caret-down");
     }
 	}, [showNotebooks]);
+
+  useEffect(() => {
+    if(showTooltip){
+      tooltip.current.classList.remove("hidden");
+    }else {
+      tooltip.current.classList.add("hidden");
+    }
+  }, [showTooltip])
 
   return (
     <>
@@ -28,8 +39,9 @@ const Notebooks = ({ notebooks }) => {
 					<i className="fa-solid fa-book"></i>
 					<div>Notebooks</div>
 				</div>
-				<div className="nav-div-right">
+				<div className="nav-div-right  tooltip" onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)} >
 					<i className="fa-solid fa-circle-plus nav-add"></i>
+          <span className="navTooltiptext hidden" ref={tooltip}>New Notebook</span>
 				</div>
 			</div>
 			{/* Notebook dropdown */}

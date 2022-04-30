@@ -5,8 +5,6 @@ import Notebooks from "./notebooks.js";
 import Tags from "./tags.js";
 import Trash from "./trash.js";
 
-import "./Navigation.css";
-
 const Navigation = ({ sessionUser, notebooks, notes, tags }) => {
 
 	return (

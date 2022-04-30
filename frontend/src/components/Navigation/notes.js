@@ -3,9 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 
 const Notes = ({ notes }) => {
 	const [showNotes, setShowNotes] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const notesDDDiv = useRef();
 	const notesCaret = useRef();
+
+  const tooltip = useRef();
 
 	useEffect(() => {
 		if (showNotes) {
@@ -17,6 +20,14 @@ const Notes = ({ notes }) => {
 		}
 	}, [showNotes]);
 
+  useEffect(() => {
+    if(showTooltip){
+      tooltip.current.classList.remove("hidden");
+    }else {
+      tooltip.current.classList.add("hidden");
+    }
+  }, [showTooltip])
+
   return(
     <>
 			<div className="nav-div" onClick={() => setShowNotes(!showNotes)}>
@@ -27,9 +38,9 @@ const Notes = ({ notes }) => {
 					<i className="fa-solid fa-file-lines"></i>
 					<div>Notes</div>
 				</div>
-				<div className="nav-div-right tooltip">
+				<div className="nav-div-right tooltip" onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)}>
 					<i className="fa-solid fa-circle-plus nav-add"></i>
-					{/* <span className="tooltiptext">New Note</span> */}
+					<span className="navTooltiptext hidden" ref={tooltip}>New Note</span>
 				</div>
 			</div>
 			{/* notes dropdown */}
