@@ -1,3 +1,38 @@
+/* Splash page nav bar */
+.navigation-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+}
+
+.navigation-logo-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.navigation-logo {
+	height: 30px;
+}
+
+.navigation-title {
+	font-family: "Signika Negative", sans-serif;
+	color: var(--mid1);
+	font-size: 40px;
+	line-height: 32px;
+	height: 36px;
+	margin: 0;
+	text-align: center;
+}
+
+.navigation-links {
+	display: flex;
+	gap: 10px;
+}
+
+/* Sidebar */
 .navbar {
 	width: 20%;
 	max-width: 175px;

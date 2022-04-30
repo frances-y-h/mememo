@@ -30,3 +30,25 @@
 	/* opacity: 0.5; */
 	cursor: default;
 }
+
+.btn-mid1 {
+	color: var(--mid1);
+	background-color: white;
+	border: 2px solid var(--mid2);
+	padding: 5px 10px;
+}
+
+.btn-no-border {
+	color: black;
+	background-color: white;
+	padding: 5px 10px;
+	border: none;
+	border-top: 2px solid transparent;
+	border-bottom: 2px solid transparent;
+}
+
+.btn-no-border:hover {
+	border: none;
+	border-top: 2px solid transparent;
+	border-bottom: 2px solid black;
+}

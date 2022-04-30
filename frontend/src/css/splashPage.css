@@ -1,0 +1,9 @@
+.splash-page {
+	background-color: white;
+}
+
+.splash-page-main {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+}
