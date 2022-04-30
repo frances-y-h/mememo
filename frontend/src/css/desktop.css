@@ -1,0 +1,22 @@
+.desktop-ctrl {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	background-color: var(--desktop);
+	background-image: url("../../public/images/desktop.jpg");
+	background-size: contain;
+	background-position: top center;
+	background-repeat: no-repeat;
+}
+
+.desktop-greeting-wrap {
+	display: flex;
+	justify-content: space-between;
+	color: white;
+	text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+}
+
+.desktop-greeting {
+	font-weight: bold;
+	font-size: 2rem;
+}

@@ -10,6 +10,7 @@
 @import url("./css/colorPicker.css");
 @import url("./css/splashPage.css");
 @import url("./css/footer.css");
+@import url("./css/desktop.css");
 
 :root {
 	/* color-scheme: light dark; */
@@ -26,6 +27,7 @@
 	--background: #f6f4ea;
 	--paper: #fbfbfb;
 	--pad: #fff6b6;
+	--desktop: #f9fafc;
 
 	--dark1: #3a3637;
 	--dark2: #23212c;
