@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Tags = ({ tags }) => {
+const Tags = () => {
+	const { tags } = useSelector((state) => state.tags);
 	const [showTags, setShowTags] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
-	const [showNewTagForm, setShowNewTagForm] = useState(false);
-	const [tagName, setTagName] = useState("");
+	const [name, setName] = useState("");
 	const [disable, setDisable] = useState(true);
 	const [tagErr, setTagErr] = useState("");
 	const [color, setColor] = useState("777777");
@@ -53,6 +53,20 @@ const Tags = ({ tags }) => {
 		}
 	}, [showTooltip]);
 
+	// validator
+	useEffect(() => {
+		const tagAlreadyExists = tags.some((tag) => tag.name === name);
+
+		if (tagAlreadyExists) {
+			setTagErr("Tag name already exists");
+		} else if (!name.length > 0 && !name.length < 21) {
+			setTagErr("Tag name must be between 1 to 20 characters");
+		} else {
+			setTagErr("");
+		}
+	}, [name, tags]);
+
+	// validator tooltip toggle and submit button toggle
 	useEffect(() => {
 		if (tagErr.length) {
 			tagEl.current.classList.remove("hidden");
@@ -63,20 +77,10 @@ const Tags = ({ tags }) => {
 		}
 	}, [tagErr]);
 
-	useEffect(() => {
-		if (tagName.length > 0 && tagName.length < 21) {
-			setTimeout(() => {
-				setTagErr("");
-			}, 300);
-		} else {
-			setTagErr("Tag name must be between 1 to 20 characters");
-		}
-	}, [tagName]);
-
 	return (
 		<>
 			{/* new tag form with modal */}
-			<div className="modalBg5" ref={modalBg} onClick={closeModal}>
+			<div className="modalBg5 hidden" ref={modalBg} onClick={closeModal}>
 				<form
 					className="form-control"
 					onSubmit={handleSubmit}
@@ -98,8 +102,8 @@ const Tags = ({ tags }) => {
 								required
 								placeholder="Tag name"
 								className="input"
-								value={tagName}
-								onChange={(e) => setTagName(e.target.value)}
+								value={name}
+								onChange={(e) => setName(e.target.value)}
 							/>
 							<span ref={tagEl} className="tooltiptext hidden">
 								{tagErr}

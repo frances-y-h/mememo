@@ -87,7 +87,9 @@
 }
 
 .form-description {
-	text-wrap: break-word;
+	width: 100%;
+	overflow-wrap: break-word;
+	white-space: normal;
 }
 
 .form-input-ctrl {
