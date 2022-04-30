@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 
-const Notes = ({ notes }) => {
+const Notes = () => {
+	const notes = Object.values(useSelector((state) => state.notes));
+
 	const [showNotes, setShowNotes] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
 
@@ -50,7 +53,7 @@ const Notes = ({ notes }) => {
 			</div>
 			{/* notes dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notesDDDiv}>
-				{notes &&
+				{notes[0] &&
 					notes.map((note) => (
 						<div className="nav-dd-div" key={note.id}>
 							<i className="fa-regular fa-file-lines"></i>
