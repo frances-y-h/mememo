@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 	);
 	Favorite.associate = function (models) {
 		Favorite.belongsTo(models.User, { foreignKey: "userId" });
-		Favorite.hasOne(models.Note, { foreignKey: "noteId" });
+		Favorite.belongsTo(models.Note, { foreignKey: "noteId" });
 	};
 	return Favorite;
 };

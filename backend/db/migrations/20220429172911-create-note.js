@@ -21,7 +21,9 @@ module.exports = {
 				references: { model: "Notebooks" },
 			},
 			trash: {
+        allowNull: false,
 				type: Sequelize.BOOLEAN,
+        defaultValue: false,
 			},
 			createdAt: {
 				allowNull: false,

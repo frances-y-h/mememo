@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
 			avatarUrl: {
 				type: DataTypes.TEXT,
 				defaultValue:
-					"https://img.freepik.com/free-vector/honey-comb-pattern_225004-641.jpg?t=st=1651206994~exp=1651207594~hmac=7b6665183684d0230ec73e90477cc28abf9f0261b5c0f002eee8e94d87f63240&w=1800",
+					"/images/logo.svg",
 			},
 			scartchPad: {
 				type: DataTypes.TEXT,
@@ -65,8 +65,8 @@ module.exports = (sequelize, DataTypes) => {
 	};
 
 	User.prototype.toSafeObject = function () {
-		const { id, username, email } = this;
-		return { id, username, email };
+		const { id, username, email, avatarUrl, scartchPad } = this;
+		return { id, username, email, avatarUrl, scartchPad };
 	};
 
 	User.prototype.validatePassword = function (password) {

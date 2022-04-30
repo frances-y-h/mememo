@@ -1,0 +1,34 @@
+.modalBg1,
+.modalBg5 {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.modalBg1 {
+	backdrop-filter: blur(1px);
+}
+
+.modalBg5 {
+	backdrop-filter: blur(5px);
+}
+
+.modal-x {
+	position: absolute;
+	right: 14px;
+	top: 12px;
+	cursor: pointer;
+	transition: all 0.25s;
+	color: rgb(151, 151, 151);
+	transition: all 0.25s;
+}
+
+.modal-x:hover {
+	color: var(--mid1);
+	transform: scale(1.05);
+}
