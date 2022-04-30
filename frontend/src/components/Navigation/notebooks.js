@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const Notebooks = () => {
+	const history = useHistory();
+
 	const notebooks = Object.values(useSelector((state) => state.notebooks));
 
 	const [showNotebooks, setShowNotebooks] = useState(false);
@@ -33,9 +36,16 @@ const Notebooks = () => {
 	return (
 		<>
 			{/* notebook */}
-			<div className="nav-div" onClick={() => setShowNotebooks(!showNotebooks)}>
+			<div className="nav-div" onClick={() => history.push("/notebooks")}>
 				<div className="nav-div-left">
-					<div className="nav-caret" ref={notebooksCaret}>
+					<div
+						className="nav-caret"
+						ref={notebooksCaret}
+						onClick={(e) => {
+							e.stopPropagation();
+							setShowNotebooks(!showNotebooks);
+						}}
+					>
 						<i className="fa-solid fa-caret-right"></i>
 					</div>
 					<i className="fa-solid fa-book"></i>

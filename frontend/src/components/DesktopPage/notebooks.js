@@ -6,6 +6,10 @@ const NotebookPage = () => {
 	return (
 		<main>
 			<h1>Notebook Page</h1>
+			{notebooks[0] &&
+				notebooks.map((notebook) => (
+					<div key={notebook.id}>{notebook.name}</div>
+				))}
 		</main>
 	);
 };

@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const Tags = () => {
+	const history = useHistory();
+
 	const tags = Object.values(useSelector((state) => state.tags));
 	const [showTags, setShowTags] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -254,9 +257,16 @@ const Tags = () => {
 				</form>
 			</div>
 
-			<div className="nav-div" onClick={() => setShowTags(!showTags)}>
+			<div className="nav-div" onClick={() => history.push("/tags")}>
 				<div className="nav-div-left">
-					<div className="nav-caret" ref={tagsCaret}>
+					<div
+						className="nav-caret"
+						ref={tagsCaret}
+						onClick={(e) => {
+							e.stopPropagation();
+							setShowTags(!showTags);
+						}}
+					>
 						<i className="fa-solid fa-caret-right"></i>
 					</div>
 					<i className="fa-solid fa-tags"></i>

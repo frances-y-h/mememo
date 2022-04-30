@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const Notes = () => {
+	const history = useHistory();
+
 	const notes = Object.values(useSelector((state) => state.notes));
 
 	const [showNotes, setShowNotes] = useState(false);
@@ -32,9 +35,16 @@ const Notes = () => {
 
 	return (
 		<>
-			<div className="nav-div" onClick={() => setShowNotes(!showNotes)}>
+			<div className="nav-div" onClick={() => history.push("/notes")}>
 				<div className="nav-div-left">
-					<div className="nav-caret" ref={notesCaret}>
+					<div
+						className="nav-caret"
+						ref={notesCaret}
+						onClick={(e) => {
+							e.stopPropagation();
+							setShowNotes(!showNotes);
+						}}
+					>
 						<i className="fa-solid fa-caret-right"></i>
 					</div>
 					<i className="fa-solid fa-file-lines"></i>

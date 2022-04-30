@@ -11,15 +11,14 @@ import * as trashActions from "../../store/trash";
 import Navigation from "../Navigation";
 import Desktop from "./desktop.js";
 import NotesPage from "./notes.js";
-import NotebookPage from "./notebooks.js";
+import NotebooksPage from "./notebooks.js";
+import TagsPage from "./tags.js";
 import TrashPage from "./trash.js";
 import "./Desktop.css";
 
 const DesktopPage = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
-	const { notes } = useSelector((state) => state.notes);
-	const { trash } = useSelector((state) => state.trash);
 
 	// useEffect to get all notebooks
 	useEffect(() => {
@@ -35,19 +34,22 @@ const DesktopPage = () => {
 
 	return (
 		<div className="desktop-container">
-			<Navigation sessionUser={sessionUser} notes={notes} />
+			<Navigation sessionUser={sessionUser} />
 			<Switch>
 				<Route path="/desktop">
 					<Desktop />
 				</Route>
 				<Route path="/notes">
-					<NotesPage notes={notes} />
+					<NotesPage />
 				</Route>
 				<Route path="/notebooks">
-					<NotebookPage />
+					<NotebooksPage />
+				</Route>
+				<Route path="/tags">
+					<TagsPage />
 				</Route>
 				<Route path="/trash">
-					<TrashPage trash={trash} />
+					<TrashPage />
 				</Route>
 			</Switch>
 		</div>
