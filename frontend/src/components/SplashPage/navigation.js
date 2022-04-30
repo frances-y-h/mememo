@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import * as sessionActions from "../../store/session";
@@ -8,18 +8,13 @@ const Navigation = () => {
 
 	const navBar = useRef();
 
-	const [errors, setErrors] = useState([]);
-
 	const demoLogin = () => {
 		return dispatch(
 			sessionActions.login({
 				credential: "DemoUser",
 				password: "password",
 			})
-		).catch(async (res) => {
-			const data = await res.json();
-			if (data && data.errors) setErrors(data.errors);
-		});
+		);
 	};
 
 	useEffect(() => {

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
-import * as sessionActions from "../../store/session";
 import Navigation from "./navigation";
 import Footer from "./footer";
 
