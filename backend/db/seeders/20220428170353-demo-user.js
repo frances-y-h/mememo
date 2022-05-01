@@ -10,8 +10,8 @@ module.exports = {
 					email: "demo@user.io",
 					username: "DemoUser",
 					hashedPassword: bcrypt.hashSync("password"),
-					avatarUrl:
-						"/images/logo.svg",
+					avatarUrl: "/images/logo.svg",
+					scratchPad: "Hello world!",
 				},
 				{
 					email: "user1@user.io",
