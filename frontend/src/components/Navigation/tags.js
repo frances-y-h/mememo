@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+import * as tagsActions from "../../store/tags";
 
 const Tags = () => {
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	const tags = Object.values(useSelector((state) => state.tags));
+	const user = useSelector((state) => state.session.user);
 	const [showTags, setShowTags] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
 	const [name, setName] = useState("");
@@ -30,9 +34,19 @@ const Tags = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		const tag = {
+			name,
+			color,
+		};
+
 		// dispatch action to reducer to create tag in database
+		dispatch(tagsActions.addNewTag(user.id, tag));
 
 		// if created, close modal, clear fields, and tag dropdown open so new tag showing
+		setName("");
+		setColor("777777");
+		modalBg.current.classList.add("hidden");
 	};
 
 	useEffect(() => {
