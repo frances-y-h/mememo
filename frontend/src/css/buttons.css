@@ -35,6 +35,9 @@
 	color: var(--mid1);
 	background-color: white;
 	border: 2px solid var(--mid2);
+}
+
+.btn-m {
 	padding: 5px 10px;
 }
 

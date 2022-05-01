@@ -63,7 +63,7 @@ function TagPage({ title }) {
 			setColor("");
 			editTag.current.classList.add("hidden");
 		}
-	}, [id]);
+	}, [id, tag?.name, tag?.color]);
 
 	// validator
 	useEffect(() => {
@@ -135,7 +135,7 @@ function TagPage({ title }) {
 						<i className="fa-solid fa-xmark fa-lg"></i>
 					</div>
 					<div className="form-group form-gap30">
-						<div className="form-title">Create new tag</div>
+						<div className="form-title">Edit Tag</div>
 						<div className="form-description">
 							Tags let you add keywords to notes, making them easier to find and
 							browse.
@@ -289,9 +289,12 @@ function TagPage({ title }) {
 								</label>
 							</div>
 						</div>
-						<button className="btn" type="submit" disabled={disable}>
-							Update Tag
-						</button>
+						<div>
+							<button className="btn" type="submit" disabled={disable}>
+								Update Tag
+							</button>
+							<button className="btn btn-mid1">Delete Tag</button>
+						</div>
 					</div>
 				</form>
 			</div>

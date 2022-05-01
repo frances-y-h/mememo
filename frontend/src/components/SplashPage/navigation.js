@@ -37,7 +37,7 @@ const Navigation = () => {
 				<div className="btn btn-no-border" onClick={demoLogin}>
 					Demo Login
 				</div>
-				<NavLink className="btn btn-mid1" to="/login">
+				<NavLink className="btn btn-mid1 btn-m" to="/login">
 					Login
 				</NavLink>
 			</div>
