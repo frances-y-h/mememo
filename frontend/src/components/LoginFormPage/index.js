@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
-import Navigation from "../SplashPage/navigation";
-import Footer from "../SplashPage/footer";
+import Navigation from "../SplashPage/navigation.js";
+import Footer from "../SplashPage/footer.js";
 
 function LoginFormPage() {
 	const dispatch = useDispatch();
