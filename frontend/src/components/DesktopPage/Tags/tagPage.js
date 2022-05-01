@@ -106,7 +106,7 @@ function TagPage({ title }) {
 
 		if (tagAlreadyExists) {
 			setTagErr("Tag name already exists");
-		} else if (!name?.length > 0 && !name?.length < 21) {
+		} else if (!(name?.length > 0 && name?.length < 21)) {
 			setTagErr("Tag name must be between 1 to 20 characters");
 		} else {
 			setTagErr("");
@@ -145,8 +145,7 @@ function TagPage({ title }) {
 						<div className="note-title-ctrl">
 							<div className="note-title-ctrl-count">{count}</div>
 							<div className="note-title-ctrl-ctrls">
-								<i className="fa-solid fa-arrow-down-wide-short"></i>
-								<i className="fa-solid fa-ellipsis"></i>
+								{/* <i className="fa-solid fa-arrow-down-wide-short"></i> */}
 							</div>
 						</div>
 					</div>

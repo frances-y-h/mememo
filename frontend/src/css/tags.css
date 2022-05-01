@@ -13,6 +13,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow-x: hidden;
+	max-width: 100px;
 }
 
 .dk-note-tags .tag {

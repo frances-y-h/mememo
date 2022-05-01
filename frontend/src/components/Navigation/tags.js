@@ -76,7 +76,7 @@ const Tags = () => {
 
 		if (tagAlreadyExists) {
 			setTagErr("Tag name already exists");
-		} else if (!name.length > 0 && !name.length < 21) {
+		} else if (!(name.length > 0 && name.length < 21)) {
 			setTagErr("Tag name must be between 1 to 20 characters");
 		} else {
 			setTagErr("");
