@@ -50,6 +50,11 @@ const Desktop = () => {
 								</div>
 							))}
 						<div className="desktop-note">New Note</div>
+						<div className="desktop-note">New Note</div>
+						<div className="desktop-note">New Note</div>
+						<div className="desktop-note">New Note</div>
+						<div className="desktop-note">New Note</div>
+						<div className="desktop-note">New Note</div>
 					</div>
 					<div className="desktop-notes-btm"></div>
 				</div>

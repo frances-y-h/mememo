@@ -29,6 +29,7 @@
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 	gap: 20px;
+	height: 50%;
 }
 
 .desktop-notes,
@@ -38,9 +39,12 @@
 }
 
 .desktop-notes {
-	display: flex;
-	flex-direction: column;
+	/* display: flex; */
+	/* flex-direction: column; */
+	display: grid;
+	grid-template-rows: 50px auto 50px;
 	overflow: hidden;
+	background-color: white;
 }
 
 .scratch-pad {
@@ -69,6 +73,7 @@
 .dt-notes-wrap {
 	display: flex;
 	overflow-x: auto;
+	overflow-y: auto;
 	gap: 20px;
 	padding: 5px 20px;
 	flex-wrap: nowrap;
@@ -156,5 +161,11 @@
 	}
 	.scratch-pad {
 		height: 250px;
+	}
+}
+
+@media screen and (min-height: 650px) {
+	.dt-notes-wrap {
+		align-items: center;
 	}
 }
