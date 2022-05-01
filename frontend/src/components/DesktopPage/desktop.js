@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { format } from "date-fns";
 import * as sessionActions from "../../store/session";
@@ -8,6 +8,8 @@ const Desktop = () => {
 	const user = useSelector((state) => state.session.user);
 	const now = format(new Date(), "eeee, LLLL dd, yyyy");
 	const [pad, setPad] = useState(user.scratchPad);
+
+	const autoSave = useRef();
 
 	// set greeting message
 	const greeting = () => {
@@ -25,6 +27,10 @@ const Desktop = () => {
 
 	useEffect(() => {
 		dispatch(sessionActions.updateScratchPad(user.id, { scratchPad: pad }));
+		autoSave.current.classList.remove("pad-save-hidden");
+		setTimeout(() => {
+			autoSave.current.classList.add("pad-save-hidden");
+		}, 1000);
 	}, [pad, dispatch]);
 
 	return (
@@ -40,7 +46,9 @@ const Desktop = () => {
 				<div className="scratch-pad">
 					<div className="pad-title">
 						<div>SCRATCH PAD</div>
-						<div>auto saved</div>
+						<div className="pad pad-save-hidden" ref={autoSave}>
+							auto saved
+						</div>
 					</div>
 					<textarea
 						className="pad-textarea"
