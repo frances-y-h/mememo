@@ -6,11 +6,12 @@ const { User } = require("../../db/models");
 const router = express.Router();
 
 router.put(
-	"/:userId(\\d+)/scratchPad",
+	"/:userId(\\d+)/scratchpad",
 	requireAuth,
 	asyncHandler(async (req, res) => {
 		const userId = parseInt(req.params.userId, 10);
-		let scratchPad = req.body;
+		// come in as string
+		let { scratchPad } = req.body;
 
 		const user = await User.findByPk(userId);
 
