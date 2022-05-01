@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Modal from "../Tags/modal";
+// import Modal from "./modal";
 
-function NoteTemplate({ title }) {
+function TagPage({ title }) {
 	const { id } = useParams();
 	const tag = useSelector((state) => state.tags[id]);
 
 	let count = null;
 	let icon = "";
-	if (title == "Tag" && tag) {
+	if (title === "Tag" && tag) {
 		count = (
 			<div className="tag" style={{ backgroundColor: `#${tag.color}` }}>
 				{tag.name}
@@ -20,12 +20,12 @@ function NoteTemplate({ title }) {
 
 	return (
 		<main className="note-control">
-			<Modal />
+			{/* <Modal tag={tag} /> */}
 			<div className="note-sidebar">
 				<div className="note-title-box">
 					<div className="note-title-wrap">
 						<div className="note-title-icon">
-							{tag && <i className="fa-solid fa-tag"></i>}
+							{icon}
 							<div className="note-title">{title}</div>
 						</div>
 						<div className="note-title-edit">Edit Tag</div>
@@ -45,4 +45,4 @@ function NoteTemplate({ title }) {
 	);
 }
 
-export default NoteTemplate;
+export default TagPage;

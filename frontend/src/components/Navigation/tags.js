@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import * as tagsActions from "../../store/tags";
 
@@ -12,9 +12,9 @@ const Tags = () => {
 	const user = useSelector((state) => state.session.user);
 	const [showTags, setShowTags] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
-	const [name, setName] = useState("");
 	const [disable, setDisable] = useState(true);
 	const [tagErr, setTagErr] = useState("");
+	const [name, setName] = useState("");
 	const [color, setColor] = useState("777777");
 
 	const tagsDDDiv = useRef();
@@ -299,14 +299,16 @@ const Tags = () => {
 			<div className="nav-dd  nav-dropdown-hide" ref={tagsDDDiv}>
 				{tags[0] &&
 					tags.map((tag) => (
-						<div className="nav-dd-div nav-dd-div-tight" key={tag.id}>
-							<div
-								className="tag tag-sm"
-								style={{ backgroundColor: `#${tag.color}` }}
-							>
-								{tag.name}
+						<Link to={`/tags/${tag.id}`} key={tag.id}>
+							<div className="nav-dd-div nav-dd-div-tight">
+								<div
+									className="tag tag-sm"
+									style={{ backgroundColor: `#${tag.color}` }}
+								>
+									{tag.name}
+								</div>
 							</div>
-						</div>
+						</Link>
 					))}
 				<div className="nav-dd-div nav-new" onClick={openModal}>
 					<i className="fa-regular fa-plus"></i>
