@@ -5,7 +5,7 @@ const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 
 // Scratch pad
-const UPDATE_PAD = "scartchPad/UPDATE_PAD";
+const UPDATE_PAD = "scratchPad/UPDATE_PAD";
 
 // Action Creators
 const setUser = (user) => {
@@ -74,11 +74,12 @@ export const logoutUser = () => async (dispatch) => {
 	return response;
 };
 
-// ScartchPad Thunks
+// ScratchPad Thunks
 export const updateScratchPad = (userId, pad) => async (dispatch) => {
-	const response = await csrfFetch(`/api/${userId}/scratchPad`, {
+	const body = JSON.stringify(pad);
+	const response = await csrfFetch(`/api/${userId}/scratchpad`, {
 		method: "PUT",
-		body: JSON.stringify(pad),
+		body,
 	});
 
 	const data = await response.json();
@@ -101,7 +102,7 @@ const sessionReducer = (state = initialState, action) => {
 			newState.user = null;
 			return newState;
 		case UPDATE_PAD:
-			newState = { ...state, scartchPad: action.pad };
+			newState = { ...state, scratchPad: action.pad };
 			return newState;
 		default:
 			return state;

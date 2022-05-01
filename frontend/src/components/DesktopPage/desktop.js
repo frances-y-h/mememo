@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { format } from "date-fns";
+import * as sessionActions from "../../store/session";
 
 const Desktop = () => {
-	const { username, scratchPad } = useSelector((state) => state.session.user);
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.session.user);
 	const now = format(new Date(), "eeee, LLLL dd, yyyy");
-	const [pad, setPad] = useState(scratchPad);
+	const [pad, setPad] = useState(user.scratchPad);
 
 	// set greeting message
 	const greeting = () => {
@@ -21,13 +23,15 @@ const Desktop = () => {
 		return greeting;
 	};
 
-	useEffect(() => {}, [pad]);
+	useEffect(() => {
+		dispatch(sessionActions.updateScratchPad(user.id, { scratchPad: pad }));
+	}, [pad, dispatch]);
 
 	return (
 		<main className="desktop-ctrl">
 			<div className="desktop-greeting-wrap">
 				<div className="desktop-greeting">
-					{greeting()}, {username}
+					{greeting()}, {user.username}
 				</div>
 				<div>{now}</div>
 			</div>
