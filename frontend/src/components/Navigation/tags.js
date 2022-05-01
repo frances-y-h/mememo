@@ -31,9 +31,6 @@ const Tags = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// dispatch action to reducer to create tag in database
-		// database will check if tag name already exists
-		// if tag name already exists, change tag error message
-		// setTagErr("Tag name already exists");
 
 		// if created, close modal, clear fields, and tag dropdown open so new tag showing
 	};
@@ -288,8 +285,11 @@ const Tags = () => {
 			<div className="nav-dd  nav-dropdown-hide" ref={tagsDDDiv}>
 				{tags[0] &&
 					tags.map((tag) => (
-						<div className="nav-dd-div" key={tag.id}>
-							<div className="tag" style={{ backgroundColor: `#${tag.color}` }}>
+						<div className="nav-dd-div nav-dd-div-tight" key={tag.id}>
+							<div
+								className="tag tag-sm"
+								style={{ backgroundColor: `#${tag.color}` }}
+							>
 								{tag.name}
 							</div>
 						</div>

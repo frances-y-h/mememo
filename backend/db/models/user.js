@@ -34,10 +34,9 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			avatarUrl: {
 				type: DataTypes.TEXT,
-				defaultValue:
-					"/images/logo.svg",
+				defaultValue: "/images/logo.svg",
 			},
-			scartchPad: {
+			scratchPad: {
 				type: DataTypes.TEXT,
 			},
 		},
@@ -65,8 +64,8 @@ module.exports = (sequelize, DataTypes) => {
 	};
 
 	User.prototype.toSafeObject = function () {
-		const { id, username, email, avatarUrl, scartchPad } = this;
-		return { id, username, email, avatarUrl, scartchPad };
+		const { id, username, email, avatarUrl, scratchPad } = this;
+		return { id, username, email, avatarUrl, scratchPad };
 	};
 
 	User.prototype.validatePassword = function (password) {

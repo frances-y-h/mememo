@@ -25,7 +25,7 @@ module.exports = {
 			avatarUrl: {
 				type: Sequelize.TEXT,
 			},
-			scartchPad: {
+			scratchPad: {
 				type: Sequelize.TEXT,
 			},
 			createdAt: {
