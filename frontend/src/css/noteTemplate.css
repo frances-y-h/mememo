@@ -1,0 +1,78 @@
+.note-control {
+	display: grid;
+	grid-template-columns: 150px auto;
+}
+
+/* Note sidebar */
+.note-sidebar {
+	background-color: var(--paper-dark);
+	border-right: 1px solid lightgray;
+}
+
+/* Title box */
+.note-title-box {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	gap: 10px;
+	border-bottom: 1px solid lightgray;
+}
+
+.note-title-wrap {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.note-title-icon {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.note-title-edit {
+	font-size: 12px;
+	padding: 2px 4px;
+	border-radius: 3px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.note-title-edit:hover {
+	background-color: var(--mid3);
+}
+
+.note-title {
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+	white-space: normal;
+}
+
+.note-title-ctrl {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.note-title-ctrl-count {
+	font-size: 12px;
+}
+
+.note-title-ctrl-ctrls {
+	display: flex;
+	gap: 10px;
+}
+
+/* Note view */
+.note-view {
+	background-color: var(--paper);
+}
+
+@media screen and (min-width: 1000px) {
+	.note-control {
+		grid-template-columns: 200px auto;
+	}
+}

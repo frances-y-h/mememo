@@ -9,11 +9,11 @@ import * as tagsActions from "../../store/tags";
 import * as trashActions from "../../store/trash";
 
 import Navigation from "../Navigation";
-import Desktop from "./desktop.js";
-import NotesPage from "./notes.js";
-import NotebooksPage from "./notebooks.js";
-import TagsPage from "./tags.js";
-import TrashPage from "./trash.js";
+import Desktop from "./Desktop";
+import NotesPage from "./Notes/index.js";
+import NotebooksPage from "./Notebooks/index.js";
+import TagsPage from "./Tags";
+import TrashPage from "./Trash/index.js";
 
 const DesktopPage = () => {
 	const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const DesktopPage = () => {
 				<Route path="/notebooks">
 					<NotebooksPage />
 				</Route>
-				<Route path="/tags">
+				<Route path={["/tags", "/tags/:tagId"]}>
 					<TagsPage />
 				</Route>
 				<Route path="/trash">

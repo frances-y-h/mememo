@@ -35,6 +35,9 @@
 	color: var(--mid1);
 	background-color: white;
 	border: 2px solid var(--mid2);
+}
+
+.btn-m {
 	padding: 5px 10px;
 }
 
@@ -51,4 +54,9 @@
 	border: none;
 	border-top: 2px solid transparent;
 	border-bottom: 2px solid black;
+}
+
+.btn-wrap-gap20 {
+	display: flex;
+	gap: 20px;
 }

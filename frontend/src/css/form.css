@@ -84,6 +84,9 @@
 
 .form-title {
 	font-size: 24px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
 }
 
 .form-description {

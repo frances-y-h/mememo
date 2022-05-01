@@ -1,91 +1,121 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useParams, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { useRef, useEffect, useState } from "react";
+import * as tagsActions from "../../../store/tags";
+import * as notesActions from "../../../store/notes";
 
-import * as tagsActions from "../../store/tags";
-
-const Tags = () => {
-	const history = useHistory();
+function TagPage({ title }) {
 	const dispatch = useDispatch();
-
+	const { id } = useParams();
 	const tags = Object.values(useSelector((state) => state.tags));
-	const user = useSelector((state) => state.session.user);
-	const [showTags, setShowTags] = useState(false);
-	const [showTooltip, setShowTooltip] = useState(false);
+	const tag = useSelector((state) => state.tags[id]);
+	const userId = useSelector((state) => state.session.user.id);
+
 	const [disable, setDisable] = useState(true);
 	const [tagErr, setTagErr] = useState("");
 	const [name, setName] = useState("");
-	const [color, setColor] = useState("777777");
+	const [color, setColor] = useState("");
+	const [tagNotes, setTagNotes] = useState("");
 
-	const tagsDDDiv = useRef();
-	const tagsCaret = useRef();
-	const tagEl = useRef();
-
-	const tooltip = useRef();
+	const editTag = useRef();
 	const modalBg = useRef();
+	const tagEl = useRef();
+	const deleteBtn = useRef();
+
+	let count = null;
+	let icon = "";
+
+	if (title === "Tag" && tag) {
+		count = (
+			<div className="tag" style={{ backgroundColor: `#${tag?.color}` }}>
+				{tag?.name}
+			</div>
+		);
+		icon = <i className="fa-solid fa-tag"></i>;
+	} else if (title === "Tags") {
+		count = `${tags?.length} tags`;
+		icon = <i className="fa-solid fa-tags"></i>;
+	}
 
 	const closeModal = () => {
-		modalBg.current.classList.add("hidden");
+		modalBg.current?.classList.add("hidden");
+		setName(tag?.name);
+		setColor(tag?.color);
 	};
 
 	const openModal = () => {
-		modalBg.current.classList.remove("hidden");
+		modalBg.current?.classList.remove("hidden");
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const tag = {
+		const tagToUpdate = {
 			name,
 			color,
 		};
 
 		// dispatch action to reducer to create tag in database
-		dispatch(tagsActions.addNewTag(user.id, tag));
+		dispatch(tagsActions.updateTag(id, tagToUpdate));
 
-		// if created, close modal, clear fields, and tag dropdown open so new tag showing
-		setName("");
-		setColor("777777");
 		modalBg.current.classList.add("hidden");
 	};
 
-	useEffect(() => {
-		if (showTags) {
-			tagsDDDiv.current.classList.remove("nav-dropdown-hide");
-			tagsCaret.current.classList.add("nav-caret-down");
-		} else {
-			tagsDDDiv.current.classList.add("nav-dropdown-hide");
-			tagsCaret.current.classList.remove("nav-caret-down");
+	const mouseEnterDelete = () => {
+		if (tag?.Notes?.length > 0) {
+			deleteBtn.current.classList.remove("hidden");
 		}
-	}, [showTags]);
+	};
+
+	const mouseLeaveDelete = () => {
+		deleteBtn.current.classList.add("hidden");
+	};
+
+	// Delete tags
+	const handleDelete = (e) => {
+		e.preventDefault();
+
+		dispatch(tagsActions.deleteOldTag(tag.id));
+		// need to make sure notes tag info updated
+		dispatch(notesActions.getAllNotes(userId));
+		modalBg.current.classList.add("hidden");
+		<Redirect to="/tags" />;
+	};
 
 	useEffect(() => {
-		if (showTooltip) {
-			tooltip.current.classList.remove("hidden");
+		if (id) {
+			setName(tag?.name);
+			setColor(tag?.color);
+			setTagNotes(tag?.Notes?.length);
+			editTag.current.classList.remove("hidden");
 		} else {
-			tooltip.current.classList.add("hidden");
+			setName("");
+			setColor("");
+			editTag.current.classList.add("hidden");
 		}
-	}, [showTooltip]);
+	}, [id, tag?.name, tag?.color, tag?.Notes?.length]);
 
 	// validator
 	useEffect(() => {
 		let tagAlreadyExists;
 		if (tags[0]) {
-			tagAlreadyExists = tags.some((tag) => tag.name === name);
+			tagAlreadyExists = tags?.some(
+				(tag) => tag.name === name && tag.id !== parseInt(id, 10)
+			);
 		}
 
 		if (tagAlreadyExists) {
 			setTagErr("Tag name already exists");
-		} else if (!(name.length > 0 && name.length < 21)) {
+		} else if (!(name?.length > 0 && name?.length < 21)) {
 			setTagErr("Tag name must be between 1 to 20 characters");
 		} else {
 			setTagErr("");
 		}
-	}, [name, tags]);
+	}, [name, tags, id]);
 
 	// validator tooltip toggle and submit button toggle
 	useEffect(() => {
-		if (tagErr.length) {
+		if (tagErr?.length) {
 			tagEl.current.classList.remove("hidden");
 			setDisable(true);
 		} else {
@@ -96,7 +126,34 @@ const Tags = () => {
 
 	return (
 		<>
-			{/* new tag form with modal */}
+			<main className="note-control">
+				<div className="note-sidebar">
+					<div className="note-title-box">
+						<div className="note-title-wrap">
+							<div className="note-title-icon">
+								{icon}
+								<div className="note-title">{title}</div>
+							</div>
+							<div
+								className="note-title-edit"
+								ref={editTag}
+								onClick={openModal}
+							>
+								Edit Tag
+							</div>
+						</div>
+						<div className="note-title-ctrl">
+							<div className="note-title-ctrl-count">{count}</div>
+							<div className="note-title-ctrl-ctrls">
+								{/* <i className="fa-solid fa-arrow-down-wide-short"></i> */}
+							</div>
+						</div>
+					</div>
+					<div></div>
+				</div>
+				<div className="note-view">Right Side</div>
+			</main>
+			{/* Edit Modal */}
 			<div className="modalBg5 hidden" ref={modalBg} onClick={closeModal}>
 				<form
 					className="form-control"
@@ -107,7 +164,14 @@ const Tags = () => {
 						<i className="fa-solid fa-xmark fa-lg"></i>
 					</div>
 					<div className="form-group form-gap30">
-						<div className="form-title">Create new tag</div>
+						<div className="form-title">
+							Edit Tag{" "}
+							<i
+								className="fa-solid fa-tag"
+								style={{ color: `#${tag?.color}` }}
+							></i>
+							{tag?.name}
+						</div>
 						<div className="form-description">
 							Tags let you add keywords to notes, making them easier to find and
 							browse.
@@ -261,63 +325,30 @@ const Tags = () => {
 								</label>
 							</div>
 						</div>
-						<button className="btn" type="submit" disabled={disable}>
-							Create tag
-						</button>
+						<div className="btn-wrap-gap20">
+							<button className="btn" type="submit" disabled={disable}>
+								Update Tag
+							</button>
+							<div className="tooltip">
+								<button
+									className="btn btn-mid1"
+									onMouseEnter={mouseEnterDelete}
+									onMouseLeave={mouseLeaveDelete}
+									onClick={handleDelete}
+								>
+									Delete Tag
+								</button>
+								<span ref={deleteBtn} className="tooltiptext hidden">
+									You have {tagNotes} notes with this tag. Are you sure you want
+									to delete?
+								</span>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
-
-			<div className="nav-div" onClick={() => history.push("/tags")}>
-				<div className="nav-div-left">
-					<div
-						className="nav-caret"
-						ref={tagsCaret}
-						onClick={(e) => {
-							e.stopPropagation();
-							setShowTags(!showTags);
-						}}
-					>
-						<i className="fa-solid fa-caret-right"></i>
-					</div>
-					<i className="fa-solid fa-tags"></i>
-					<div>Tags</div>
-				</div>
-				<div
-					className="nav-div-right  tooltip"
-					onMouseEnter={() => setShowTooltip(true)}
-					onMouseLeave={() => setShowTooltip(false)}
-					onClick={openModal}
-				>
-					<i className="fa-solid fa-circle-plus nav-add"></i>
-					<span className="navTooltiptext hidden" ref={tooltip}>
-						New Tag
-					</span>
-				</div>
-			</div>
-			{/* Tags Dropdown */}
-			<div className="nav-dd  nav-dropdown-hide" ref={tagsDDDiv}>
-				{tags[0] &&
-					tags.map((tag) => (
-						<Link to={`/tags/${tag.id}`} key={tag.id}>
-							<div className="nav-dd-div nav-dd-div-tight">
-								<div
-									className="tag tag-sm"
-									style={{ backgroundColor: `#${tag.color}` }}
-								>
-									{tag.name}
-								</div>
-							</div>
-						</Link>
-					))}
-				<div className="nav-dd-div nav-new" onClick={openModal}>
-					<i className="fa-regular fa-plus"></i>
-					<i className="fa-solid fa-tags"></i>
-					<div className="nav-dd-title">New Tag</div>
-				</div>
-			</div>
 		</>
 	);
-};
+}
 
-export default Tags;
+export default TagPage;

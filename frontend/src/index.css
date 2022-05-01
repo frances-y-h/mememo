@@ -12,6 +12,7 @@
 @import url("./css/footer.css");
 @import url("./css/desktop.css");
 @import url("./css/desktop.css");
+@import url("./css/noteTemplate.css");
 
 :root {
 	/* color-scheme: light dark; */
@@ -39,7 +40,7 @@
 	--tag3: #c84639;
 	--tag4: #ce763b;
 	--tag5: #e2af47;
-	--tag6: #e9d6af;
+	--tag6: #b09766;
 	--tag7: #6bb4b1;
 	--tag8: #32687a;
 }

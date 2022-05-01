@@ -27,7 +27,16 @@ function App() {
 				<Route path="/signup">
 					<SignupFormPage />
 				</Route>
-				<Route path={["/desktop", "/notes", "/notebooks", "/tags", "/trash"]}>
+				<Route
+					path={[
+						"/desktop",
+						"/notes",
+						"/notebooks",
+						"/tags",
+						"/tags/:tagId",
+						"/trash",
+					]}
+				>
 					<DesktopPage />
 				</Route>
 			</Switch>
