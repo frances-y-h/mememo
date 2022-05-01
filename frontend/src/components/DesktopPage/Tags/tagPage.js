@@ -1,13 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef, useEffect, useState } from "react";
 import * as tagsActions from "../../../store/tags";
+import * as notesActions from "../../../store/notes";
 
 function TagPage({ title }) {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	const tags = Object.values(useSelector((state) => state.tags));
 	const tag = useSelector((state) => state.tags[id]);
+	const userId = useSelector((state) => state.session.user.id);
+
 	const [disable, setDisable] = useState(true);
 	const [tagErr, setTagErr] = useState("");
 	const [name, setName] = useState("");
@@ -68,13 +71,15 @@ function TagPage({ title }) {
 		deleteBtn.current.classList.add("hidden");
 	};
 
+	// Delete tags
 	const handleDelete = (e) => {
 		e.preventDefault();
-		let noteIds;
-		if (tag?.Notes?.length > 0) {
-			noteIds = tag.Notes.map((note) => note.id);
-		}
-		console.log(noteIds);
+
+		dispatch(tagsActions.deleteOldTag(tag.id));
+		// need to make sure notes tag info updated
+		dispatch(notesActions.getAllNotes(userId));
+		modalBg.current.classList.add("hidden");
+		<Redirect to="/tags" />;
 	};
 
 	useEffect(() => {
@@ -150,7 +155,7 @@ function TagPage({ title }) {
 				<div className="note-view">Right Side</div>
 			</main>
 			{/* Edit Modal */}
-			<div className="modalBg5" ref={modalBg} onClick={closeModal}>
+			<div className="modalBg5 hidden" ref={modalBg} onClick={closeModal}>
 				<form
 					className="form-control"
 					onSubmit={handleSubmit}
