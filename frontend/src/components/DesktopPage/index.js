@@ -44,7 +44,7 @@ const DesktopPage = () => {
 				<Route path="/notebooks">
 					<NotebooksPage />
 				</Route>
-				<Route path="/tags">
+				<Route path={["/tags", "/tags/:tagId"]}>
 					<TagsPage />
 				</Route>
 				<Route path="/trash">

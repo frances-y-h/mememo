@@ -1,0 +1,13 @@
+.note-control {
+	display: grid;
+	grid-template-columns: 150px auto;
+}
+
+.note-sidebar {
+	background-color: var(--paper-dark);
+	border-right: 1px solid lightgray;
+}
+
+.note-view {
+	background-color: var(--paper);
+}

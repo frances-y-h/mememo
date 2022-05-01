@@ -1,13 +1,19 @@
 import { useSelector } from "react-redux";
+import { Switch, Route } from "react-router-dom";
+import NoteTemplate from "../NoteTemplate";
 
 const TagsPage = () => {
 	const tags = Object.values(useSelector((state) => state.tags));
 
 	return (
-		<main>
-			<h1>Tags</h1>
-			{tags[0] && tags.map((tag) => <div key={tag.id}>{tag.name}</div>)}
-		</main>
+		<Switch>
+			<Route path="/tags" exact>
+				<NoteTemplate title={"Tags"} />
+			</Route>
+			<Route path="/tags/:id">
+				<NoteTemplate title={"Tag"} />
+			</Route>
+		</Switch>
 	);
 };
 
