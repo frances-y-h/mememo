@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { format, formatDistanceToNow, parseISO } from "date-fns";
 import * as sessionActions from "../../store/session";
-import ScratchPad from "./scratchPad";
+import ScratchPad from "./scratchPad.js";
 
 const Desktop = () => {
 	const user = useSelector((state) => state.session.user);
