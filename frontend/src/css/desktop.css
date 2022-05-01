@@ -3,15 +3,19 @@
 	flex-direction: column;
 	padding: 20px;
 	background-color: var(--desktop);
-	background-image: url("../../public/images/desktop.jpg");
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0)),
+		url("../../public/images/desktop2.jpg");
 	background-size: contain;
-	background-position: top center;
+	background-position: bottom center;
 	background-repeat: no-repeat;
 }
 
 .desktop-greeting-wrap {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	color: white;
 	text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
 }
@@ -19,4 +23,54 @@
 .desktop-greeting {
 	font-weight: bold;
 	font-size: 2rem;
+}
+
+.desktop-note-pad {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 20px;
+	height: 50%;
+}
+
+.desktop-notes,
+.scratch-pad {
+	border-radius: 5px;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+	padding: 10px;
+}
+
+.desktop-notes {
+	background-color: var(--paper);
+}
+
+.scratch-pad {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--pad);
+	font-size: 13px;
+	gap: 5px;
+}
+
+.pad-title {
+	display: flex;
+	justify-content: space-between;
+}
+
+.pad-textarea {
+	background-color: transparent;
+	border: none;
+	height: 100%;
+}
+
+.pad-textarea::placeholder {
+	transition: all 0.25s;
+}
+
+.pad-textarea:focus {
+	outline-color: transparent;
+	outline-style: none;
+}
+
+.pad-textarea:focus::placeholder {
+	color: transparent;
 }
