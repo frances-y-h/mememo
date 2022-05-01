@@ -102,7 +102,8 @@ const sessionReducer = (state = initialState, action) => {
 			newState.user = null;
 			return newState;
 		case UPDATE_PAD:
-			newState = { ...state, scratchPad: action.pad };
+			newState = { ...state };
+			newState.user.scratchPad = action.pad;
 			return newState;
 		default:
 			return state;
