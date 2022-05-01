@@ -7,6 +7,7 @@ import ScratchPad from "./scratchPad";
 const Desktop = () => {
 	const user = useSelector((state) => state.session.user);
 	const now = format(new Date(), "eeee, LLLL dd, yyyy");
+	const notes = Object.values(useSelector((state) => state.notes));
 
 	// set greeting message
 	const greeting = () => {
@@ -31,7 +32,27 @@ const Desktop = () => {
 				<div>{now}</div>
 			</div>
 			<div className="desktop-note-pad">
-				<div className="desktop-notes">Notes</div>
+				<div className="desktop-notes">
+					<div className="desktop-notes-top">
+						<div className="desktop-notes-top-notes">
+							<div>NOTES</div>
+							<i className="fa-solid fa-angle-right"></i>
+						</div>
+						<div className="desktop-notes-top-notes">
+							<img src="/images/icon/note-add.svg" className="icon18" />
+						</div>
+					</div>
+					<div className="dt-notes-wrap">
+						{notes[0] &&
+							notes.map((note) => (
+								<div className="desktop-note" key={note.id}>
+									{note.title}
+								</div>
+							))}
+						<div className="desktop-note">New Note</div>
+					</div>
+					<div className="desktop-notes-btm"></div>
+				</div>
 				<ScratchPad />
 			</div>
 			{/* <div>Recently catured</div> */}

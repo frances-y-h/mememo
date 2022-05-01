@@ -120,6 +120,11 @@
 	cursor: pointer;
 }
 
+.nav-dd-div-tight {
+	gap: 5px;
+	padding: 3px 5px 5px 23px;
+}
+
 .nav-dd-div:hover {
 	background-color: var(--dark1);
 }

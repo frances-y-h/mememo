@@ -285,8 +285,11 @@ const Tags = () => {
 			<div className="nav-dd  nav-dropdown-hide" ref={tagsDDDiv}>
 				{tags[0] &&
 					tags.map((tag) => (
-						<div className="nav-dd-div" key={tag.id}>
-							<div className="tag" style={{ backgroundColor: `#${tag.color}` }}>
+						<div className="nav-dd-div nav-dd-div-tight" key={tag.id}>
+							<div
+								className="tag tag-sm"
+								style={{ backgroundColor: `#${tag.color}` }}
+							>
 								{tag.name}
 							</div>
 						</div>
