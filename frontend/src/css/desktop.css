@@ -1,3 +1,13 @@
+.desktop-container {
+	display: flex;
+	flex-direction: row;
+}
+
+main {
+	background-color: var(--background);
+	width: 100%;
+}
+
 .desktop-ctrl {
 	display: flex;
 	flex-direction: column;
@@ -199,6 +209,7 @@
 	background-color: transparent;
 	border: none;
 	height: 100%;
+	resize: none;
 }
 
 .pad-textarea::placeholder {

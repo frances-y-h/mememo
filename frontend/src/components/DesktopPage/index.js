@@ -14,7 +14,6 @@ import NotesPage from "./notes.js";
 import NotebooksPage from "./notebooks.js";
 import TagsPage from "./tags.js";
 import TrashPage from "./trash.js";
-import "./Desktop.css";
 
 const DesktopPage = () => {
 	const dispatch = useDispatch();
