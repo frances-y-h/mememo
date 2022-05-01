@@ -12,10 +12,12 @@ function TagPage({ title }) {
 	const [tagErr, setTagErr] = useState("");
 	const [name, setName] = useState("");
 	const [color, setColor] = useState("");
+	const [tagNotes, setTagNotes] = useState("");
 
 	const editTag = useRef();
 	const modalBg = useRef();
 	const tagEl = useRef();
+	const deleteBtn = useRef();
 
 	let count = null;
 	let icon = "";
@@ -34,8 +36,8 @@ function TagPage({ title }) {
 
 	const closeModal = () => {
 		modalBg.current?.classList.add("hidden");
-		setName(tag.name);
-		setColor(tag.color);
+		setName(tag?.name);
+		setColor(tag?.color);
 	};
 
 	const openModal = () => {
@@ -56,17 +58,37 @@ function TagPage({ title }) {
 		modalBg.current.classList.add("hidden");
 	};
 
+	const mouseEnterDelete = () => {
+		if (tag?.Notes?.length > 0) {
+			deleteBtn.current.classList.remove("hidden");
+		}
+	};
+
+	const mouseLeaveDelete = () => {
+		deleteBtn.current.classList.add("hidden");
+	};
+
+	const handleDelete = (e) => {
+		e.preventDefault();
+		let noteIds;
+		if (tag?.Notes?.length > 0) {
+			noteIds = tag.Notes.map((note) => note.id);
+		}
+		console.log(noteIds);
+	};
+
 	useEffect(() => {
 		if (id) {
 			setName(tag?.name);
 			setColor(tag?.color);
+			setTagNotes(tag?.Notes?.length);
 			editTag.current.classList.remove("hidden");
 		} else {
 			setName("");
 			setColor("");
 			editTag.current.classList.add("hidden");
 		}
-	}, [id, tag?.name, tag?.color]);
+	}, [id, tag?.name, tag?.color, tag?.Notes?.length]);
 
 	// validator
 	useEffect(() => {
@@ -88,7 +110,7 @@ function TagPage({ title }) {
 
 	// validator tooltip toggle and submit button toggle
 	useEffect(() => {
-		if (tagErr.length) {
+		if (tagErr?.length) {
 			tagEl.current.classList.remove("hidden");
 			setDisable(true);
 		} else {
@@ -128,7 +150,7 @@ function TagPage({ title }) {
 				<div className="note-view">Right Side</div>
 			</main>
 			{/* Edit Modal */}
-			<div className="modalBg5 hidden" ref={modalBg} onClick={closeModal}>
+			<div className="modalBg5" ref={modalBg} onClick={closeModal}>
 				<form
 					className="form-control"
 					onSubmit={handleSubmit}
@@ -303,7 +325,20 @@ function TagPage({ title }) {
 							<button className="btn" type="submit" disabled={disable}>
 								Update Tag
 							</button>
-							<button className="btn btn-mid1">Delete Tag</button>
+							<div className="tooltip">
+								<button
+									className="btn btn-mid1"
+									onMouseEnter={mouseEnterDelete}
+									onMouseLeave={mouseLeaveDelete}
+									onClick={handleDelete}
+								>
+									Delete Tag
+								</button>
+								<span ref={deleteBtn} className="tooltiptext hidden">
+									You have {tagNotes} notes with this tag. Are you sure you want
+									to delete?
+								</span>
+							</div>
 						</div>
 					</div>
 				</form>
