@@ -32,6 +32,8 @@ function TagPage({ title }) {
 
 	const closeModal = () => {
 		modalBg.current?.classList.add("hidden");
+		setName(tag.name);
+		setColor(tag.color);
 	};
 
 	const openModal = () => {
@@ -70,7 +72,7 @@ function TagPage({ title }) {
 		let tagAlreadyExists;
 		if (tags[0]) {
 			tagAlreadyExists = tags?.some(
-				(tag) => tag.name === name && tag.id === id
+				(tag) => tag.name === name && tag.id !== parseInt(id, 10)
 			);
 		}
 
@@ -135,7 +137,14 @@ function TagPage({ title }) {
 						<i className="fa-solid fa-xmark fa-lg"></i>
 					</div>
 					<div className="form-group form-gap30">
-						<div className="form-title">Edit Tag</div>
+						<div className="form-title">
+							Edit Tag{" "}
+							<i
+								className="fa-solid fa-tag"
+								style={{ color: `#${tag?.color}` }}
+							></i>
+							{tag?.name}
+						</div>
 						<div className="form-description">
 							Tags let you add keywords to notes, making them easier to find and
 							browse.
@@ -289,7 +298,7 @@ function TagPage({ title }) {
 								</label>
 							</div>
 						</div>
-						<div>
+						<div className="btn-wrap-gap20">
 							<button className="btn" type="submit" disabled={disable}>
 								Update Tag
 							</button>
