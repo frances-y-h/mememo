@@ -14,7 +14,7 @@ const ScratchPad = () => {
 		setTimeout(() => {
 			autoSave.current.classList.add("pad-save-hidden");
 		}, 1000);
-	}, [pad, dispatch]);
+	}, [pad, dispatch, user.id]);
 
 	return (
 		<div className="scratch-pad">

@@ -14,7 +14,11 @@ const Notes = () => {
 					</div>
 				</Link>
 				<div className="desktop-notes-top-notes">
-					<img src="/images/icon/note-add.svg" className="icon18" />
+					<img
+						src="/images/icon/note-add.svg"
+						alt="Add Note"
+						className="icon18"
+					/>
 				</div>
 			</div>
 			<div className="dt-notes-wrap">
@@ -44,6 +48,7 @@ const Notes = () => {
 					<img
 						className="dk-note-new-circle"
 						src="/images/icon/note-new-circle.svg"
+						alt="Add Note"
 					/>
 					<div className="dk-note-new-title">Create new note</div>
 				</div>

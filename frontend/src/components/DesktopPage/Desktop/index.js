@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import ScratchPad from "./scratchPad";
 import Notes from "./notes";
