@@ -29,10 +29,16 @@ const Navigation = () => {
 
 	return (
 		<nav className="navigation-wrapper" ref={navBar}>
-			<div className="navigation-logo-wrapper">
-				<img src="/images/logo.svg" alt="mememo" className="navigation-logo" />
-				<h1 className="navigation-title">mememo</h1>
-			</div>
+			<NavLink to="/">
+				<div className="navigation-logo-wrapper">
+					<img
+						src="/images/logo.svg"
+						alt="mememo"
+						className="navigation-logo"
+					/>
+					<h1 className="navigation-title">mememo</h1>
+				</div>
+			</NavLink>
 			<div className="navigation-links">
 				<div className="btn btn-no-border" onClick={demoLogin}>
 					Demo Login

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
+import Navigation from "../SplashPage/navigation.js";
+import Footer from "../SplashPage/footer.js";
 
 function SignupFormPage() {
 	const dispatch = useDispatch();
@@ -125,91 +127,95 @@ function SignupFormPage() {
 	if (sessionUser) return <Redirect to="/desktop" />;
 
 	return (
-		<div className="container-ctr">
-			<form className="form-control" onSubmit={handleSubmit}>
-				<div className="login-title">
-					<img className="logo" src="/images/logo.svg" alt="mememo" />
-					<h1 className="title">mememo</h1>
-					<div className="slogan">
-						A powerful memo app for hard working bees
+		<>
+			<Navigation />
+			<div className="container-ctr">
+				<form className="form-control" onSubmit={handleSubmit}>
+					<div className="login-title">
+						<img className="logo" src="/images/logo.svg" alt="mememo" />
+						<h1 className="title">mememo</h1>
+						<div className="slogan">
+							A powerful memo app for hard working bees
+						</div>
 					</div>
-				</div>
-				<div className="form-group form-gap15">
-					<div ref={errDiv} className="error-list">
-						{errors.map((error, idx) => (
-							<li key={idx}>{error}</li>
-						))}
-					</div>
-					<div className="form-input-ctrl tooltip">
-						<i className="fa-solid fa-user"></i>
-						<input
-							type="text"
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
-							required
-							placeholder="Username"
-							className="input"
-						/>
-						<span ref={usernameEl} className="tooltiptext hidden">
-							{usernameErr}
-						</span>
-					</div>
-					<div className="form-input-ctrl">
-						<i className="fa-solid fa-at"></i>
-						<input
-							type="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							required
-							placeholder="email"
-							className="input"
-						/>
-					</div>
-					<div className="form-input-ctrl  tooltip">
-						<i className="fa-solid fa-lock"></i>
-						<input
-							type="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							required
-							placeholder="Password"
-							className="input"
-						/>
-						<span ref={passwordEl} className="tooltiptext hidden">
-							{passwordErr}
-						</span>
-					</div>
-					<div className="form-input-ctrl tooltip">
-						<i className="fa-solid fa-key"></i>
-						<input
-							type="password"
-							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
-							required
-							placeholder="confirmPassword"
-							className="input"
-						/>
-						<span ref={confirmPasswordEl} className="tooltiptext hidden">
-							{confirmPasswordErr}
-						</span>
-					</div>
-					<button className="btn" type="submit" disabled={disable}>
-						Sign Up
-					</button>
 					<div className="form-group form-gap15">
-						<div className="form-link" onClick={demoLogin}>
-							Login as Demo User
+						<div ref={errDiv} className="error-list">
+							{errors.map((error, idx) => (
+								<li key={idx}>{error}</li>
+							))}
 						</div>
-						<div className="form-group">
-							<div className="form-link-label">Already have an account?</div>
-							<Link to="/login" className="form-link">
-								Login
-							</Link>
+						<div className="form-input-ctrl tooltip">
+							<i className="fa-solid fa-user"></i>
+							<input
+								type="text"
+								value={username}
+								onChange={(e) => setUsername(e.target.value)}
+								required
+								placeholder="Username"
+								className="input"
+							/>
+							<span ref={usernameEl} className="tooltiptext hidden">
+								{usernameErr}
+							</span>
+						</div>
+						<div className="form-input-ctrl">
+							<i className="fa-solid fa-at"></i>
+							<input
+								type="email"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								required
+								placeholder="email"
+								className="input"
+							/>
+						</div>
+						<div className="form-input-ctrl  tooltip">
+							<i className="fa-solid fa-lock"></i>
+							<input
+								type="password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								required
+								placeholder="Password"
+								className="input"
+							/>
+							<span ref={passwordEl} className="tooltiptext hidden">
+								{passwordErr}
+							</span>
+						</div>
+						<div className="form-input-ctrl tooltip">
+							<i className="fa-solid fa-key"></i>
+							<input
+								type="password"
+								value={confirmPassword}
+								onChange={(e) => setConfirmPassword(e.target.value)}
+								required
+								placeholder="confirmPassword"
+								className="input"
+							/>
+							<span ref={confirmPasswordEl} className="tooltiptext hidden">
+								{confirmPasswordErr}
+							</span>
+						</div>
+						<button className="btn" type="submit" disabled={disable}>
+							Sign Up
+						</button>
+						<div className="form-group form-gap15">
+							<div className="form-link" onClick={demoLogin}>
+								Login as Demo User
+							</div>
+							<div className="form-group">
+								<div className="form-link-label">Already have an account?</div>
+								<Link to="/login" className="form-link">
+									Login
+								</Link>
+							</div>
 						</div>
 					</div>
-				</div>
-			</form>
-		</div>
+				</form>
+			</div>
+			<Footer />
+		</>
 	);
 }
 
