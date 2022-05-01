@@ -39,8 +39,6 @@
 }
 
 .desktop-notes {
-	/* display: flex; */
-	/* flex-direction: column; */
 	display: grid;
 	grid-template-rows: 50px auto 50px;
 	overflow: hidden;
@@ -68,6 +66,14 @@
 	gap: 10px;
 	align-items: center;
 	font-size: 13px;
+	cursor: pointer;
+	transition: all 0.25s;
+	padding: 3px 5px;
+	border-radius: 3px;
+}
+
+.desktop-notes-top-notes:hover {
+	background-color: var(--pad);
 }
 
 .dt-notes-wrap {
@@ -82,14 +88,80 @@
 	background-color: white;
 }
 
+/* Note cards */
 .desktop-note {
+	box-sizing: border-box;
 	background-color: var(--paper);
 	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
-	padding: 5px;
+	padding: 7px;
 	border-radius: 5px;
-	width: 120px;
-	height: 150px;
+	width: 130px;
+	height: 170px;
 	flex: 0 0 auto;
+	transition: all 0.25s;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.desktop-note:hover {
+	filter: brightness(95%);
+}
+
+.dk-note-title {
+	font-weight: bolder;
+	overflow: hidden;
+	height: 1em;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-bottom: 3px;
+}
+
+.dk-note-update {
+	font-size: 10px;
+	background-color: var(--mid4);
+	filter: opacity(0.9);
+	color: white;
+	padding: 1px 3px;
+	border-radius: 1px;
+}
+
+.dk-note-content {
+	display: -webkit-box;
+	overflow: hidden;
+	font-size: 12px;
+	padding: 5px 0px;
+	height: 55px;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	white-space: normal;
+}
+
+.dk-note-tags {
+	display: flex;
+	flex-wrap: wrap;
+	overflow: hidden;
+	gap: 3px;
+}
+
+.dk-note-new {
+	background-color: var(--paper-dark);
+	justify-content: center;
+	align-items: center;
+}
+
+.dk-note-new-circle {
+	height: 50px;
+	width: 50px;
+	border-radius: 40px;
+	background-color: var(--mid4);
+}
+
+.dk-note-new-title {
+	font-size: 12px;
+	font-weight: bold;
 }
 
 .desktop-notes-btm {
