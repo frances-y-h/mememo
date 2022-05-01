@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 // Actions
 const GET_ALL_TAGS = "tags/GET_ALL_TAGS";
-const ADD_NEW_TAG = "tags/ADD_NEW_TAG";
+const ADD_UPDATE_TAG = "tags/ADD_UPDATE_TAG";
 
 // Action Creators
 const getTags = (tags) => {
@@ -12,10 +12,10 @@ const getTags = (tags) => {
 	};
 };
 
-const addTag = (tag) => {
+const addUpdateTag = (tag) => {
 	return {
-		type: ADD_NEW_TAG,
-		tag,
+		type: ADD_UPDATE_TAG,
+		tag, // with tag id
 	};
 };
 
@@ -33,7 +33,17 @@ export const addNewTag = (userId, tag) => async (dispatch) => {
 		body: JSON.stringify(tag),
 	});
 	const data = await response.json();
-	dispatch(addTag(data));
+	dispatch(addUpdateTag(data));
+	return response;
+};
+
+export const updateTag = (tagId, tag) => async (dispatch) => {
+	const response = await csrfFetch(`/api/tags/${tagId}`, {
+		method: "PUT",
+		body: JSON.stringify(tag), // without tag id
+	});
+	const data = await response.json();
+	dispatch(addUpdateTag(data)); // with tag ID
 	return response;
 };
 
@@ -49,7 +59,7 @@ const tagReducer = (state = initialState, action) => {
 				newState[tag.id] = tag;
 			});
 			return newState;
-		case ADD_NEW_TAG:
+		case ADD_UPDATE_TAG:
 			newState = { ...state };
 			newState[action.tag.id] = action.tag;
 			return newState;

@@ -43,15 +43,28 @@ router.post(
 			name,
 			color,
 		});
-		console.log(newTag);
 
 		res.json(newTag);
 	})
 );
 
-// const response = await csrfFetch(`/api/${userId}/tags`, {
-// 	method: "POST",
-// 	body: tag,
-// });
+router.put(
+	"/tags/:tagId(\\d+)",
+	requireAuth,
+	validateTag,
+	asyncHandler(async (req, res) => {
+		const tagId = parseInt(req.params.tagId, 10);
+		const { name, color } = req.body;
+
+		const tagToUpdate = await Tag.findByPk(tagId);
+
+		tagToUpdate.name = name;
+		tagToUpdate.color = color;
+
+		await tagToUpdate.save();
+
+		res.json(tagToUpdate);
+	})
+);
 
 module.exports = router;

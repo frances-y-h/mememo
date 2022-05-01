@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useRef, useEffect, useState } from "react";
+import * as tagsActions from "../../../store/tags";
 
 function TagPage({ title }) {
+	const dispatch = useDispatch();
 	const { id } = useParams();
 	const tags = Object.values(useSelector((state) => state.tags));
 	const tag = useSelector((state) => state.tags[id]);
@@ -43,16 +45,15 @@ function TagPage({ title }) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		// const tag = {
-		// 	name,
-		// 	color,
-		// };
+		const tagToUpdate = {
+			name,
+			color,
+		};
 
 		// dispatch action to reducer to create tag in database
-		// dispatch(tagsActions.addNewTag(user.id, tag));
+		dispatch(tagsActions.updateTag(id, tagToUpdate));
 
-		// if created, close modal, clear fields, and tag dropdown open so new tag showing
-		// modalBg.current.classList.add("hidden");
+		modalBg.current.classList.add("hidden");
 	};
 
 	useEffect(() => {
