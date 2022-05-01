@@ -7,12 +7,17 @@ const { User, Notebook, Note, Tag } = require("../../db/models");
 
 const router = express.Router();
 
-router.get("/:userId(\\d+)/tags", requireAuth, asyncHandler(async(req, res) => {
-  const userId = parseInt(req.params.userId, 10);
-  const tags = await Tag.findAll({where: { userId }});
-  res.json(tags);
-}))
-
-
+router.get(
+	"/:userId(\\d+)/tags",
+	requireAuth,
+	asyncHandler(async (req, res) => {
+		const userId = parseInt(req.params.userId, 10);
+		const tags = await Tag.findAll({
+			where: { userId },
+			order: [["updatedAt", "DESC"]],
+		});
+		res.json(tags);
+	})
+);
 
 module.exports = router;

@@ -16,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 			},
 			trash: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      }
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+				defaultValue: false,
+			},
 		},
 		{}
 	);

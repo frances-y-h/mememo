@@ -1,11 +1,13 @@
-'use strict';
+"use strict";
 
 module.exports = {
 	up: (queryInterface, Sequelize) => {
 		return queryInterface.bulkInsert(
 			"Tags",
 			[
-				{ name: "Tag 1", color: "473335", userId: 1 },
+				{ name: "Pokemon", color: "473335", userId: 1 },
+				{ name: "Anime", color: "e9d6af", userId: 1 },
+				{ name: "Elden Ring", color: "32687a", userId: 1 },
 			],
 			{}
 		);
