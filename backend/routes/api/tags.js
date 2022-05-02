@@ -22,7 +22,10 @@ router.get(
 		const userId = parseInt(req.params.userId, 10);
 		const tags = await Tag.findAll({
 			where: { userId },
-			include: Note,
+			include: {
+				model: Note,
+				include: Tag,
+			},
 			order: [["updatedAt", "DESC"]],
 		});
 		res.json(tags);
@@ -46,7 +49,10 @@ router.post(
 		});
 
 		const tag = await Tag.findByPk(newTag.id, {
-			include: Note,
+			include: {
+				model: Note,
+				include: Tag,
+			},
 		});
 
 		res.json(tag);
@@ -61,16 +67,21 @@ router.put(
 		const tagId = parseInt(req.params.tagId, 10);
 		const { name, color } = req.body;
 
-		const tagToUpdate = await Tag.findByPk(tagId, {
-			include: Note,
-		});
+		const tagToUpdate = await Tag.findByPk(tagId);
 
 		tagToUpdate.name = name;
 		tagToUpdate.color = color;
 
 		await tagToUpdate.save();
 
-		res.json(tagToUpdate);
+		const tag = await Tag.findByPk(tagId, {
+			include: {
+				model: Note,
+				include: Tag,
+			},
+		});
+
+		res.json(tag);
 	})
 );
 

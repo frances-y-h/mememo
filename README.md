@@ -11,3 +11,5 @@ Redux
 Flexbox, Grid, CSS Modules
 Express
 Sequelize
+
+## Known bugs
