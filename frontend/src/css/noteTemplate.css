@@ -272,7 +272,7 @@
 
 .note-tags-remove {
 	position: absolute;
-	z-index: 2;
+	z-index: 1;
 	right: -7px;
 	top: -7px;
 }
@@ -296,6 +296,12 @@
 	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 	border-radius: 3px;
 	z-index: 2;
+}
+
+.note-tag-div {
+	font-size: 14px;
+	display: flex;
+	flex-wrap: nowrap;
 }
 
 @media screen and (min-width: 1000px) {

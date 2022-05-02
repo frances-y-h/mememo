@@ -1,5 +1,6 @@
 .modalBg1,
-.modalBg5 {
+.modalBg5,
+.modalBgTag {
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
@@ -8,6 +9,11 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+}
+
+.modalBgTag {
+	backdrop-filter: blur(5px);
+	z-index: 10;
 }
 
 .modalBg1 {

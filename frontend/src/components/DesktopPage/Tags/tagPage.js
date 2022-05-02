@@ -165,7 +165,7 @@ function TagPage({ title }) {
 				</div>
 			</main>
 			{/* Edit Modal */}
-			<div className="modalBg5 hidden" ref={modalBg} onClick={closeModal}>
+			<div className="modalBgTag hidden" ref={modalBg} onClick={closeModal}>
 				<form
 					className="form-control"
 					onSubmit={handleSubmit}

@@ -12,7 +12,7 @@ const NotePage = () => {
 	const note = useSelector((state) => state.notes[noteId]);
 	const userId = useSelector((state) => state.session.user.id);
 	const notebooks = Object.values(useSelector((state) => state.notebooks));
-	const tags = Object.values(useSelector((state) => state.tags));
+	const tags = useSelector((state) => state.tags);
 
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
@@ -108,17 +108,18 @@ const NotePage = () => {
 	}, [note]);
 
 	useEffect(() => {
-		// tags = array of all tags
-		// update what ever that is not in the tagArry to tagDDList
+		// get turn tagsArr (what tags the note currently has) in to set
 		const set = new Set(tagsArr.map((tag) => tag.id));
 		const arr = [];
-		tags.forEach((tag) => {
+		// tags = array of all tags from useSelector
+		Object.values(tags).forEach((tag) => {
+			// update what ever that is not in the tagArry to tagDDList
 			if (!set.has(tag.id)) {
 				arr.push(tag);
 			}
 		});
 		setTagDDList(arr);
-	}, [tagsArr]);
+	}, [tagsArr, tags]);
 
 	return (
 		<>
@@ -268,7 +269,7 @@ const NotePage = () => {
 								</div>
 							))
 						) : (
-							<div>Create more tags</div>
+							<div className="note-tag-div">No tags found</div>
 						)}
 					</div>
 				</div>
