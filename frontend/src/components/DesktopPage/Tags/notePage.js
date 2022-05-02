@@ -39,16 +39,15 @@ const NotePage = () => {
 		setDisableEdit(false);
 		saveBtn?.current.classList.remove("hidden");
 		addTag?.current.classList.remove("hidden");
-		console.log(removeTagIcon);
+
 		removeTagIcon.current.forEach((span) => {
-			span.classList.remove("hidden");
+			span?.classList.remove("hidden");
 		});
 	};
 
 	const saveNote = async () => {
 		const notebookId = note.notebookId;
-		const noteToUpdate = { title, content, notebookId, trash: false };
-
+		const noteToUpdate = { title, content, notebookId, trash: false, tagsArr };
 		// get tags as an array
 		await dispatch(notesActions.editNote(noteId, noteToUpdate));
 
@@ -57,7 +56,7 @@ const NotePage = () => {
 		saveBtn?.current.classList.add("hidden");
 		addTag?.current.classList.add("hidden");
 		removeTagIcon.current.forEach((span) => {
-			span.classList.add("hidden");
+			span?.classList.add("hidden");
 		});
 		notification?.current.classList.remove("notification-move");
 
