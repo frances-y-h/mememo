@@ -4,6 +4,8 @@ import { useRef, useEffect, useState } from "react";
 import * as tagsActions from "../../../store/tags";
 import * as notesActions from "../../../store/notes";
 
+import NoteCard from "./noteCard";
+
 function TagPage({ title }) {
 	const dispatch = useDispatch();
 	const { id } = useParams();
@@ -149,7 +151,9 @@ function TagPage({ title }) {
 							</div>
 						</div>
 					</div>
-					<div></div>
+					<div>
+						<NoteCard tag={tag} />
+					</div>
 				</div>
 				<div className="note-view">Right Side</div>
 			</main>
