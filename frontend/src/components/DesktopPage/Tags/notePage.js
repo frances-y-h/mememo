@@ -16,12 +16,15 @@ const NotePage = () => {
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [disableEdit, setDisableEdit] = useState(true);
+	const [notifications, setNotifications] = useState("");
+	const [tagsArr, setTagsArr] = useState([]);
 
 	const moveDD = useRef(null);
 	const modalBg = useRef(null);
 	const saveBtn = useRef(null);
 	const addTag = useRef(null);
 	const notification = useRef(null);
+	const removeTagIcon = useRef([]);
 
 	const saveTooltip = useRef(null);
 	const editTooltip = useRef(null);
@@ -36,6 +39,10 @@ const NotePage = () => {
 		setDisableEdit(false);
 		saveBtn?.current.classList.remove("hidden");
 		addTag?.current.classList.remove("hidden");
+		console.log(removeTagIcon);
+		removeTagIcon.current.forEach((span) => {
+			span.classList.remove("hidden");
+		});
 	};
 
 	const saveNote = async () => {
@@ -46,8 +53,12 @@ const NotePage = () => {
 		await dispatch(notesActions.editNote(noteId, noteToUpdate));
 
 		setDisableEdit(true);
+		setNotifications("Note Saved");
 		saveBtn?.current.classList.add("hidden");
 		addTag?.current.classList.add("hidden");
+		removeTagIcon.current.forEach((span) => {
+			span.classList.add("hidden");
+		});
 		notification?.current.classList.remove("notification-move");
 
 		setTimeout(() => {
@@ -55,10 +66,16 @@ const NotePage = () => {
 		}, 2000);
 	};
 
+	const removeTag = (tagId) => {
+		const tags = [...tagsArr];
+		const newTagArr = tags.filter((tag) => tag.id != tagId);
+		setTagsArr(newTagArr);
+	};
+
 	const moveToNotebook = async (notebookId) => {
 		const note = { notebookId, trash: false };
 		await dispatch(notesActions.editNote(noteId, note));
-
+		setNotifications("Moved to Notebook");
 		moveDD?.current.classList.add("hidden");
 		modalBg?.current.classList.add("hidden");
 		notification?.current.classList.remove("notification-move");
@@ -72,12 +89,21 @@ const NotePage = () => {
 		const note = { trash: true };
 		await dispatch(notesActions.trashNote(noteId, note));
 		await dispatch(trashActions.getAllTrash(userId));
+		setNotifications("Moved to Trash");
+		notification?.current.classList.remove("notification-move");
+
+		setTimeout(() => {
+			notification?.current.classList.add("notification-move");
+		}, 2000);
+		setTitle("");
+		setContent("");
 	};
 
 	useEffect(() => {
 		setTitle(note?.title);
 		setContent(note?.content);
-	}, [note?.title, note?.content]);
+		setTagsArr(note?.Tags);
+	}, [note]);
 
 	return (
 		<>
@@ -157,7 +183,7 @@ const NotePage = () => {
 					>
 						<i className="fa-solid fa-trash-can" onClick={moveToTrash}></i>
 						<span className="icon-tooltiptext hidden" ref={deleteTooltip}>
-							Delete
+							Trash
 						</span>
 					</div>
 				</div>
@@ -185,20 +211,31 @@ const NotePage = () => {
 					onChange={(e) => setContent(e.target.value)}
 				/>
 			</div>
+			{/* Tags section */}
+			{/* show mini remove icon when in edit mode */}
 			<div className="note-view-tags">
-				{note?.Tags.map((tag) => (
-					<div
-						key={tag?.id}
-						className="tag"
-						style={{ backgroundColor: `#${tag?.color}` }}
-					>
-						{tag?.name}
+				{tagsArr?.map((tag, idx) => (
+					<div key={tag.id} className="note-view-tag">
+						<div className="tag" style={{ backgroundColor: `#${tag?.color}` }}>
+							{tag?.name}
+						</div>
+						<span
+							className="note-tags-remove hidden"
+							onClick={() => removeTag(tag.id)}
+							ref={(el) => {
+								removeTagIcon.current[idx] = el;
+							}}
+						>
+							<i className="fa-solid fa-circle-minus"></i>
+						</span>
 					</div>
 				))}
 				<i className="fa-solid fa-circle-plus hidden" ref={addTag}></i>
 			</div>
+			{/* Notification box */}
 			<div className="notification-div notification-move" ref={notification}>
-				<i className="fa-solid fa-floppy-disk"></i>Note Saved
+				<i className="fa-solid fa-floppy-disk"></i>
+				{notifications}
 			</div>
 		</>
 	);

@@ -261,6 +261,26 @@
 
 .note-view-tags i {
 	color: gray;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
+.note-view-tag {
+	position: relative;
+}
+
+.note-tags-remove {
+	position: absolute;
+	z-index: 2;
+	right: -7px;
+	top: -7px;
+}
+
+.note-tags-remove i {
+	color: var(--alert1);
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (min-width: 1000px) {
