@@ -268,7 +268,13 @@ const Tags = () => {
 				</form>
 			</div>
 
-			<div className="nav-div" onClick={() => history.push("/tags")}>
+			<div
+				className="nav-div"
+				onClick={(e) => {
+					e.stopPropagation();
+					setShowTags(!showTags);
+				}}
+			>
 				<div className="nav-div-left">
 					<div
 						className="nav-caret"

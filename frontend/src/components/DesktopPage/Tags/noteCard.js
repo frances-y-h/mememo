@@ -9,7 +9,7 @@ const NoteCard = ({ tagId }) => {
 
 	if (notes && notes[0]) {
 		return notes.map((note) => (
-			<NavLink to={`/tags/${tagId}/notes/${note.id}`} key={note.id}>
+			<Link to={`/tags/${tagId}/notes/${note.id}`} key={note.id}>
 				<div className="note-box">
 					<div className="note-title">{note.title}</div>
 					<div className="note-content">{note.content}</div>
@@ -29,7 +29,7 @@ const NoteCard = ({ tagId }) => {
 						{formatDistanceToNow(parseISO(note.updatedAt))} ago
 					</div>
 				</div>
-			</NavLink>
+			</Link>
 		));
 	} else {
 		return (

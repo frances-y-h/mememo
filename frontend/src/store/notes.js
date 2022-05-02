@@ -27,6 +27,17 @@ export const getAllNotes = (userId) => async (dispatch) => {
 	return response;
 };
 
+export const editNote = (noteId, note) => async (dispatch) => {
+	const response = await csrfFetch(`/api/notes/${noteId}`, {
+		method: "PUT",
+		body: JSON.stringify(note),
+	});
+	const data = await response.json();
+	dispatch(addUpdateNote(data));
+	console.log(data);
+	return response;
+};
+
 // Reducer
 const initialState = { notes: null };
 

@@ -43,4 +43,35 @@ router.get(
 	})
 );
 
+router.put(
+	"/notes/:noteId(\\d+)",
+	requireAuth,
+	asyncHandler(async (req, res) => {
+		const noteId = parseInt(req.params.noteId, 10);
+		const { title, content, notebookId } = req.body;
+
+		const noteToUpdate = await Note.findByPk(noteId);
+
+		if (title) {
+			noteToUpdate.title = title;
+		}
+
+		if (content) {
+			noteToUpdate.content = content;
+		}
+
+		if (notebookId) {
+			noteToUpdate.notebookId = notebookId;
+		}
+
+		await noteToUpdate.save();
+
+		const note = await Note.findByPk(noteId, {
+			include: Tag,
+		});
+
+		res.json(note);
+	})
+);
+
 module.exports = router;
