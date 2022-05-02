@@ -115,7 +115,7 @@ const NotePage = () => {
 		// tags = array of all tags from useSelector
 		Object.values(tags).forEach((tag) => {
 			// update what ever that is not in the tagArry to tagDDList
-			if (!set.has(tag.id)) {
+			if (!set.has(tag?.id)) {
 				arr.push(tag);
 			}
 		});
@@ -257,12 +257,8 @@ const NotePage = () => {
 							modalBg?.current.classList.remove("hidden");
 						}}
 					></i>
-					<div
-						className="note-tag-dd hidden"
-						ref={tagDD}
-						onClick={() => setToggleModal("")}
-					>
-						<div className="tag cursor">
+					<div className="note-tag-dd hidden" ref={tagDD}>
+						<div className="tag cursor" onClick={() => setToggleModal("")}>
 							<i className="fa-solid fa-circle-plus"></i> New Tag
 						</div>
 						{tagDDList?.map((tag) => (
