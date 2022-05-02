@@ -32,6 +32,7 @@ router.get(
 // Get note based on note id
 router.get(
 	"/notes/:noteId(\\d+)",
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const noteId = parseInt(req.params.noteId, 10);
 		const note = await Note.findByPk(noteId, {

@@ -4,27 +4,25 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 
 const NoteCard = ({ tagId }) => {
 	const tag = useSelector((state) => state.tags[tagId]);
-	console.log("******", tagId);
 
 	const notes = tag?.Notes;
 
 	if (notes && notes[0]) {
 		return notes.map((note) => (
-			<NavLink to={`/tags/${tagId}/notes/${note.id}`}>
-				<div key={note.id} className="note-box">
+			<NavLink to={`/tags/${tagId}/notes/${note.id}`} key={note.id}>
+				<div className="note-box">
 					<div className="note-title">{note.title}</div>
 					<div className="note-content">{note.content}</div>
 					<div className="dk-note-tags">
 						{note &&
 							note.Tags.map((tag) => (
-								<Link to={`/tags/${tag.id}`} key={tag.id}>
-									<div
-										className="tag"
-										style={{ backgroundColor: `#${tag.color}` }}
-									>
-										{tag.name}
-									</div>
-								</Link>
+								<div
+									key={tag.id}
+									className="tag"
+									style={{ backgroundColor: `#${tag.color}` }}
+								>
+									{tag.name}
+								</div>
 							))}
 					</div>
 					<div className="note-update">

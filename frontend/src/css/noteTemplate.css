@@ -145,12 +145,88 @@
 	gap: 5px;
 	font-size: 14px;
 	color: gray;
+	padding: 2px 5px;
+	border-radius: 3px;
+	background-color: var(--paper);
+	transition: all 0.5s;
 }
 
+.note-view-notebook:hover {
+	filter: brightness(90%);
+}
+
+.pad5 {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	position: relative;
+}
+
+.note-view-notebook-move {
+	color: gray;
+	font-size: 10px;
+	padding: 2px 5px;
+	border-radius: 3px;
+	background-color: var(--paper);
+	opacity: 0;
+	transition: all 1s;
+	cursor: pointer;
+}
+
+.note-view-notebook-move:hover {
+	filter: brightness(90%);
+}
+
+.pad5:hover .note-view-notebook-move {
+	z-index: 1;
+	opacity: 1;
+}
+
+/* dropdown menu */
+.notebook-move-dd-wrap {
+	position: relative;
+}
+
+.notebook-move-dd {
+	position: absolute;
+	background-color: white;
+	border-radius: 3px;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+	top: 20px;
+	left: 0;
+	right: 0;
+	width: 150px;
+	z-index: 2;
+}
+
+.notebook-move-dd-div {
+	font-size: 12px;
+	padding: 3px 5px;
+	background-color: white;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+.notebook-move-dd-div:hover {
+	filter: brightness(90%);
+}
+
+/* back to note view title section */
 .note-view-notebook-edit {
 	gap: 10px;
 	font-size: 16px;
 	color: gray;
+}
+
+.note-view-notebook-edit i {
+	padding: 5px;
+	border-radius: 3px;
+	background-color: var(--paper);
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.note-view-notebook-edit i:hover {
+	filter: brightness(90%);
 }
 
 .note-view-update {
@@ -164,10 +240,12 @@
 	padding: 20px;
 	font-size: 24px;
 	font-weight: bold;
+	border: none;
 }
 
 .note-view-content {
 	padding: 0px 20px 20px 20px;
+	border: none;
 }
 
 .note-view-tags {
@@ -175,6 +253,11 @@
 	padding: 5px;
 	display: flex;
 	gap: 5px;
+	align-items: center;
+}
+
+.note-view-tags i {
+	color: gray;
 }
 
 @media screen and (min-width: 1000px) {

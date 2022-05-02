@@ -9,10 +9,10 @@ import * as tagsActions from "../../store/tags";
 import * as trashActions from "../../store/trash";
 
 import Navigation from "../Navigation";
-import Desktop from "./Desktop";
+import Desktop from "./Desktop/index.js";
 import NotesPage from "./Notes/index.js";
 import NotebooksPage from "./Notebooks/index.js";
-import TagsPage from "./Tags";
+import TagsPage from "./Tags/index.js";
 import TrashPage from "./Trash/index.js";
 
 const DesktopPage = () => {

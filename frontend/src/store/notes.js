@@ -2,12 +2,20 @@ import { csrfFetch } from "./csrf";
 
 // Action
 const GET_ALL_NOTES = "notes/GET_ALL_NOTES";
+const ADD_UPDATE_NOTE = "notes/ADD_UPDATE_NOTE";
 
 // Action creator
 const getNotes = (notes) => {
 	return {
 		type: GET_ALL_NOTES,
 		notes,
+	};
+};
+
+const addUpdateNote = (note) => {
+	return {
+		type: ADD_UPDATE_NOTE,
+		note,
 	};
 };
 
@@ -30,6 +38,10 @@ const noteReducer = (state = initialState, action) => {
 			action.notes.forEach((note) => {
 				newState[note.id] = note;
 			});
+			return newState;
+		case ADD_UPDATE_NOTE:
+			newState = { ...state };
+			newState[action.note.id] = action.note;
 			return newState;
 		default:
 			return state;
