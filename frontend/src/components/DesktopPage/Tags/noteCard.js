@@ -1,17 +1,15 @@
-import { NavLink, Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 const NoteCard = ({ tagId }) => {
-	const tag = useSelector((state) => state.tags[tagId]);
-
 	const notes = useSelector((state) => {
 		const notesArr = [];
 		Object.values(state.notes).forEach((note) => {
 			if (note?.trash === false) {
 				note.Tags.forEach((tag) => {
 					// TagId is a string
-					if (tag.id == tagId) {
+					if (tag.id === parseInt(tagId, 10)) {
 						notesArr.push(note);
 					}
 				});

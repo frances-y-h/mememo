@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 import Home from "./home.js";
 import User from "./user.js";
 import Notes from "./notes.js";

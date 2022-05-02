@@ -1,27 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useTagModal } from "../../context/TagModalContext";
 
-import * as tagsActions from "../../store/tags";
 import NewTagModal from "./newTagModal";
 
 const Tags = () => {
-	const { toggleModal, setToggleModal } = useTagModal();
-	const dispatch = useDispatch();
-
+	const { setToggleModal } = useTagModal();
 	const tags = Object.values(useSelector((state) => state.tags));
-	const user = useSelector((state) => state.session.user);
 	const [showTags, setShowTags] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
-	const [tagErr, setTagErr] = useState("");
-	const [name, setName] = useState("");
-	const [color, setColor] = useState("777777");
 
 	const tagsDDDiv = useRef();
 	const tagsCaret = useRef();
-	const tagEl = useRef();
-
 	const tooltip = useRef();
 
 	useEffect(() => {

@@ -8,8 +8,8 @@ import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
 
 const NotePage = () => {
-	const { toggleModal, setToggleModal } = useTagModal();
-	const { tagId, noteId } = useParams();
+	const { setToggleModal } = useTagModal();
+	const { noteId } = useParams();
 	const dispatch = useDispatch();
 	const note = useSelector((state) => state.notes[noteId]);
 	const userId = useSelector((state) => state.session.user.id);
@@ -71,8 +71,7 @@ const NotePage = () => {
 	};
 
 	const removeTag = (tagId) => {
-		// const tags = [...tagsArr];
-		const newTagArr = tagsArr.filter((tag) => tag.id != tagId);
+		const newTagArr = tagsArr.filter((tag) => tag.id !== parseInt(tagId, 10));
 		setTagsArr(newTagArr);
 	};
 
