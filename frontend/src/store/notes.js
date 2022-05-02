@@ -29,12 +29,11 @@ export const getAllNotes = (userId) => async (dispatch) => {
 
 export const editNote = (noteId, note) => async (dispatch) => {
 	const response = await csrfFetch(`/api/notes/${noteId}`, {
-		method: "PUT",
+		method: "PATCH",
 		body: JSON.stringify(note),
 	});
 	const data = await response.json();
 	dispatch(addUpdateNote(data));
-	console.log(data);
 	return response;
 };
 

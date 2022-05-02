@@ -16,15 +16,15 @@ const NotePage = () => {
 	const [content, setContent] = useState("");
 	const [disableEdit, setDisableEdit] = useState(true);
 
-	const moveDD = useRef();
-	const modalBg = useRef();
-	const saveBtn = useRef();
-	const addTag = useRef();
-	const notification = useRef();
+	const moveDD = useRef(null);
+	const modalBg = useRef(null);
+	const saveBtn = useRef(null);
+	const addTag = useRef(null);
+	const notification = useRef(null);
 
-	const saveTooltip = useRef();
-	const editTooltip = useRef();
-	const deleteTooltip = useRef();
+	const saveTooltip = useRef(null);
+	const editTooltip = useRef(null);
+	const deleteTooltip = useRef(null);
 
 	const openDD = () => {
 		moveDD?.current.classList.remove("hidden");
@@ -47,6 +47,19 @@ const NotePage = () => {
 		setDisableEdit(true);
 		saveBtn?.current.classList.add("hidden");
 		addTag?.current.classList.add("hidden");
+		notification?.current.classList.remove("notification-move");
+
+		setTimeout(() => {
+			notification?.current.classList.add("notification-move");
+		}, 2000);
+	};
+
+	const moveToNotebook = (notebookId) => {
+		const note = { notebookId };
+		dispatch(notesActions.editNote(noteId, note));
+
+		moveDD?.current.classList.add("hidden");
+		modalBg?.current.classList.add("hidden");
 		notification?.current.classList.remove("notification-move");
 
 		setTimeout(() => {
@@ -86,7 +99,13 @@ const NotePage = () => {
 						<div className="notebook-move-dd hidden" ref={moveDD}>
 							<div className="notebook-move-dd-div">Move to...</div>
 							{notebooks.map((notebook) => (
-								<div key={notebook?.id} className="notebook-move-dd-div">
+								<div
+									key={notebook?.id}
+									className="notebook-move-dd-div"
+									onClick={() => {
+										moveToNotebook(notebook.id);
+									}}
+								>
 									{notebook?.name}
 								</div>
 							))}
@@ -137,7 +156,7 @@ const NotePage = () => {
 				</div>
 			</div>
 			<div className="note-view-update">
-				Last edited on{" "}
+				Last edited{" "}
 				{note && formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y")} ago
 			</div>
 			<div onClick={editNote}>

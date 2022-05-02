@@ -36,14 +36,14 @@ router.get(
 	asyncHandler(async (req, res) => {
 		const noteId = parseInt(req.params.noteId, 10);
 		const note = await Note.findByPk(noteId, {
-			include: Tag,
+			include: [Tag, Notebook],
 		});
 
 		res.json(note);
 	})
 );
 
-router.put(
+router.patch(
 	"/notes/:noteId(\\d+)",
 	requireAuth,
 	asyncHandler(async (req, res) => {
@@ -67,7 +67,7 @@ router.put(
 		await noteToUpdate.save();
 
 		const note = await Note.findByPk(noteId, {
-			include: Tag,
+			include: [Tag, Notebook],
 		});
 
 		res.json(note);
