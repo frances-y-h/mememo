@@ -84,3 +84,7 @@ textarea {
 	resize: none;
 	background-color: transparent;
 }
+
+.cursor {
+	cursor: pointer;
+}

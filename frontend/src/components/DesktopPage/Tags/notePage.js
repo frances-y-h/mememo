@@ -12,12 +12,14 @@ const NotePage = () => {
 	const note = useSelector((state) => state.notes[noteId]);
 	const userId = useSelector((state) => state.session.user.id);
 	const notebooks = Object.values(useSelector((state) => state.notebooks));
+	const tags = Object.values(useSelector((state) => state.tags));
 
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [disableEdit, setDisableEdit] = useState(true);
 	const [notifications, setNotifications] = useState("");
 	const [tagsArr, setTagsArr] = useState([]);
+	const [tagDDList, setTagDDList] = useState([]);
 
 	const moveDD = useRef(null);
 	const modalBg = useRef(null);
@@ -25,6 +27,7 @@ const NotePage = () => {
 	const addTag = useRef(null);
 	const notification = useRef(null);
 	const removeTagIcon = useRef([]);
+	const tagDD = useRef(null);
 
 	const saveTooltip = useRef(null);
 	const editTooltip = useRef(null);
@@ -66,8 +69,8 @@ const NotePage = () => {
 	};
 
 	const removeTag = (tagId) => {
-		const tags = [...tagsArr];
-		const newTagArr = tags.filter((tag) => tag.id != tagId);
+		// const tags = [...tagsArr];
+		const newTagArr = tagsArr.filter((tag) => tag.id != tagId);
 		setTagsArr(newTagArr);
 	};
 
@@ -104,13 +107,27 @@ const NotePage = () => {
 		setTagsArr(note?.Tags);
 	}, [note]);
 
+	useEffect(() => {
+		// tags = array of all tags
+		// update what ever that is not in the tagArry to tagDDList
+		const set = new Set(tagsArr.map((tag) => tag.id));
+		const arr = [];
+		tags.forEach((tag) => {
+			if (!set.has(tag.id)) {
+				arr.push(tag);
+			}
+		});
+		setTagDDList(arr);
+	}, [tagsArr]);
+
 	return (
 		<>
 			<div
-				className="modalBg5 hidden"
+				className="modalBg1 hidden"
 				ref={modalBg}
 				onClick={() => {
 					moveDD?.current.classList.add("hidden");
+					tagDD?.current.classList.add("hidden");
 					modalBg?.current.classList.add("hidden");
 				}}
 			></div>
@@ -229,7 +246,32 @@ const NotePage = () => {
 						</span>
 					</div>
 				))}
-				<i className="fa-solid fa-circle-plus hidden" ref={addTag}></i>
+				<div className="note-tag-dd-wrap">
+					<i
+						className="fa-solid fa-circle-plus hidden"
+						ref={addTag}
+						onClick={() => {
+							tagDD.current.classList.remove("hidden");
+							modalBg?.current.classList.remove("hidden");
+						}}
+					></i>
+					<div className="note-tag-dd hidden" ref={tagDD}>
+						{tagDDList[0] ? (
+							tagDDList?.map((tag) => (
+								<div
+									key={tag.id}
+									className="tag cursor"
+									style={{ backgroundColor: `#${tag.color}` }}
+									onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
+								>
+									{tag.name}
+								</div>
+							))
+						) : (
+							<div>Create more tags</div>
+						)}
+					</div>
+				</div>
 			</div>
 			{/* Notification box */}
 			<div className="notification-div notification-move" ref={notification}>
