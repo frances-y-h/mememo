@@ -67,19 +67,21 @@ router.put(
 		const tagId = parseInt(req.params.tagId, 10);
 		const { name, color } = req.body;
 
-		const tagToUpdate = await Tag.findByPk(tagId, {
-			include: {
-				model: Note,
-				include: Tag,
-			},
-		});
+		const tagToUpdate = await Tag.findByPk(tagId);
 
 		tagToUpdate.name = name;
 		tagToUpdate.color = color;
 
 		await tagToUpdate.save();
 
-		res.json(tagToUpdate);
+		const tag = await Tag.findByPk(tagId, {
+			include: {
+				model: Note,
+				include: Tag,
+			},
+		});
+
+		res.json(tag);
 	})
 );
 

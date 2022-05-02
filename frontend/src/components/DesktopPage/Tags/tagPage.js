@@ -1,10 +1,11 @@
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Redirect, Switch, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef, useEffect, useState } from "react";
 import * as tagsActions from "../../../store/tags";
 import * as notesActions from "../../../store/notes";
 
 import NoteCard from "./noteCard";
+import NotePage from "./notePage";
 
 function TagPage({ title }) {
 	const dispatch = useDispatch();
@@ -59,7 +60,7 @@ function TagPage({ title }) {
 
 		// dispatch action to reducer to create tag in database
 		dispatch(tagsActions.updateTag(id, tagToUpdate));
-
+		// dispatch(notesActions.getAllNotes(userId));
 		modalBg.current.classList.add("hidden");
 	};
 
@@ -152,10 +153,16 @@ function TagPage({ title }) {
 						</div>
 					</div>
 					<div>
-						<NoteCard tag={tag} />
+						<NoteCard tagId={id} />
 					</div>
 				</div>
-				<div className="note-view">Right Side</div>
+				<div className="note-view">
+					<Switch>
+						<Route path="/tags/:tagId/notes/:noteId">
+							<NotePage />
+						</Route>
+					</Switch>
+				</div>
 			</main>
 			{/* Edit Modal */}
 			<div className="modalBg5 hidden" ref={modalBg} onClick={closeModal}>
