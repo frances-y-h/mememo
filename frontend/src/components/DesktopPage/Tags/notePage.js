@@ -2,11 +2,13 @@ import { useParams, Link } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import { useTagModal } from "../../../context/TagModalContext";
 
 import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
 
 const NotePage = () => {
+	const { toggleModal, setToggleModal } = useTagModal();
 	const { tagId, noteId } = useParams();
 	const dispatch = useDispatch();
 	const note = useSelector((state) => state.notes[noteId]);
@@ -256,21 +258,24 @@ const NotePage = () => {
 							modalBg?.current.classList.remove("hidden");
 						}}
 					></i>
-					<div className="note-tag-dd hidden" ref={tagDD}>
-						{tagDDList[0] ? (
-							tagDDList?.map((tag) => (
-								<div
-									key={tag.id}
-									className="tag cursor"
-									style={{ backgroundColor: `#${tag.color}` }}
-									onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
-								>
-									{tag.name}
-								</div>
-							))
-						) : (
-							<div className="note-tag-div">No tags found</div>
-						)}
+					<div
+						className="note-tag-dd hidden"
+						ref={tagDD}
+						onClick={() => setToggleModal("")}
+					>
+						<div className="tag cursor">
+							<i className="fa-solid fa-circle-plus"></i> New Tag
+						</div>
+						{tagDDList?.map((tag) => (
+							<div
+								key={tag.id}
+								className="tag cursor"
+								style={{ backgroundColor: `#${tag.color}` }}
+								onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
+							>
+								{tag.name}
+							</div>
+						))}
 					</div>
 				</div>
 			</div>
