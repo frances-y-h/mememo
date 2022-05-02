@@ -4,12 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 import * as notesActions from "../../../store/notes";
+import * as trashActions from "../../../store/trash";
 
 const NotePage = () => {
 	const { tagId, noteId } = useParams();
 	const dispatch = useDispatch();
 	const note = useSelector((state) => state.notes[noteId]);
-	// const userId = useSelector((state) => state.session.user.id);
+	const userId = useSelector((state) => state.session.user.id);
 	const notebooks = Object.values(useSelector((state) => state.notebooks));
 
 	const [title, setTitle] = useState("");
@@ -39,7 +40,7 @@ const NotePage = () => {
 
 	const saveNote = () => {
 		const notebookId = note.notebookId;
-		const noteToUpdate = { title, content, notebookId };
+		const noteToUpdate = { title, content, notebookId, trash: false };
 
 		// get tags as an array
 		dispatch(notesActions.editNote(noteId, noteToUpdate));
@@ -55,7 +56,7 @@ const NotePage = () => {
 	};
 
 	const moveToNotebook = (notebookId) => {
-		const note = { notebookId };
+		const note = { notebookId, trash: false };
 		dispatch(notesActions.editNote(noteId, note));
 
 		moveDD?.current.classList.add("hidden");
@@ -67,9 +68,15 @@ const NotePage = () => {
 		}, 2000);
 	};
 
+	const moveToTrash = () => {
+		const note = { trash: true };
+		dispatch(notesActions.trashNote(noteId, note));
+		dispatch(trashActions.getAllTrash(userId));
+	};
+
 	useEffect(() => {
-		setTitle(note.title);
-		setContent(note.content);
+		setTitle(note?.title);
+		setContent(note?.content);
 	}, [note?.title, note?.content]);
 
 	return (
@@ -148,7 +155,7 @@ const NotePage = () => {
 							deleteTooltip?.current.classList.toggle("hidden")
 						}
 					>
-						<i className="fa-solid fa-trash-can"></i>
+						<i className="fa-solid fa-trash-can" onClick={moveToTrash}></i>
 						<span className="icon-tooltiptext hidden" ref={deleteTooltip}>
 							Delete
 						</span>

@@ -7,7 +7,7 @@ const { User, Notebook, Note, Tag } = require("../../db/models");
 
 const router = express.Router();
 
-// Get all notes for user
+// Get all not trashed notes for user
 router.get(
 	"/:userId(\\d+)/notes",
 	requireAuth,
@@ -48,7 +48,7 @@ router.patch(
 	requireAuth,
 	asyncHandler(async (req, res) => {
 		const noteId = parseInt(req.params.noteId, 10);
-		const { title, content, notebookId } = req.body;
+		const { title, content, notebookId, trash } = req.body;
 
 		const noteToUpdate = await Note.findByPk(noteId);
 
@@ -62,6 +62,10 @@ router.patch(
 
 		if (notebookId) {
 			noteToUpdate.notebookId = notebookId;
+		}
+
+		if (trash) {
+			noteToUpdate.trash = trash;
 		}
 
 		await noteToUpdate.save();

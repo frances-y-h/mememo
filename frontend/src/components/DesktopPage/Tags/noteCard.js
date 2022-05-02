@@ -5,7 +5,21 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 const NoteCard = ({ tagId }) => {
 	const tag = useSelector((state) => state.tags[tagId]);
 
-	const notes = tag?.Notes;
+	const notes = useSelector((state) => {
+		const notesArr = [];
+		Object.values(state.notes).forEach((note) => {
+			if (note?.trash === false) {
+				note.Tags.forEach((tag) => {
+					// TagId is a string
+					if (tag.id == tagId) {
+						notesArr.push(note);
+					}
+				});
+			}
+		});
+
+		return notesArr;
+	});
 
 	if (notes && notes[0]) {
 		return notes.map((note) => (

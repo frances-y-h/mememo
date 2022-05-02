@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 // Action
 const GET_ALL_NOTES = "notes/GET_ALL_NOTES";
 const ADD_UPDATE_NOTE = "notes/ADD_UPDATE_NOTE";
+const TRASH_NOTE = "notes/TRASH_NOTE";
 
 // Action creator
 const getNotes = (notes) => {
@@ -15,6 +16,13 @@ const getNotes = (notes) => {
 const addUpdateNote = (note) => {
 	return {
 		type: ADD_UPDATE_NOTE,
+		note,
+	};
+};
+
+const trashedNote = (note) => {
+	return {
+		type: TRASH_NOTE,
 		note,
 	};
 };
@@ -37,6 +45,16 @@ export const editNote = (noteId, note) => async (dispatch) => {
 	return response;
 };
 
+export const trashNote = (noteId, note) => async (dispatch) => {
+	const response = await csrfFetch(`/api/notes/${noteId}`, {
+		method: "PATCH",
+		body: JSON.stringify(note),
+	});
+	const data = await response.json();
+	dispatch(trashedNote(data));
+	return response;
+};
+
 // Reducer
 const initialState = { notes: null };
 
@@ -52,6 +70,10 @@ const noteReducer = (state = initialState, action) => {
 		case ADD_UPDATE_NOTE:
 			newState = { ...state };
 			newState[action.note.id] = action.note;
+			return newState;
+		case TRASH_NOTE:
+			newState = { ...state };
+			delete newState[action.note.id];
 			return newState;
 		default:
 			return state;
