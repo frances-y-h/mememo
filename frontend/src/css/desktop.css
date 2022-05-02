@@ -96,6 +96,7 @@ main {
 	-webkit-overflow-scrolling: touch;
 	white-space: nowrap;
 	background-color: white;
+	min-height: 200px;
 }
 
 /* Note cards */

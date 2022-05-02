@@ -13,6 +13,7 @@
 @import url("./css/desktop.css");
 @import url("./css/desktop.css");
 @import url("./css/noteTemplate.css");
+@import url("./css/notification.css");
 
 :root {
 	/* color-scheme: light dark; */
@@ -71,4 +72,19 @@ a {
 
 .active {
 	border: 1px solid black;
+}
+
+input:focus,
+textarea:focus {
+	outline-style: none;
+}
+
+input,
+textarea {
+	resize: none;
+	background-color: transparent;
+}
+
+.cursor {
+	cursor: pointer;
 }

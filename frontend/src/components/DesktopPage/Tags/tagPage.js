@@ -50,7 +50,7 @@ function TagPage({ title }) {
 		modalBg.current?.classList.remove("hidden");
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		const tagToUpdate = {
@@ -59,8 +59,8 @@ function TagPage({ title }) {
 		};
 
 		// dispatch action to reducer to create tag in database
-		dispatch(tagsActions.updateTag(id, tagToUpdate));
-		// dispatch(notesActions.getAllNotes(userId));
+		await dispatch(tagsActions.updateTag(id, tagToUpdate));
+		await dispatch(notesActions.getAllNotes(userId));
 		modalBg.current.classList.add("hidden");
 	};
 
@@ -75,12 +75,12 @@ function TagPage({ title }) {
 	};
 
 	// Delete tags
-	const handleDelete = (e) => {
+	const handleDelete = async (e) => {
 		e.preventDefault();
 
-		dispatch(tagsActions.deleteOldTag(tag.id));
+		await dispatch(tagsActions.deleteOldTag(tag.id));
 		// need to make sure notes tag info updated
-		dispatch(notesActions.getAllNotes(userId));
+		await dispatch(notesActions.getAllNotes(userId));
 		modalBg.current.classList.add("hidden");
 		<Redirect to="/tags" />;
 	};
@@ -165,7 +165,7 @@ function TagPage({ title }) {
 				</div>
 			</main>
 			{/* Edit Modal */}
-			<div className="modalBg5 hidden" ref={modalBg} onClick={closeModal}>
+			<div className="modalBgTag hidden" ref={modalBg} onClick={closeModal}>
 				<form
 					className="form-control"
 					onSubmit={handleSubmit}

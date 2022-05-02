@@ -6,7 +6,7 @@ import * as sessionActions from "../../store/session";
 const Navigation = () => {
 	const dispatch = useDispatch();
 
-	const navBar = useRef();
+	const navBar = useRef(null);
 
 	const demoLogin = () => {
 		return dispatch(
