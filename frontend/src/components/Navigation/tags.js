@@ -32,7 +32,7 @@ const Tags = () => {
 		modalBg.current.classList.remove("hidden");
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		const tag = {
@@ -41,7 +41,7 @@ const Tags = () => {
 		};
 
 		// dispatch action to reducer to create tag in database
-		dispatch(tagsActions.addNewTag(user.id, tag));
+		await dispatch(tagsActions.addNewTag(user.id, tag));
 
 		// if created, close modal, clear fields, and tag dropdown open so new tag showing
 		setName("");

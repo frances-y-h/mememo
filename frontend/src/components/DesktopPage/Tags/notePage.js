@@ -38,12 +38,12 @@ const NotePage = () => {
 		addTag?.current.classList.remove("hidden");
 	};
 
-	const saveNote = () => {
+	const saveNote = async () => {
 		const notebookId = note.notebookId;
 		const noteToUpdate = { title, content, notebookId, trash: false };
 
 		// get tags as an array
-		dispatch(notesActions.editNote(noteId, noteToUpdate));
+		await dispatch(notesActions.editNote(noteId, noteToUpdate));
 
 		setDisableEdit(true);
 		saveBtn?.current.classList.add("hidden");
@@ -55,9 +55,9 @@ const NotePage = () => {
 		}, 2000);
 	};
 
-	const moveToNotebook = (notebookId) => {
+	const moveToNotebook = async (notebookId) => {
 		const note = { notebookId, trash: false };
-		dispatch(notesActions.editNote(noteId, note));
+		await dispatch(notesActions.editNote(noteId, note));
 
 		moveDD?.current.classList.add("hidden");
 		modalBg?.current.classList.add("hidden");
@@ -68,10 +68,10 @@ const NotePage = () => {
 		}, 2000);
 	};
 
-	const moveToTrash = () => {
+	const moveToTrash = async () => {
 		const note = { trash: true };
-		dispatch(notesActions.trashNote(noteId, note));
-		dispatch(trashActions.getAllTrash(userId));
+		await dispatch(notesActions.trashNote(noteId, note));
+		await dispatch(trashActions.getAllTrash(userId));
 	};
 
 	useEffect(() => {
