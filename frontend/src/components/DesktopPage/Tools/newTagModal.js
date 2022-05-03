@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useTagModal } from "../../context/TagModalContext";
+import { useTagModal } from "../../../context/TagModalContext";
 
-import * as tagsActions from "../../store/tags";
+import * as tagsActions from "../../../store/tags";
 
 const NewTagModal = () => {
 	const { toggleModal, setToggleModal } = useTagModal();
 	const dispatch = useDispatch();
 
 	const tags = useSelector((state) => state.tags);
-	const user = useSelector((state) => state.session.user);
 	const [disable, setDisable] = useState(true);
 	const [tagErr, setTagErr] = useState("");
 	const [name, setName] = useState("");
@@ -27,7 +26,7 @@ const NewTagModal = () => {
 		};
 
 		// dispatch action to reducer to create tag in database
-		await dispatch(tagsActions.addNewTag(user.id, tag));
+		await dispatch(tagsActions.addNewTag(tag));
 
 		// if created, close modal, clear fields, and tag dropdown open so new tag showing
 		setName("");

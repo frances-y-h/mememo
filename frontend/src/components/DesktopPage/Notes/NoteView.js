@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useTagModal } from "../../../context/TagModalContext";
 import { useNotification } from "../../../context/NotificationContext";
+import { useDisableEdit } from "../../../context/DisableEditContext";
 
 import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
@@ -13,21 +14,21 @@ const NoteView = () => {
 	const { noteId } = useParams();
 	const dispatch = useDispatch();
 	const history = useHistory();
+
 	const notes = useSelector((state) => state.notes);
 	const notesOrdered = Object.values(notes).sort(
 		(a, b) => b.updatedAt - a.updatedAt
 	);
-	const userId = useSelector((state) => state.session.user.id);
+	let note = useSelector((state) => state.notes[noteId]);
 	const notebooks = useSelector((state) => state.notebooks);
 	const tags = useSelector((state) => state.tags);
+
 	const { setToggleNotification, setNotificationMsg } = useNotification();
 	const { setToggleModal } = useTagModal();
-
-	let note = useSelector((state) => state.notes[noteId]);
+	const { disableEdit, setDisableEdit } = useDisableEdit();
 
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
-	const [disableEdit, setDisableEdit] = useState(true);
 	const [tagsArr, setTagsArr] = useState([]);
 	const [tagDDList, setTagDDList] = useState([]);
 
@@ -50,22 +51,32 @@ const NoteView = () => {
 			notebookId: Object.keys(notebooks)[0],
 			trash: false,
 			Tags: [],
+			// updatedAt: new Date(),
 		};
 	}
 
 	const openDD = () => {
-		moveDD?.current.classList.remove("hidden");
-		modalBg?.current.classList.remove("hidden");
+		moveDD.current.classList.remove("hidden");
+		modalBg.current.classList.remove("hidden");
 	};
 
 	const editNote = () => {
-		setDisableEdit(false);
-		saveBtn?.current.classList.remove("hidden");
-		addTag?.current.classList.remove("hidden");
+		if (disableEdit) {
+			setDisableEdit(false);
+			// saveBtn.current.classList.remove("hidden");
+			// addTag.current.classList.remove("hidden");
 
-		removeTagIcon.current.forEach((span) => {
-			span?.classList.remove("hidden");
-		});
+			// removeTagIcon.current.forEach((span) => {
+			// 	span?.classList.remove("hidden");
+			// });
+			setNotificationMsg("Start adding something!");
+			setToggleNotification("");
+
+			setTimeout(() => {
+				setToggleNotification("notification-move");
+			}, 2000);
+			return;
+		}
 	};
 
 	const saveNote = async () => {
@@ -109,7 +120,7 @@ const NoteView = () => {
 			saveBtn?.current.classList.add("hidden");
 			addTag?.current.classList.add("hidden");
 			removeTagIcon.current.forEach((span) => {
-				span?.classList.add("hidden");
+				span.classList.add("hidden");
 			});
 			setToggleNotification("");
 
@@ -126,19 +137,27 @@ const NoteView = () => {
 
 	const moveToNotebook = async (notebookId) => {
 		if (noteId !== "new") {
-			const note = { notebookId, trash: false };
+			const note = {
+				title,
+				content,
+				notebookId,
+				trash: false,
+				tagsArr,
+			};
+			console.log("notebookId", notebookId);
+			// const note = { notebookId, trash: false };
 			await dispatch(notesActions.editNote(noteId, note));
 			setNotificationMsg("Moved to Notebook");
-			moveDD?.current.classList.add("hidden");
-			modalBg?.current.classList.add("hidden");
+			moveDD.current.classList.add("hidden");
+			modalBg.current.classList.add("hidden");
 			setToggleNotification("");
 
 			setTimeout(() => {
 				setToggleNotification("notification-move");
 			}, 2000);
 		} else {
-			moveDD?.current.classList.add("hidden");
-			modalBg?.current.classList.add("hidden");
+			moveDD.current.classList.add("hidden");
+			modalBg.current.classList.add("hidden");
 			setNotificationMsg("Plase save note first");
 			setToggleNotification("");
 
@@ -150,7 +169,11 @@ const NoteView = () => {
 
 	const moveToTrash = async () => {
 		if (noteId !== "new") {
-			const note = { trash: true };
+			const note = {
+				title,
+				trash: true,
+			};
+			console.log("click");
 			await dispatch(notesActions.trashNote(noteId, note));
 			await dispatch(trashActions.getAllTrash());
 			setNotificationMsg("Moved to Trash");
@@ -161,6 +184,7 @@ const NoteView = () => {
 				setTitle("");
 				setContent("");
 			}, 2000);
+			history.push("/notes");
 		} else {
 			setNotificationMsg("Plase save note first");
 			setToggleNotification("");
@@ -171,6 +195,12 @@ const NoteView = () => {
 		}
 	};
 
+	const moveNotebookDD = () => {
+		moveDD.current.classList.add("hidden");
+		tagDD.current.classList.add("hidden");
+		modalBg.current.classList.add("hidden");
+	};
+
 	useEffect(() => {
 		setTitle(note?.title);
 		setContent(note?.content);
@@ -178,7 +208,7 @@ const NoteView = () => {
 	}, [noteId]);
 
 	useEffect(() => {
-		// get turn tagsArr (what tags the note currently has) in to set
+		// turn tagsArr (what tags the note currently has) in to set
 		const set = new Set(tagsArr?.map((tag) => tag.id));
 		const arr = [];
 		// tags = array of all tags from useSelector
@@ -191,9 +221,20 @@ const NoteView = () => {
 		setTagDDList(arr);
 	}, [tagsArr, tags]);
 
-	// if (notes && !noteId) {
-	// 	return <Redirect to={`/notes/${notesOrdered[0]?.id}`} />;
-	// }
+	useEffect(() => {
+		if (!disableEdit) {
+			saveBtn.current.classList.remove("hidden");
+			addTag.current.classList.remove("hidden");
+
+			removeTagIcon.current.forEach((span) => {
+				span?.classList.remove("hidden");
+			});
+		}
+	}, [disableEdit]);
+
+	if (notes && !noteId) {
+		return <Redirect to={`/notes/${notesOrdered[0]?.id}`} />;
+	}
 
 	if (notes) {
 		return (
@@ -201,16 +242,12 @@ const NoteView = () => {
 				<div
 					className="modalBg1 hidden"
 					ref={modalBg}
-					onClick={() => {
-						moveDD?.current.classList.add("hidden");
-						tagDD?.current.classList.add("hidden");
-						modalBg?.current.classList.add("hidden");
-					}}
+					onClick={moveNotebookDD}
 				></div>
 				<div className="note-view-notebook-wrap">
 					<div className="pad5">
 						<Link
-							to={`/notebook/${note.notebookId}`}
+							to={`/notebooks/${note.notebookId}`}
 							className="note-view-notebook"
 						>
 							<i className="fa-solid fa-book"></i>
@@ -285,8 +322,7 @@ const NoteView = () => {
 					</div>
 				</div>
 				<div className="note-view-update">
-					{/* {noteId ? (Last edited {note && formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y")}
-					ago) : new note} */}
+					{/* {formatDistanceToNow(parseISO(note?.updatedAt))} ago */}
 				</div>
 				<div onClick={editNote}>
 					<input
@@ -294,7 +330,7 @@ const NoteView = () => {
 						value={title}
 						className="note-view-title"
 						disabled={disableEdit}
-						placeholder="Title"
+						placeholder="New Title"
 						onChange={(e) => setTitle(e.target.value)}
 					/>
 				</div>

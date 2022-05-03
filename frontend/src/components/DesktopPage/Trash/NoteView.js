@@ -17,7 +17,7 @@ const NoteView = () => {
 		const ago = formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y");
 
 		const putBack = async () => {
-			const putBack = { trash: false };
+			const putBack = { title: note.title, trash: false };
 			await dispatch(notesActions.trashNote(noteId, putBack));
 			dispatch(trashActions.putBack(noteId));
 			dispatch(notesActions.putBack(note));

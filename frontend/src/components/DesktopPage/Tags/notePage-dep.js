@@ -136,7 +136,7 @@ const NotePage = () => {
 				<div className="note-view-notebook-wrap">
 					<div className="pad5">
 						<Link
-							to={`/notebook/${note?.Notebook?.id}`}
+							to={`/notebooks/${note?.Notebook?.id}`}
 							className="note-view-notebook"
 						>
 							<i className="fa-solid fa-book"></i>

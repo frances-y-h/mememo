@@ -5,7 +5,7 @@ import * as tagsActions from "../../../store/tags";
 import * as notesActions from "../../../store/notes";
 
 import NoteCard from "./noteCard";
-import NotePage from "./notePage";
+import NoteView from "../Notes/NoteView";
 
 function TagPage({ title }) {
 	const dispatch = useDispatch();
@@ -146,13 +146,11 @@ function TagPage({ title }) {
 						<NoteCard tagId={id} />
 					</div>
 				</div>
-				<div className="note-view">
-					<Switch>
-						<Route path="/tags/:tagId/notes/:noteId">
-							<NotePage />
-						</Route>
-					</Switch>
-				</div>
+				<Switch>
+					<Route path="/tags/:tagId/notes/:noteId">
+						<NoteView />
+					</Route>
+				</Switch>
 			</main>
 			{/* Edit Modal */}
 			<div className="modalBgTag hidden" ref={modalBg} onClick={closeModal}>

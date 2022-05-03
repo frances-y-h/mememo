@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-const NotebookPage = () => {
+const NotebooksPage = () => {
 	const notebooks = useSelector((state) => state.notebooks);
 
 	return (
@@ -14,4 +14,4 @@ const NotebookPage = () => {
 	);
 };
 
-export default NotebookPage;
+export default NotebooksPage;
