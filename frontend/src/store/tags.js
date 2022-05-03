@@ -28,15 +28,15 @@ const deleteTag = (tagId) => {
 };
 
 // Thunks
-export const getAllTags = (userId) => async (dispatch) => {
-	const response = await csrfFetch(`/api/${userId}/tags`);
+export const getAllTags = () => async (dispatch) => {
+	const response = await csrfFetch(`/api/tags`);
 	const data = await response.json();
 	dispatch(getTags(data));
 	return response;
 };
 
-export const addNewTag = (userId, tag) => async (dispatch) => {
-	const response = await csrfFetch(`/api/${userId}/tags`, {
+export const addNewTag = (tag) => async (dispatch) => {
+	const response = await csrfFetch(`/api/tags`, {
 		method: "POST",
 		body: JSON.stringify(tag),
 	});

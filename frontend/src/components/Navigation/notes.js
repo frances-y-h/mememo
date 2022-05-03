@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const Notes = () => {
 	const history = useHistory();
 
-	const notes = Object.values(useSelector((state) => state.notes));
+	const notes = useSelector((state) => state.notes);
 
 	const [showNotes, setShowNotes] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -55,7 +55,13 @@ const Notes = () => {
 					onMouseEnter={() => setShowTooltip(true)}
 					onMouseLeave={() => setShowTooltip(false)}
 				>
-					<i className="fa-solid fa-circle-plus nav-add"></i>
+					<i
+						className="fa-solid fa-circle-plus nav-add"
+						onClick={(e) => {
+							e.stopPropagation();
+							history.push("/notes/new");
+						}}
+					></i>
 					<span className="navTooltiptext hidden" ref={tooltip}>
 						New Note
 					</span>
@@ -63,18 +69,22 @@ const Notes = () => {
 			</div>
 			{/* notes dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notesDDDiv}>
-				{notes[0] &&
-					notes.map((note) => (
-						<div className="nav-dd-div" key={note.id}>
-							<i className="fa-regular fa-file-lines"></i>
-							<div className="nav-dd-title">{note.title}</div>
-						</div>
+				{Object.values(notes)[0] &&
+					Object.values(notes).map((note) => (
+						<Link to={`/notes/${note?.id}`}>
+							<div className="nav-dd-div" key={note?.id}>
+								<i className="fa-regular fa-file-lines"></i>
+								<div className="nav-dd-title">{note?.title}</div>
+							</div>
+						</Link>
 					))}
-				<div className="nav-dd-div nav-new">
-					<i className="fa-regular fa-plus"></i>
-					<i className="fa-regular fa-file-lines"></i>
-					<div className="nav-dd-title">New Note</div>
-				</div>
+				<Link to="/notes/new">
+					<div className="nav-dd-div nav-new">
+						<i className="fa-regular fa-plus"></i>
+						<i className="fa-regular fa-file-lines"></i>
+						<div className="nav-dd-title">New Note</div>
+					</div>
+				</Link>
 			</div>
 		</>
 	);

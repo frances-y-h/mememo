@@ -80,7 +80,7 @@ const NoteView = () => {
 
 			setTimeout(() => {
 				setToggleNotification("notification-move");
-			}, 2000);
+			}, 4000);
 			return;
 		}
 
@@ -191,9 +191,9 @@ const NoteView = () => {
 		setTagDDList(arr);
 	}, [tagsArr, tags]);
 
-	if (notes && !noteId) {
-		return <Redirect to={`/notes/${notesOrdered[0].id}`} />;
-	}
+	// if (notes && !noteId) {
+	// 	return <Redirect to={`/notes/${notesOrdered[0]?.id}`} />;
+	// }
 
 	if (notes) {
 		return (
@@ -214,7 +214,7 @@ const NoteView = () => {
 							className="note-view-notebook"
 						>
 							<i className="fa-solid fa-book"></i>
-							{notebooks[note.notebookId].name}
+							{notebooks[note.notebookId]?.name}
 						</Link>
 						<div className="notebook-move-dd-wrap">
 							<div className="note-view-notebook-move" onClick={openDD}>
@@ -344,7 +344,7 @@ const NoteView = () => {
 							</div>
 							{tagDDList?.map((tag) => (
 								<div
-									key={tag.id}
+									key={tag?.id}
 									className="tag cursor"
 									style={{ backgroundColor: `#${tag?.color}` }}
 									onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
