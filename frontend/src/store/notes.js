@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_NOTES = "notes/GET_ALL_NOTES";
 const ADD_UPDATE_NOTE = "notes/ADD_UPDATE_NOTE";
 const TRASH_NOTE = "notes/TRASH_NOTE";
+const PUT_BACK = "notes/PUT_BACK";
 
 // Action creator
 const getNotes = (notes) => {
@@ -27,12 +28,29 @@ const trashedNote = (note) => {
 	};
 };
 
+export const putBack = (note) => {
+	return {
+		type: PUT_BACK,
+		note,
+	};
+};
+
 // Thunks
-export const getAllNotes = (userId) => async (dispatch) => {
-	const response = await csrfFetch(`/api/${userId}/notes`);
+export const getAllNotes = () => async (dispatch) => {
+	const response = await csrfFetch(`/api/notes`);
 	const data = await response.json();
 	dispatch(getNotes(data));
 	return response;
+};
+
+export const addNewNote = (newNote) => async (dispatch) => {
+	const response = await csrfFetch("/api/notes/new", {
+		method: "POST",
+		body: JSON.stringify(newNote),
+	});
+	const data = await response.json();
+	dispatch(addUpdateNote(data));
+	return data.id;
 };
 
 export const editNote = (noteId, note) => async (dispatch) => {
@@ -74,6 +92,11 @@ const noteReducer = (state = initialState, action) => {
 		case TRASH_NOTE:
 			newState = { ...state };
 			delete newState[action.note.id];
+			return newState;
+		case PUT_BACK:
+			newState = { ...state };
+			newState[action.note.id] = action.note;
+			newState[action.note.id].trash = false;
 			return newState;
 		default:
 			return state;

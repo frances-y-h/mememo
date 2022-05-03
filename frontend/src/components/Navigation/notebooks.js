@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const Notebooks = () => {
 	const history = useHistory();
 
-	const notebooks = Object.values(useSelector((state) => state.notebooks));
+	const notebooks = useSelector((state) => state.notebooks);
 
 	const [showNotebooks, setShowNotebooks] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -64,12 +64,14 @@ const Notebooks = () => {
 			</div>
 			{/* Notebook dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notebooksDDDiv}>
-				{notebooks[0] &&
-					notebooks.map((notebook) => (
-						<div className="nav-dd-div" key={notebook.id}>
-							<i className="fa-solid fa-book"></i>
-							<div className="nav-dd-title">{notebook.name}</div>
-						</div>
+				{Object.values(notebooks)[0] &&
+					Object.values(notebooks).map((notebook) => (
+						<Link key={notebook.id} to={`/notebooks/${notebook.id}`}>
+							<div className="nav-dd-div">
+								<i className="fa-solid fa-book"></i>
+								<div className="nav-dd-title">{notebook.name}</div>
+							</div>
+						</Link>
 					))}
 				<div className="nav-dd-div nav-new">
 					<i className="fa-regular fa-plus"></i>

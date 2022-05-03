@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTagModal } from "../../context/TagModalContext";
 
-import NewTagModal from "./newTagModal";
+import NewTagModal from "../DesktopPage/Tools/newTagModal";
 
 const Tags = () => {
 	const { setToggleModal } = useTagModal();

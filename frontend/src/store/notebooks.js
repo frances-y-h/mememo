@@ -11,8 +11,8 @@ const getNotebooks = (notebooks) => {
 };
 
 // Thunks
-export const getAllNotebooks = (userId) => async (dispatch) => {
-	const response = await csrfFetch(`/api/${userId}/notebooks`);
+export const getAllNotebooks = () => async (dispatch) => {
+	const response = await csrfFetch(`/api/notebooks`);
 	const data = await response.json();
 	// Get an array of notebooks from backend
 	dispatch(getNotebooks(data));

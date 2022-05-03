@@ -5,14 +5,14 @@ import * as tagsActions from "../../../store/tags";
 import * as notesActions from "../../../store/notes";
 
 import NoteCard from "./noteCard";
-import NotePage from "./notePage";
+import NoteView from "../Notes/NoteView";
 
 function TagPage({ title }) {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	const tags = Object.values(useSelector((state) => state.tags));
 	const tag = useSelector((state) => state.tags[id]);
-	const userId = useSelector((state) => state.session.user.id);
+	// const userId = useSelector((state) => state.session.user.id);
 
 	const [disable, setDisable] = useState(true);
 	const [tagErr, setTagErr] = useState("");
@@ -25,21 +25,14 @@ function TagPage({ title }) {
 	const tagEl = useRef();
 	const deleteBtn = useRef();
 
-	let count = null;
-	let icon = "";
+	let count = (
+		<div className="tag" style={{ backgroundColor: `#${tag?.color}` }}>
+			{tag?.name}
+		</div>
+	);
+	let icon = <i className="fa-solid fa-tag"></i>;
 
-	if (title === "Tag" && tag) {
-		count = (
-			<div className="tag" style={{ backgroundColor: `#${tag?.color}` }}>
-				{tag?.name}
-			</div>
-		);
-		icon = <i className="fa-solid fa-tag"></i>;
-	} else if (title === "Tags") {
-		count = `${tags?.length} tags`;
-		icon = <i className="fa-solid fa-tags"></i>;
-	}
-
+	// Modal for edit tags
 	const closeModal = () => {
 		modalBg.current?.classList.add("hidden");
 		setName(tag?.name);
@@ -60,7 +53,7 @@ function TagPage({ title }) {
 
 		// dispatch action to reducer to create tag in database
 		await dispatch(tagsActions.updateTag(id, tagToUpdate));
-		await dispatch(notesActions.getAllNotes(userId));
+		await dispatch(notesActions.getAllNotes());
 		modalBg.current.classList.add("hidden");
 	};
 
@@ -80,7 +73,7 @@ function TagPage({ title }) {
 
 		await dispatch(tagsActions.deleteOldTag(tag.id));
 		// need to make sure notes tag info updated
-		await dispatch(notesActions.getAllNotes(userId));
+		await dispatch(notesActions.getAllNotes());
 		modalBg.current.classList.add("hidden");
 		<Redirect to="/tags" />;
 	};
@@ -147,22 +140,17 @@ function TagPage({ title }) {
 						</div>
 						<div className="note-title-ctrl">
 							<div className="note-title-ctrl-count">{count}</div>
-							<div className="note-title-ctrl-ctrls">
-								{/* <i className="fa-solid fa-arrow-down-wide-short"></i> */}
-							</div>
 						</div>
 					</div>
 					<div>
 						<NoteCard tagId={id} />
 					</div>
 				</div>
-				<div className="note-view">
-					<Switch>
-						<Route path="/tags/:tagId/notes/:noteId">
-							<NotePage />
-						</Route>
-					</Switch>
-				</div>
+				<Switch>
+					<Route path="/tags/:tagId/notes/:noteId">
+						<NoteView />
+					</Route>
+				</Switch>
 			</main>
 			{/* Edit Modal */}
 			<div className="modalBgTag hidden" ref={modalBg} onClick={closeModal}>

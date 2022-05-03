@@ -1,11 +1,14 @@
-import { useSelector } from "react-redux";
+import { Route } from "react-router-dom";
 
+import SideBar from "./SideBar";
+import NoteView from "./NoteView";
 const TrashPage = () => {
-	const trash = Object.values(useSelector((state) => state.trash));
 	return (
-		<main>
-			<h1>Trash Page</h1>
-			{trash[0] && trash.map((el) => <div key={el.id}>{el.title}</div>)}
+		<main className="note-control">
+			<SideBar />
+			<Route path="/trash/:noteId">
+				<NoteView />
+			</Route>
 		</main>
 	);
 };

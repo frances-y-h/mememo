@@ -31,6 +31,7 @@ function App() {
 					path={[
 						"/desktop",
 						"/notes",
+						"/notes/:noteId",
 						"/notebooks",
 						"/tags",
 						"/tags/:tagId",
