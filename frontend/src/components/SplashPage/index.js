@@ -33,7 +33,7 @@ const SplashPage = () => {
 					</NavLink>
 				</div>
 				<div className="splash-example-wrap">
-					<img className="laptop" src="/images/laptop.jpg" alt="laptop" />
+					<img className="laptop" src="/images/laptop2.jpg" alt="laptop" />
 					<div className="splash-example-right">
 						<div className="splash-example-div">
 							<div className="splash-example-title">WORK ANYWHERE</div>
