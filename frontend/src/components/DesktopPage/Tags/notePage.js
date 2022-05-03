@@ -13,7 +13,6 @@ const NotePage = () => {
 	const { noteId } = useParams();
 	const dispatch = useDispatch();
 	const note = useSelector((state) => state.notes[noteId]);
-	const userId = useSelector((state) => state.session.user.id);
 	const notebooks = Object.values(useSelector((state) => state.notebooks));
 	const tags = useSelector((state) => state.tags);
 	const { setToggleNotification, setNotificationMsg } = useNotification();
@@ -91,7 +90,7 @@ const NotePage = () => {
 	const moveToTrash = async () => {
 		const note = { trash: true };
 		await dispatch(notesActions.trashNote(noteId, note));
-		await dispatch(trashActions.getAllTrash(userId));
+		await dispatch(trashActions.getAllTrash());
 		setNotificationMsg("Moved to Trash");
 		setToggleNotification("");
 

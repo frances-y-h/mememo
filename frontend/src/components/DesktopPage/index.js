@@ -28,10 +28,10 @@ const DesktopPage = () => {
 	// useEffect to get all notebooks
 	useEffect(() => {
 		if (sessionUser) {
-			dispatch(notebooksActions.getAllNotebooks(sessionUser.id));
-			dispatch(notesActions.getAllNotes(sessionUser.id));
-			dispatch(tagsActions.getAllTags(sessionUser.id));
-			dispatch(trashActions.getAllTrash(sessionUser.id));
+			dispatch(notebooksActions.getAllNotebooks());
+			dispatch(notesActions.getAllNotes());
+			dispatch(tagsActions.getAllTags());
+			dispatch(trashActions.getAllTrash());
 		}
 	}, [sessionUser, dispatch]);
 

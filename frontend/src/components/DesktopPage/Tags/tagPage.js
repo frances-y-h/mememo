@@ -12,7 +12,7 @@ function TagPage({ title }) {
 	const { id } = useParams();
 	const tags = Object.values(useSelector((state) => state.tags));
 	const tag = useSelector((state) => state.tags[id]);
-	const userId = useSelector((state) => state.session.user.id);
+	// const userId = useSelector((state) => state.session.user.id);
 
 	const [disable, setDisable] = useState(true);
 	const [tagErr, setTagErr] = useState("");
@@ -53,7 +53,7 @@ function TagPage({ title }) {
 
 		// dispatch action to reducer to create tag in database
 		await dispatch(tagsActions.updateTag(id, tagToUpdate));
-		await dispatch(notesActions.getAllNotes(userId));
+		await dispatch(notesActions.getAllNotes());
 		modalBg.current.classList.add("hidden");
 	};
 
@@ -73,7 +73,7 @@ function TagPage({ title }) {
 
 		await dispatch(tagsActions.deleteOldTag(tag.id));
 		// need to make sure notes tag info updated
-		await dispatch(notesActions.getAllNotes(userId));
+		await dispatch(notesActions.getAllNotes());
 		modalBg.current.classList.add("hidden");
 		<Redirect to="/tags" />;
 	};

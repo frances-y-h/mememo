@@ -9,7 +9,6 @@ const Modal = () => {
 	const { setToggleNotification, setNotificationMsg } = useNotification();
 	const dispatch = useDispatch();
 	const trash = useSelector((state) => state.trash);
-	const userId = useSelector((state) => state.session.user.id);
 
 	const emptyTrash = async () => {
 		const trashIdArr = Object.keys(trash);

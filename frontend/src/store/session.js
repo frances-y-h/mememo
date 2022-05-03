@@ -75,9 +75,9 @@ export const logoutUser = () => async (dispatch) => {
 };
 
 // ScratchPad Thunks
-export const updateScratchPad = (userId, pad) => async (dispatch) => {
+export const updateScratchPad = (pad) => async (dispatch) => {
 	const body = JSON.stringify(pad);
-	const response = await csrfFetch(`/api/${userId}/scratchpad`, {
+	const response = await csrfFetch(`/api/scratchpad`, {
 		method: "PUT",
 		body,
 	});

@@ -9,7 +9,7 @@ const ScratchPad = () => {
 	const autoSave = useRef();
 
 	useEffect(() => {
-		dispatch(sessionActions.updateScratchPad(user.id, { scratchPad: pad }));
+		dispatch(sessionActions.updateScratchPad({ scratchPad: pad }));
 		autoSave.current.classList.remove("pad-save-hidden");
 		setTimeout(() => {
 			autoSave.current.classList.add("pad-save-hidden");
