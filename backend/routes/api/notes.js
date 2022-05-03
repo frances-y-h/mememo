@@ -7,12 +7,20 @@ const { User, Notebook, Note, Tag, JoinNoteTag } = require("../../db/models");
 
 const router = express.Router();
 
+const validateNotes = [
+	check("title")
+		.exists({ checkFalsy: true })
+		.isLength({ min: 1, max: 255 })
+		.withMessage("Title must be between 1 and 255 characters long"),
+	handleValidationErrors,
+];
+
 // Get all not trashed notes for user
 router.get(
-	"/:userId(\\d+)/notes",
+	"/",
 	requireAuth,
 	asyncHandler(async (req, res, next) => {
-		const userId = parseInt(req.params.userId, 10);
+		const userId = req.user.id;
 		const notes = await Note.findAll({
 			include: [
 				{
@@ -31,7 +39,7 @@ router.get(
 
 // Get note based on note id
 router.get(
-	"/notes/:noteId(\\d+)",
+	"/:noteId(\\d+)",
 	requireAuth,
 	asyncHandler(async (req, res) => {
 		const noteId = parseInt(req.params.noteId, 10);
@@ -43,9 +51,31 @@ router.get(
 	})
 );
 
-router.patch(
-	"/notes/:noteId(\\d+)",
+// add new note
+router.post(
+	"/new",
 	requireAuth,
+	validateNotes,
+	asyncHandler(async (req, res) => {
+		const { title, content, notebookId, trash, tagsArr } = req.body;
+		const newNote = await Note.create({ title, content, notebookId, trash });
+		const noteId = newNote.id;
+
+		for (let i = 0; i < tagsArr.length; i++) {
+			const tagId = tagsArr[i].id;
+			await JoinNoteTag.create({ noteId, tagId });
+		}
+		const note = await Note.findByPk(noteId, {
+			include: [Tag, Notebook],
+		});
+		res.json(note);
+	})
+);
+
+router.patch(
+	"/:noteId(\\d+)",
+	requireAuth,
+	validateNotes,
 	asyncHandler(async (req, res) => {
 		const noteId = parseInt(req.params.noteId, 10);
 		const { title, content, notebookId, trash, tagsArr } = req.body;
@@ -65,8 +95,6 @@ router.patch(
 		}
 
 		noteToUpdate.trash = trash;
-
-		console.log(tagsArr);
 
 		if (tagsArr) {
 			// get the ids of the tags

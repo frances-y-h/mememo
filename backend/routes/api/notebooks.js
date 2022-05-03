@@ -8,10 +8,10 @@ const { User, Notebook } = require("../../db/models");
 const router = express.Router();
 
 router.get(
-	"/:userId(\\d+)/notebooks",
+	"/",
 	requireAuth,
 	asyncHandler(async (req, res, next) => {
-		const userId = parseInt(req.params.userId, 10);
+		const userId = req.user.id;
 		const notebooks = await Notebook.findAll({
 			where: { userId },
 			order: [["updatedAt", "DESC"]],

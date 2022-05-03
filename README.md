@@ -12,4 +12,6 @@ Flexbox, Grid, CSS Modules
 Express
 Sequelize
 
-## Known bugs
+## Todo
+
+finish trash => Delete this note
