@@ -4,9 +4,11 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 
 const NoteCard = () => {
 	const trash = useSelector((state) => state.trash);
-
-	if (Object.keys(trash).length) {
-		return Object.values(trash).map((note) => (
+	const trashOrdered = Object.values(trash).sort((a, b) =>
+		b.updatedAt.localeCompare(a.updatedAt)
+	);
+	if (trashOrdered.length) {
+		return trashOrdered.map((note) => (
 			<Link to={`/trash/${note?.id}`} key={note?.id}>
 				<div className="note-box">
 					<div className="note-title">{note?.title}</div>

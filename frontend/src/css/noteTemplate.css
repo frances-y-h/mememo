@@ -1,12 +1,14 @@
 .note-control {
 	display: grid;
 	grid-template-columns: 150px auto;
+	overflow-x: hidden;
 }
 
 /* Note sidebar */
 .note-sidebar {
 	background-color: var(--paper-dark);
 	border-right: 1px solid lightgray;
+	overflow: hidden;
 }
 
 /* Title box */
@@ -86,6 +88,17 @@
 	gap: 10px;
 }
 
+.note-card-wrap {
+	display: flex;
+	overflow-x: auto;
+	overflow-y: auto;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	-webkit-overflow-scrolling: touch;
+	white-space: nowrap;
+	height: 88vh;
+}
+
 /* Individual Note Box*/
 .note-box {
 	padding: 5px;
@@ -98,6 +111,14 @@
 	display: grid;
 	grid-template-rows: 20px auto auto 14px;
 	transition: all 0.25s;
+	flex: 0 0 auto;
+}
+
+.note-box-end {
+	display: flex;
+	flex: 0 0 auto;
+	justify-content: center;
+	padding: 10px;
 }
 
 .note-box:hover {

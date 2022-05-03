@@ -19,7 +19,6 @@ const SideBar = () => {
 						<i className="fa-solid fa-file-lines"></i>
 						<div className="note-title">Notes</div>
 					</div>
-					{/* <Link to="/notes/new"> */}
 					<div
 						className="note-title-empty"
 						onClick={() => {
@@ -35,7 +34,6 @@ const SideBar = () => {
 					>
 						New Note
 					</div>
-					{/* </Link> */}
 				</div>
 				<div className="note-title-ctrl">
 					<div className="note-title-ctrl-count">
@@ -43,7 +41,7 @@ const SideBar = () => {
 					</div>
 				</div>
 			</div>
-			<div>
+			<div className="note-card-wrap">
 				<NoteCard />
 			</div>
 		</div>

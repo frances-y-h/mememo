@@ -96,6 +96,7 @@ const NoteView = () => {
 		}
 
 		if (noteId === "new") {
+			console.log(noteToUpdate);
 			const newNoteId = await dispatch(notesActions.addNewNote(noteToUpdate));
 
 			setDisableEdit(true);
