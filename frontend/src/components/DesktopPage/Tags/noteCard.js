@@ -19,6 +19,10 @@ const NoteCard = ({ tagId }) => {
 		return notesArr;
 	});
 
+	const OrderedNotes = notes.sort((a, b) =>
+		b.updatedAt.localeCompare(a.updatedAt)
+	);
+
 	if (notes && notes[0]) {
 		return notes.map((note) => (
 			<Link to={`/tags/${tagId}/notes/${note.id}`} key={note.id}>
@@ -38,7 +42,7 @@ const NoteCard = ({ tagId }) => {
 							))}
 					</div>
 					<div className="note-update">
-						{formatDistanceToNow(parseISO(note.updatedAt))} ago
+						{/* {formatDistanceToNow(parseISO(note.updatedAt))} ago */}
 					</div>
 				</div>
 			</Link>

@@ -212,7 +212,7 @@ const NotePage = () => {
 				</div>
 				<div className="note-view-update">
 					Last edited{" "}
-					{note && formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y")}{" "}
+					{/* {note && formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y")}{" "} */}
 					ago
 				</div>
 				<div onClick={editNote}>

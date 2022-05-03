@@ -2,8 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
+import { useDisableEdit } from "../../context/DisableEditContext";
+import { useNotification } from "../../context/NotificationContext";
+
 const Notes = () => {
 	const history = useHistory();
+
+	const { setDisableEdit } = useDisableEdit();
+	const { setToggleNotification, setNotificationMsg } = useNotification();
 
 	const notes = useSelector((state) => state.notes);
 
@@ -59,6 +65,13 @@ const Notes = () => {
 						className="fa-solid fa-circle-plus nav-add"
 						onClick={(e) => {
 							e.stopPropagation();
+							setDisableEdit(false);
+							setNotificationMsg("Start adding something!");
+							setToggleNotification("");
+
+							setTimeout(() => {
+								setToggleNotification("notification-move");
+							}, 2000);
 							history.push("/notes/new");
 						}}
 					></i>
@@ -78,13 +91,24 @@ const Notes = () => {
 							</div>
 						</Link>
 					))}
-				<Link to="/notes/new">
-					<div className="nav-dd-div nav-new">
-						<i className="fa-regular fa-plus"></i>
-						<i className="fa-regular fa-file-lines"></i>
-						<div className="nav-dd-title">New Note</div>
-					</div>
-				</Link>
+
+				<div
+					className="nav-dd-div nav-new"
+					onClick={() => {
+						setDisableEdit(false);
+						setNotificationMsg("Start adding something!");
+						setToggleNotification("");
+
+						setTimeout(() => {
+							setToggleNotification("notification-move");
+						}, 2000);
+						history.push("/notes/new");
+					}}
+				>
+					<i className="fa-regular fa-plus"></i>
+					<i className="fa-regular fa-file-lines"></i>
+					<div className="nav-dd-title">New Note</div>
+				</div>
 			</div>
 		</>
 	);

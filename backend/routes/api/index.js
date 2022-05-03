@@ -13,6 +13,6 @@ router.use("/trash", trashRouter);
 router.use("/notebooks", notebooksRouter);
 router.use("/notes", notesRouter);
 router.use("/tags", tagsRouter);
-router.use("/scartchpad", padRouter);
+router.use("/scratchpad", padRouter);
 
 module.exports = router;

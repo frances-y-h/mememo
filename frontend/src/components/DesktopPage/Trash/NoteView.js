@@ -14,7 +14,7 @@ const NoteView = () => {
 	const notification = useRef(null);
 
 	if (note) {
-		const ago = formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y");
+		// const ago = formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y");
 
 		const putBack = async () => {
 			const putBack = { title: note.title, trash: false };
@@ -42,7 +42,7 @@ const NoteView = () => {
 							Put back to notebook
 						</div>
 					</div>
-					<div className="note-view-update">Last edited {ago} ago</div>
+					<div className="note-view-update">Last edited ### ago</div>
 					<div className="note-view-title note-in-trash">{note?.title}</div>
 					<div className="note-view-content note-in-trash">{note?.content}</div>
 					<div className="note-view-tags">

@@ -28,7 +28,7 @@ const NoteCard = () => {
 									))}
 							</div>
 							<div className="note-update">
-								{formatDistanceToNow(parseISO(note?.updatedAt))} ago
+								{/* {formatDistanceToNow(parseISO(note?.updatedAt))} ago */}
 							</div>
 						</div>
 					</Link>
