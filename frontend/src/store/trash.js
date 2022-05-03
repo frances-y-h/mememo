@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 // Actions
 const GET_ALL_TRASH = "trash/GET_ALL_TRASH";
 const PUT_BACK = "trash/PUT_BACK";
+const EMPTY_TRASH = "trash/EMPTY_TRASH";
 
 // Action Creators
 const getTrash = (trash) => {
@@ -19,11 +20,28 @@ export const putBack = (noteId) => {
 	};
 };
 
+export const emptyTrash = () => {
+	return {
+		type: EMPTY_TRASH,
+	};
+};
+
 // Thunks
 export const getAllTrash = (userId) => async (dispatch) => {
-	const response = await csrfFetch(`/api/${userId}/trash`);
+	const response = await csrfFetch("/api/trash");
 	const data = await response.json();
 	dispatch(getTrash(data));
+	return response;
+};
+
+export const emptyAllTrash = () => async (dispatch) => {
+	const response = await csrfFetch("/api/trash", {
+		method: "DELETE",
+	});
+	const data = await response.json();
+	if (data.message === "success") {
+		dispatch(emptyTrash());
+	}
 	return response;
 };
 
@@ -43,6 +61,8 @@ const trashReducer = (state = initialState, action) => {
 			newState = { ...state };
 			delete newState[action.noteId];
 			return newState;
+		case EMPTY_TRASH:
+			return {};
 		default:
 			return state;
 	}

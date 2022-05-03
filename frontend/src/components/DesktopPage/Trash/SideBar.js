@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
+import { useTrashModal } from "../../../context/TrashModalContext";
 
 import NoteCard from "./NoteCard";
 
 const SideBar = () => {
 	const trash = useSelector((state) => state.trash);
+	const { setToggleTrashModal } = useTrashModal();
 
 	return (
 		<div className="note-sidebar">
@@ -13,7 +15,12 @@ const SideBar = () => {
 						<i className="fa-solid fa-trash-can"></i>
 						<div className="note-title">Trash</div>
 					</div>
-					<div className="note-title-empty">Empty Trash</div>
+					<div
+						className="note-title-empty"
+						onClick={() => setToggleTrashModal("")}
+					>
+						Empty Trash
+					</div>
 				</div>
 				<div className="note-title-ctrl">
 					<div className="note-title-ctrl-count">

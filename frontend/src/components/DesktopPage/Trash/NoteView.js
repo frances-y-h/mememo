@@ -22,10 +22,10 @@ const NoteView = () => {
 			dispatch(trashActions.putBack(noteId));
 			dispatch(notesActions.putBack(note));
 			setNotifications("Put back to notebook");
-			notification?.current.classList.remove("notification-move");
+			notification?.current?.classList?.remove("notification-move");
 
 			setTimeout(() => {
-				notification?.current.classList.add("notification-move");
+				notification?.current?.classList?.add("notification-move");
 			}, 2000);
 		};
 
