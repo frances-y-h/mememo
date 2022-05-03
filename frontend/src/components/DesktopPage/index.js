@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import TagModalProvider from "../../context/TagModalContext";
 import TrashModalProvider from "../../context/TrashModalContext";
+import NotificationProvider from "../../context/NotificationContext";
 
 import * as notebooksActions from "../../store/notebooks";
 import * as notesActions from "../../store/notes";
@@ -18,6 +19,7 @@ import NotebooksPage from "./Notebooks/index.js";
 import TagsPage from "./Tags/index.js";
 import TrashPage from "./Trash/index.js";
 import TrashModal from "./Trash/Modal";
+import Notification from "./Tools/Notification";
 
 const DesktopPage = () => {
 	const dispatch = useDispatch();
@@ -37,29 +39,32 @@ const DesktopPage = () => {
 
 	return (
 		<div className="desktop-container">
-			<TrashModalProvider>
-				<TagModalProvider>
-					<Navigation sessionUser={sessionUser} />
-					<Switch>
-						<Route path="/desktop">
-							<Desktop />
-						</Route>
-						<Route path="/notes">
-							<NotesPage />
-						</Route>
-						<Route path="/notebooks">
-							<NotebooksPage />
-						</Route>
-						<Route path={["/tags", "/tags/:tagId"]}>
-							<TagsPage />
-						</Route>
-						<Route path="/trash">
-							<TrashPage />
-						</Route>
-					</Switch>
-					<TrashModal />
-				</TagModalProvider>
-			</TrashModalProvider>
+			<NotificationProvider>
+				<TrashModalProvider>
+					<TagModalProvider>
+						<Navigation sessionUser={sessionUser} />
+						<Switch>
+							<Route path="/desktop">
+								<Desktop />
+							</Route>
+							<Route path="/notes">
+								<NotesPage />
+							</Route>
+							<Route path="/notebooks">
+								<NotebooksPage />
+							</Route>
+							<Route path={["/tags", "/tags/:tagId"]}>
+								<TagsPage />
+							</Route>
+							<Route path="/trash">
+								<TrashPage />
+							</Route>
+						</Switch>
+						<TrashModal />
+						<Notification />
+					</TagModalProvider>
+				</TrashModalProvider>
+			</NotificationProvider>
 		</div>
 	);
 };

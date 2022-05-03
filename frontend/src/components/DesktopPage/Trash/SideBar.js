@@ -15,16 +15,18 @@ const SideBar = () => {
 						<i className="fa-solid fa-trash-can"></i>
 						<div className="note-title">Trash</div>
 					</div>
-					<div
-						className="note-title-empty"
-						onClick={() => setToggleTrashModal("")}
-					>
-						Empty Trash
-					</div>
+					{Object.keys(trash).length > 0 ? (
+						<div
+							className="note-title-empty"
+							onClick={() => setToggleTrashModal("")}
+						>
+							Empty Trash
+						</div>
+					) : null}
 				</div>
 				<div className="note-title-ctrl">
 					<div className="note-title-ctrl-count">
-						Total {Object.values(trash).length} notes
+						Total {Object.keys(trash).length} notes
 					</div>
 				</div>
 			</div>

@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 
 import { useTrashModal } from "../../../context/TrashModalContext";
+import { useNotification } from "../../../context/NotificationContext";
 import * as trashActions from "../../../store/trash";
 
 const Modal = () => {
 	const { toggleTrashModal, setToggleTrashModal } = useTrashModal();
+	const { setToggleNotification, setNotificationMsg } = useNotification();
 	const dispatch = useDispatch();
 	const trash = useSelector((state) => state.trash);
 	const userId = useSelector((state) => state.session.user.id);
@@ -12,7 +14,13 @@ const Modal = () => {
 	const emptyTrash = async () => {
 		const trashIdArr = Object.keys(trash);
 		await dispatch(trashActions.emptyAllTrash());
+		setToggleTrashModal("hidden");
 		// notitifcation "Trash has been emptied"
+		setNotificationMsg("Trash has been emptied");
+		setToggleNotification("");
+		setTimeout(() => {
+			setToggleNotification("notification-move");
+		}, 2000);
 	};
 
 	return (
