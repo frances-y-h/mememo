@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { useTagModal } from "../../../context/TagModalContext";
+import { useNotification } from "../../../context/NotificationContext";
 
 import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
@@ -15,11 +16,11 @@ const NotePage = () => {
 	const userId = useSelector((state) => state.session.user.id);
 	const notebooks = Object.values(useSelector((state) => state.notebooks));
 	const tags = useSelector((state) => state.tags);
+	const { setToggleNotification, setNotificationMsg } = useNotification();
 
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [disableEdit, setDisableEdit] = useState(true);
-	const [notifications, setNotifications] = useState("");
 	const [tagsArr, setTagsArr] = useState([]);
 	const [tagDDList, setTagDDList] = useState([]);
 
@@ -27,7 +28,6 @@ const NotePage = () => {
 	const modalBg = useRef(null);
 	const saveBtn = useRef(null);
 	const addTag = useRef(null);
-	const notification = useRef(null);
 	const removeTagIcon = useRef([]);
 	const tagDD = useRef(null);
 
@@ -57,16 +57,16 @@ const NotePage = () => {
 		await dispatch(notesActions.editNote(noteId, noteToUpdate));
 
 		setDisableEdit(true);
-		setNotifications("Note Saved");
+		setNotificationMsg("Note saved");
 		saveBtn?.current.classList.add("hidden");
 		addTag?.current.classList.add("hidden");
 		removeTagIcon.current.forEach((span) => {
 			span?.classList.add("hidden");
 		});
-		notification?.current.classList.remove("notification-move");
+		setToggleNotification("");
 
 		setTimeout(() => {
-			notification?.current.classList.add("notification-move");
+			setToggleNotification("notification-move");
 		}, 2000);
 	};
 
@@ -78,13 +78,13 @@ const NotePage = () => {
 	const moveToNotebook = async (notebookId) => {
 		const note = { notebookId, trash: false };
 		await dispatch(notesActions.editNote(noteId, note));
-		setNotifications("Moved to Notebook");
+		setNotificationMsg("Moved to Notebook");
 		moveDD?.current.classList.add("hidden");
 		modalBg?.current.classList.add("hidden");
-		notification?.current.classList.remove("notification-move");
+		setToggleNotification("");
 
 		setTimeout(() => {
-			notification?.current.classList.add("notification-move");
+			setToggleNotification("notification-move");
 		}, 2000);
 	};
 
@@ -92,14 +92,14 @@ const NotePage = () => {
 		const note = { trash: true };
 		await dispatch(notesActions.trashNote(noteId, note));
 		await dispatch(trashActions.getAllTrash(userId));
-		setNotifications("Moved to Trash");
-		notification?.current.classList.remove("notification-move");
+		setNotificationMsg("Moved to Trash");
+		setToggleNotification("");
 
 		setTimeout(() => {
-			notification?.current.classList.add("notification-move");
+			setToggleNotification("notification-move");
+			setTitle("");
+			setContent("");
 		}, 2000);
-		setTitle("");
-		setContent("");
 	};
 
 	useEffect(() => {
@@ -262,7 +262,7 @@ const NotePage = () => {
 							className="fa-solid fa-circle-plus hidden"
 							ref={addTag}
 							onClick={() => {
-								tagDD.current.classList.remove("hidden");
+								tagDD?.current.classList.remove("hidden");
 								modalBg?.current.classList.remove("hidden");
 							}}
 						></i>
@@ -274,19 +274,14 @@ const NotePage = () => {
 								<div
 									key={tag.id}
 									className="tag cursor"
-									style={{ backgroundColor: `#${tag.color}` }}
+									style={{ backgroundColor: `#${tag?.color}` }}
 									onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
 								>
-									{tag.name}
+									{tag?.name}
 								</div>
 							))}
 						</div>
 					</div>
-				</div>
-				{/* Notification box */}
-				<div className="notification-div notification-move" ref={notification}>
-					<i className="fa-solid fa-floppy-disk"></i>
-					{notifications}
 				</div>
 			</>
 		);

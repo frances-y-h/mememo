@@ -20,9 +20,9 @@ const Navigation = () => {
 	useEffect(() => {
 		window.addEventListener("scroll", (e) => {
 			if (window.pageYOffset > 0) {
-				navBar.current.classList.add("nav-shadow");
+				navBar?.current?.classList.add("nav-shadow");
 			} else {
-				navBar.current.classList.remove("nav-shadow");
+				navBar?.current?.classList.remove("nav-shadow");
 			}
 		});
 	}, []);
