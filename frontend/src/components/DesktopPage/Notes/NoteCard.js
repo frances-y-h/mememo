@@ -3,11 +3,14 @@ import { useSelector } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 const NoteCard = () => {
-	const trash = useSelector((state) => state.trash);
+	const notes = useSelector((state) => state.notes);
+	const notesOrdered = Object.values(notes).sort(
+		(a, b) => b.updatedAt > a.updatedAt
+	);
 
-	if (Object.keys(trash).length) {
-		return Object.values(trash).map((note) => (
-			<Link to={`/trash/${note?.id}`} key={note?.id}>
+	if (notesOrdered.length) {
+		return notesOrdered.map((note) => (
+			<Link to={`/notes/${note?.id}`} key={note?.id}>
 				<div className="note-box">
 					<div className="note-title">{note?.title}</div>
 					<div className="note-content">{note?.content}</div>
@@ -32,8 +35,12 @@ const NoteCard = () => {
 	} else {
 		return (
 			<div className="no-notes-wrap">
-				<i className="fa-solid fa-trash-can fa-5x no-notes-icon"></i>
-				<div>Empty Trash Can</div>
+				<img
+					src="/images/icon/note-not-found.svg"
+					alt="Not found"
+					className="no-notes-icon"
+				/>
+				<div>No notes found</div>
 			</div>
 		);
 	}

@@ -1,11 +1,22 @@
-import { useSelector } from "react-redux";
+import { Route } from "react-router-dom";
+
+import SideBar from "./SideBar";
+import NoteView from "./NoteView";
+// import NotePage from "../Tags/notePage";
 
 const NotesPage = () => {
-	const notes = Object.values(useSelector((state) => state.notes));
 	return (
-		<main>
-			<h1>Notes</h1>
-			{notes[0] && notes.map((note) => <div key={note.id}>{note.title}</div>)}
+		<main className="note-control">
+			<SideBar />
+			<Route path="/notes" exact>
+				<NoteView />
+			</Route>
+			<Route path="/notes/new/*" exact>
+				<div>new Notes</div>
+			</Route>
+			<Route path="/notes/:noteId">
+				<NoteView />
+			</Route>
 		</main>
 	);
 };
