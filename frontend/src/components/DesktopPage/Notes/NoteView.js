@@ -203,6 +203,12 @@ const NoteView = () => {
 		setTitle(note?.title);
 		setContent(note?.content);
 		setTagsArr(note?.Tags);
+		setDisableEdit(true);
+		saveBtn?.current?.classList.add("hidden");
+		addTag?.current?.classList.add("hidden");
+		removeTagIcon.current.forEach((span) => {
+			span?.classList.add("hidden");
+		});
 	}, [noteId]);
 
 	useEffect(() => {
