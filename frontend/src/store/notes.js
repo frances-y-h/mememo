@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_NOTES = "notes/GET_ALL_NOTES";
 const ADD_UPDATE_NOTE = "notes/ADD_UPDATE_NOTE";
 const TRASH_NOTE = "notes/TRASH_NOTE";
+const PUT_BACK = "notes/PUT_BACK";
 
 // Action creator
 const getNotes = (notes) => {
@@ -23,6 +24,13 @@ const addUpdateNote = (note) => {
 const trashedNote = (note) => {
 	return {
 		type: TRASH_NOTE,
+		note,
+	};
+};
+
+export const putBack = (note) => {
+	return {
+		type: PUT_BACK,
 		note,
 	};
 };
@@ -74,6 +82,11 @@ const noteReducer = (state = initialState, action) => {
 		case TRASH_NOTE:
 			newState = { ...state };
 			delete newState[action.note.id];
+			return newState;
+		case PUT_BACK:
+			newState = { ...state };
+			newState[action.note.id] = action.note;
+			newState[action.note.id].trash = false;
 			return newState;
 		default:
 			return state;

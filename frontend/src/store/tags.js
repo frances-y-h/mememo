@@ -60,7 +60,7 @@ export const deleteOldTag = (tagId) => async (dispatch) => {
 		method: "DELETE",
 	});
 	const data = await response.json(); // tag id in object
-	console.log(typeof data);
+
 	dispatch(deleteTag(data));
 };
 

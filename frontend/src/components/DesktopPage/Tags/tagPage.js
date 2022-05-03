@@ -25,21 +25,14 @@ function TagPage({ title }) {
 	const tagEl = useRef();
 	const deleteBtn = useRef();
 
-	let count = null;
-	let icon = "";
+	let count = (
+		<div className="tag" style={{ backgroundColor: `#${tag?.color}` }}>
+			{tag?.name}
+		</div>
+	);
+	let icon = <i className="fa-solid fa-tag"></i>;
 
-	if (title === "Tag" && tag) {
-		count = (
-			<div className="tag" style={{ backgroundColor: `#${tag?.color}` }}>
-				{tag?.name}
-			</div>
-		);
-		icon = <i className="fa-solid fa-tag"></i>;
-	} else if (title === "Tags") {
-		count = `${tags?.length} tags`;
-		icon = <i className="fa-solid fa-tags"></i>;
-	}
-
+	// Modal for edit tags
 	const closeModal = () => {
 		modalBg.current?.classList.add("hidden");
 		setName(tag?.name);
@@ -147,9 +140,6 @@ function TagPage({ title }) {
 						</div>
 						<div className="note-title-ctrl">
 							<div className="note-title-ctrl-count">{count}</div>
-							<div className="note-title-ctrl-ctrls">
-								{/* <i className="fa-solid fa-arrow-down-wide-short"></i> */}
-							</div>
 						</div>
 					</div>
 					<div>

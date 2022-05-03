@@ -64,9 +64,7 @@ router.patch(
 			noteToUpdate.notebookId = notebookId;
 		}
 
-		if (trash) {
-			noteToUpdate.trash = trash;
-		}
+		noteToUpdate.trash = trash;
 
 		console.log(tagsArr);
 

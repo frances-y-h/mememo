@@ -60,3 +60,9 @@
 	display: flex;
 	gap: 20px;
 }
+
+.btn-mid1-solid {
+	color: white;
+	background-color: var(--mid4);
+	border: 2px solid var(--mid2);
+}
