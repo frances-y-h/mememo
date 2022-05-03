@@ -47,7 +47,7 @@ const Notes = () => {
 							<div className="desktop-note">
 								<div className="dk-note-title">{note?.title}</div>
 								<div className="dk-note-update">
-									{formatDistanceToNow(parseISO(note?.updatedAt ?? new Date()))}
+									{/* {formatDistanceToNow(parseISO(note?.updatedAt ?? new Date()))} */}
 									ago
 								</div>
 								<div className="dk-note-content">{note?.content}</div>

@@ -96,7 +96,6 @@ const NoteView = () => {
 		}
 
 		if (noteId === "new") {
-			console.log(noteToUpdate);
 			const newNoteId = await dispatch(notesActions.addNewNote(noteToUpdate));
 
 			setDisableEdit(true);
@@ -121,7 +120,7 @@ const NoteView = () => {
 			saveBtn?.current.classList.add("hidden");
 			addTag?.current.classList.add("hidden");
 			removeTagIcon.current.forEach((span) => {
-				span.classList.add("hidden");
+				span?.classList.add("hidden");
 			});
 			setToggleNotification("");
 
@@ -145,8 +144,7 @@ const NoteView = () => {
 				trash: false,
 				tagsArr,
 			};
-			console.log("notebookId", notebookId);
-			// const note = { notebookId, trash: false };
+
 			await dispatch(notesActions.editNote(noteId, note));
 			setNotificationMsg("Moved to Notebook");
 			moveDD.current.classList.add("hidden");
@@ -174,7 +172,6 @@ const NoteView = () => {
 				title,
 				trash: true,
 			};
-			console.log("click");
 			await dispatch(notesActions.trashNote(noteId, note));
 			await dispatch(trashActions.getAllTrash());
 			setNotificationMsg("Moved to Trash");
@@ -224,8 +221,8 @@ const NoteView = () => {
 
 	useEffect(() => {
 		if (!disableEdit) {
-			saveBtn.current.classList.remove("hidden");
-			addTag.current.classList.remove("hidden");
+			saveBtn?.current?.classList.remove("hidden");
+			addTag?.current?.classList.remove("hidden");
 
 			removeTagIcon.current.forEach((span) => {
 				span?.classList.remove("hidden");
