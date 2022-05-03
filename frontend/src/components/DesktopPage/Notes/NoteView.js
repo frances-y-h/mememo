@@ -1,4 +1,4 @@
-import { useParams, Link, Redirect } from "react-router-dom";
+import { useParams, Link, Redirect, useHistory } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
@@ -12,6 +12,7 @@ const NoteView = () => {
 	// check if there is note id from use params, if not, redirect to most recent note
 	const { noteId } = useParams();
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const notes = useSelector((state) => state.notes);
 	const notesOrdered = Object.values(notes).sort(
 		(a, b) => b.updatedAt - a.updatedAt
@@ -21,20 +22,8 @@ const NoteView = () => {
 	const tags = useSelector((state) => state.tags);
 	const { setToggleNotification, setNotificationMsg } = useNotification();
 	const { setToggleModal } = useTagModal();
-	let note = useSelector((state) => state.notes[noteId]);
 
-	// if there is param, but param is "new", which will return "undefined for note"
-	if (!note) {
-		note = {
-			title: "",
-			content: "",
-			notebookId: Object.keys(notebooks)[0],
-			trash: false,
-			Tags: [],
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		};
-	}
+	let note = useSelector((state) => state.notes[noteId]);
 
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
@@ -52,6 +41,17 @@ const NoteView = () => {
 	const saveTooltip = useRef(null);
 	const editTooltip = useRef(null);
 	const deleteTooltip = useRef(null);
+
+	// if there is param, but param is "new", which will return "undefined for note"
+	if (!note) {
+		note = {
+			title: "",
+			content: "",
+			notebookId: Object.keys(notebooks)[0],
+			trash: false,
+			Tags: [],
+		};
+	}
 
 	const openDD = () => {
 		moveDD?.current.classList.remove("hidden");
@@ -72,8 +72,35 @@ const NoteView = () => {
 		const notebookId = note.notebookId;
 		const noteToUpdate = { title, content, notebookId, trash: false, tagsArr };
 
+		if (title === "") {
+			setNotificationMsg(
+				"Title needs to be at least 1 character. Note not saved."
+			);
+			setToggleNotification("");
+
+			setTimeout(() => {
+				setToggleNotification("notification-move");
+			}, 2000);
+			return;
+		}
+
 		if (noteId === "new") {
-			console.log(noteToUpdate);
+			const newNoteId = await dispatch(notesActions.addNewNote(noteToUpdate));
+
+			setDisableEdit(true);
+			setNotificationMsg("Note created");
+			saveBtn?.current.classList.add("hidden");
+			addTag?.current.classList.add("hidden");
+			removeTagIcon.current.forEach((span) => {
+				span?.classList.add("hidden");
+			});
+			setToggleNotification("");
+
+			setTimeout(() => {
+				setToggleNotification("notification-move");
+			}, 2000);
+
+			history.push(`/notes/${newNoteId}`);
 		} else {
 			await dispatch(notesActions.editNote(noteId, noteToUpdate));
 
@@ -98,41 +125,57 @@ const NoteView = () => {
 	};
 
 	const moveToNotebook = async (notebookId) => {
-		const note = { notebookId, trash: false };
-		await dispatch(notesActions.editNote(noteId, note));
-		setNotificationMsg("Moved to Notebook");
-		moveDD?.current.classList.add("hidden");
-		modalBg?.current.classList.add("hidden");
-		setToggleNotification("");
+		if (noteId !== "new") {
+			const note = { notebookId, trash: false };
+			await dispatch(notesActions.editNote(noteId, note));
+			setNotificationMsg("Moved to Notebook");
+			moveDD?.current.classList.add("hidden");
+			modalBg?.current.classList.add("hidden");
+			setToggleNotification("");
 
-		setTimeout(() => {
-			setToggleNotification("notification-move");
-		}, 2000);
+			setTimeout(() => {
+				setToggleNotification("notification-move");
+			}, 2000);
+		} else {
+			moveDD?.current.classList.add("hidden");
+			modalBg?.current.classList.add("hidden");
+			setNotificationMsg("Plase save note first");
+			setToggleNotification("");
+
+			setTimeout(() => {
+				setToggleNotification("notification-move");
+			}, 2000);
+		}
 	};
 
 	const moveToTrash = async () => {
-		const note = { trash: true };
-		await dispatch(notesActions.trashNote(noteId, note));
-		await dispatch(trashActions.getAllTrash(userId));
-		setNotificationMsg("Moved to Trash");
-		setToggleNotification("");
+		if (noteId !== "new") {
+			const note = { trash: true };
+			await dispatch(notesActions.trashNote(noteId, note));
+			await dispatch(trashActions.getAllTrash());
+			setNotificationMsg("Moved to Trash");
+			setToggleNotification("");
 
-		setTimeout(() => {
-			setToggleNotification("notification-move");
-			setTitle("");
-			setContent("");
-		}, 2000);
+			setTimeout(() => {
+				setToggleNotification("notification-move");
+				setTitle("");
+				setContent("");
+			}, 2000);
+		} else {
+			setNotificationMsg("Plase save note first");
+			setToggleNotification("");
+
+			setTimeout(() => {
+				setToggleNotification("notification-move");
+			}, 2000);
+		}
 	};
 
 	useEffect(() => {
 		setTitle(note?.title);
 		setContent(note?.content);
-
-		// only if it s not new note it will setTagArr to what is listed in Tags, or else it will be infinate loop
-		if (noteId !== "new") {
-			setTagsArr(note?.Tags);
-		}
-	}, [note]);
+		setTagsArr(note?.Tags);
+	}, [noteId]);
 
 	useEffect(() => {
 		// get turn tagsArr (what tags the note currently has) in to set

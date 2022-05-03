@@ -27,7 +27,7 @@ export const emptyTrash = () => {
 };
 
 // Thunks
-export const getAllTrash = (userId) => async (dispatch) => {
+export const getAllTrash = () => async (dispatch) => {
 	const response = await csrfFetch("/api/trash");
 	const data = await response.json();
 	dispatch(getTrash(data));

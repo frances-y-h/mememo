@@ -36,11 +36,21 @@ export const putBack = (note) => {
 };
 
 // Thunks
-export const getAllNotes = (userId) => async (dispatch) => {
-	const response = await csrfFetch(`/api/${userId}/notes`);
+export const getAllNotes = () => async (dispatch) => {
+	const response = await csrfFetch(`/api/notes`);
 	const data = await response.json();
 	dispatch(getNotes(data));
 	return response;
+};
+
+export const addNewNote = (newNote) => async (dispatch) => {
+	const response = await csrfFetch("/api/notes/new", {
+		method: "POST",
+		body: JSON.stringify(newNote),
+	});
+	const data = await response.json();
+	dispatch(addUpdateNote(data));
+	return data.id;
 };
 
 export const editNote = (noteId, note) => async (dispatch) => {
