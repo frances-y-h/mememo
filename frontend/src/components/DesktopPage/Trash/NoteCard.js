@@ -8,29 +8,36 @@ const NoteCard = () => {
 		b.updatedAt.localeCompare(a.updatedAt)
 	);
 	if (trashOrdered.length) {
-		return trashOrdered.map((note) => (
-			<Link to={`/trash/${note?.id}`} key={note?.id}>
-				<div className="note-box">
-					<div className="note-title">{note?.title}</div>
-					<div className="note-content">{note?.content}</div>
-					<div className="dk-note-tags">
-						{note &&
-							note?.Tags.map((tag) => (
-								<div
-									key={tag.id}
-									className="tag"
-									style={{ backgroundColor: `#${tag.color}` }}
-								>
-									{tag.name}
-								</div>
-							))}
-					</div>
-					<div className="note-update">
-						{formatDistanceToNow(parseISO(note?.updatedAt))} ago
-					</div>
+		return (
+			<>
+				{trashOrdered.map((note) => (
+					<Link to={`/trash/${note?.id}`} key={note?.id}>
+						<div className="note-box">
+							<div className="note-title">{note?.title}</div>
+							<div className="note-content">{note?.content}</div>
+							<div className="dk-note-tags">
+								{note &&
+									note?.Tags.map((tag) => (
+										<div
+											key={tag.id}
+											className="tag"
+											style={{ backgroundColor: `#${tag.color}` }}
+										>
+											{tag.name}
+										</div>
+									))}
+							</div>
+							<div className="note-update">
+								{formatDistanceToNow(parseISO(note?.updatedAt))} ago
+							</div>
+						</div>
+					</Link>
+				))}
+				<div className="note-box-end">
+					<div className="tag">End of Trash</div>
 				</div>
-			</Link>
-		));
+			</>
+		);
 	} else {
 		return (
 			<div className="no-notes-wrap">

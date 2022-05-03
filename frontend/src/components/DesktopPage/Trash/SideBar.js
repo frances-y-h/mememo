@@ -30,7 +30,7 @@ const SideBar = () => {
 					</div>
 				</div>
 			</div>
-			<div>
+			<div className="note-card-wrap">
 				<NoteCard />
 			</div>
 		</div>

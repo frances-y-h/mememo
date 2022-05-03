@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
+import { useDisableEdit } from "../../../context/DisableEditContext";
+import { useNotification } from "../../../context/NotificationContext";
 
 const Notes = () => {
 	const notes = Object.values(useSelector((state) => state.notes));
+	const history = useHistory();
+	const { setDisableEdit } = useDisableEdit();
+	const { setToggleNotification, setNotificationMsg } = useNotification();
+
 	return (
 		<div className="desktop-notes">
 			<div className="desktop-notes-top">
@@ -13,15 +20,25 @@ const Notes = () => {
 						<i className="fa-solid fa-angle-right"></i>
 					</div>
 				</Link>
-				<Link to="/notes/new">
-					<div className="desktop-notes-top-notes">
-						<img
-							src="/images/icon/note-add.svg"
-							alt="Add Note"
-							className="icon18"
-						/>
-					</div>
-				</Link>
+				<div
+					className="desktop-notes-top-notes"
+					onClick={() => {
+						setDisableEdit(false);
+						setNotificationMsg("Start adding something!");
+						setToggleNotification("");
+
+						setTimeout(() => {
+							setToggleNotification("notification-move");
+						}, 2000);
+						history.push("/notes/new");
+					}}
+				>
+					<img
+						src="/images/icon/note-add.svg"
+						alt="Add Note"
+						className="icon18"
+					/>
+				</div>
 			</div>
 			<div className="dt-notes-wrap">
 				{notes[0] &&

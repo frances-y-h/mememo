@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDisableEdit } from "../../../context/DisableEditContext";
 import { useNotification } from "../../../context/NotificationContext";
 
@@ -8,7 +8,7 @@ import NoteCard from "./NoteCard";
 const SideBar = () => {
 	const notes = useSelector((state) => state.notes);
 	const history = useHistory();
-	const { disableEdit, setDisableEdit } = useDisableEdit();
+	const { setDisableEdit } = useDisableEdit();
 	const { setToggleNotification, setNotificationMsg } = useNotification();
 
 	return (
