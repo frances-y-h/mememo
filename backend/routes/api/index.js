@@ -9,10 +9,10 @@ const padRouter = require("./scratchPad.js");
 
 router.use("/session", sessionRouter);
 router.use("/users", usersRouter);
-router.use("/", notebooksRouter);
-router.use("/", notesRouter);
-router.use("/", tagsRouter);
-router.use("/", trashRouter);
-router.use("/", padRouter);
+router.use("/trash", trashRouter);
+router.use("/notebooks", notebooksRouter);
+router.use("/notes", notesRouter);
+router.use("/tags", tagsRouter);
+router.use("/scartchpad", padRouter);
 
 module.exports = router;

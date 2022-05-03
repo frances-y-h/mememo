@@ -16,10 +16,10 @@ const validateTag = [
 ];
 
 router.get(
-	"/:userId(\\d+)/tags",
+	"/",
 	requireAuth,
 	asyncHandler(async (req, res) => {
-		const userId = parseInt(req.params.userId, 10);
+		const userId = req.user.id;
 		const tags = await Tag.findAll({
 			where: { userId },
 			include: {
@@ -33,11 +33,11 @@ router.get(
 );
 
 router.post(
-	"/:userId(\\d+)/tags",
+	"/",
 	requireAuth,
 	validateTag,
 	asyncHandler(async (req, res) => {
-		const userId = parseInt(req.params.userId, 10);
+		const userId = req.user.id;
 
 		// {name: 'New Tag', color: 'c84639'}
 		const { name, color } = req.body;
@@ -60,7 +60,7 @@ router.post(
 );
 
 router.put(
-	"/tags/:tagId(\\d+)",
+	"/:tagId(\\d+)",
 	requireAuth,
 	validateTag,
 	asyncHandler(async (req, res) => {
@@ -86,7 +86,7 @@ router.put(
 );
 
 router.delete(
-	"/tags/:tagId(\\d+)",
+	"/:tagId(\\d+)",
 	requireAuth,
 	asyncHandler(async (req, res) => {
 		const tagId = parseInt(req.params.tagId, 10);

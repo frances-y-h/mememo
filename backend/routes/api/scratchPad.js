@@ -6,10 +6,10 @@ const { User } = require("../../db/models");
 const router = express.Router();
 
 router.put(
-	"/:userId(\\d+)/scratchpad",
+	"/",
 	requireAuth,
 	asyncHandler(async (req, res) => {
-		const userId = parseInt(req.params.userId, 10);
+		const userId = req.user.id;
 		// come in as string
 		let { scratchPad } = req.body;
 
