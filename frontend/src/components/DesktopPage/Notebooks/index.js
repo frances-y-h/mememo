@@ -3,24 +3,27 @@ import { Switch, Route } from "react-router-dom";
 import SideBar from "./SideBar";
 import NoteView from "../Notes/NoteView";
 import RedirectPage from "./RedirectPage";
+import AllNotebooks from "./AllNotebooks";
 
 const NotebooksPage = () => {
 	return (
-		<main className="note-control">
-			<Switch>
-				<Route path="/notebooks" exact>
-					<div>All notes</div>
-				</Route>
-				<Route path="/notebooks/:notebookId" exact>
+		<Switch>
+			<Route path="/notebooks" exact>
+				<AllNotebooks />
+			</Route>
+			<Route path="/notebooks/:notebookId" exact>
+				<main className="note-control">
 					<SideBar />
 					<RedirectPage />
-				</Route>
-				<Route path="/notebooks/:notebookId/:noteId" exact>
+				</main>
+			</Route>
+			<Route path="/notebooks/:notebookId/:noteId" exact>
+				<main className="note-control">
 					<SideBar />
 					<NoteView />
-				</Route>
-			</Switch>
-		</main>
+				</main>
+			</Route>
+		</Switch>
 	);
 };
 

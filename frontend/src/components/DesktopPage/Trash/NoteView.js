@@ -70,7 +70,14 @@ const NoteView = () => {
 			</>
 		);
 	} else {
-		return <div>No notes</div>;
+		return (
+			<div className="notebook-bg">
+				<div className="notebook-container">
+					<img src="/images/logo.svg" alt="bee" className="fly-bee" />
+					<div className="notebook-ctnr-title">No notes in trash can</div>
+				</div>
+			</div>
+		);
 	}
 };
 

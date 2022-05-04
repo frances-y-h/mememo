@@ -404,7 +404,14 @@ const NoteView = () => {
 			</>
 		);
 	} else {
-		return <div>no notes</div>;
+		return (
+			<div className="notebook-bg">
+				<div className="notebook-container">
+					<img src="/images/logo.svg" alt="bee" className="fly-bee" />
+					<div className="notebook-ctnr-title">No notes in this notebook</div>
+				</div>
+			</div>
+		);
 	}
 };
 
