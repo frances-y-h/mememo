@@ -14,7 +14,7 @@ const AllNotebooks = () => {
 					<div className="all-notebooks-title">
 						All Notebooks
 						<span className="all-notebooks-subtitle">
-							Total {Object.values(notebooks).length} notebooks
+							Total {Object.values(notebooks)?.length} notebooks
 						</span>
 					</div>
 					<button
@@ -27,7 +27,7 @@ const AllNotebooks = () => {
 					</button>
 				</div>
 				{Object.values(notebooks).map((notebook) => (
-					<AllNotebook notebook={notebook} key={notebook.id} />
+					<AllNotebook notebook={notebook} key={notebook?.id} />
 				))}
 			</div>
 		</div>
