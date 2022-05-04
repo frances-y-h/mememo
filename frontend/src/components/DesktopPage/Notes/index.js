@@ -10,9 +10,6 @@ const NotesPage = () => {
 			<Route path="/notes" exact>
 				<NoteView />
 			</Route>
-			<Route path="/notes/new/*" exact>
-				<div>new Notes</div>
-			</Route>
 			<Route path="/notes/:noteId">
 				<NoteView />
 			</Route>

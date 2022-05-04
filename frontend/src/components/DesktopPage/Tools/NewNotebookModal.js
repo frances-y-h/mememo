@@ -1,13 +1,22 @@
 import { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useNewNotebookModal } from "../../../context/NewNotebookModalContext";
+import { useNotification } from "../../../context/NotificationContext";
+
+import * as notebooksActions from "../../../store/notebooks";
 
 const NewNotebookModal = () => {
 	const [name, setName] = useState("");
 	const [disable, setDisable] = useState(true);
 	const [errors, setErrors] = useState([]);
 
+	const dispatch = useDispatch();
+	const history = useHistory();
+
 	const notebooks = useSelector((state) => state.notebooks);
+
+	const { setToggleNotification, setNotificationMsg } = useNotification();
 
 	const inputErr = useRef();
 
@@ -20,17 +29,38 @@ const NewNotebookModal = () => {
 		setName("");
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const notebook = { name };
+
+		// dispatch name , create in database, get back notebook id
+		const newNotebook = await dispatch(notebooksActions.addNotebook(notebook));
+
+		// close modal
+		setToggleNewNotebookModal("hidden");
+
+		// show notification notebook created
+		setNotificationMsg(`Notebook "${newNotebook.name}" created`);
+		setToggleNotification("");
+
+		// Reset name
+		setName("");
+
+		// redirect to new notebook
+		history.push(`/notebooks/${newNotebook.id}`);
+
+		setTimeout(() => {
+			setToggleNotification("notification-move");
+		}, 4000);
 	};
 
 	useEffect(() => {
 		const nameExists = Object.values(notebooks).some(
-			(notebook) => notebook.name === name
+			(notebook) => notebook?.name === name
 		);
 
-		if (name.length === 0) {
-			setErrors("Must contain at least one character");
+		if (name.length <= 0 || name.length > 255) {
+			setErrors("Must be between 1 and 255 characters");
 			inputErr.current.classList.remove("hidden");
 			setDisable(true);
 		} else if (nameExists) {

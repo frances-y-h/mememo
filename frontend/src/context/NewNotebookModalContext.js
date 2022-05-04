@@ -4,7 +4,8 @@ export const NewNotebookModalContext = createContext();
 export const useNewNotebookModal = () => useContext(NewNotebookModalContext);
 
 export default function NewNotebookModalProvider({ children }) {
-	const [toggleNewNotebookModal, setToggleNewNotebookModal] = useState("");
+	const [toggleNewNotebookModal, setToggleNewNotebookModal] =
+		useState("hidden");
 
 	return (
 		<NewNotebookModalContext.Provider
