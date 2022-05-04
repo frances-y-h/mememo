@@ -136,6 +136,8 @@ main {
 	color: white;
 	padding: 1px 3px;
 	border-radius: 1px;
+	display: flex;
+	gap: 3px;
 }
 
 .dk-note-content {

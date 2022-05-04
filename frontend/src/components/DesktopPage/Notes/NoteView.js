@@ -1,13 +1,15 @@
 import { useParams, Link, Redirect, useHistory } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDistanceToNow, parseISO } from "date-fns";
+
 import { useModal } from "../../../context/ModalContext";
 import { useNotification } from "../../../context/NotificationContext";
 import { useDisableEdit } from "../../../context/DisableEditContext";
 
 import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
+
+import UpdatedAt from "../Tools/UpdatedAt";
 
 const NoteView = () => {
 	// check if there is note id from use params, if not, redirect to most recent note
@@ -327,7 +329,7 @@ const NoteView = () => {
 						</div>
 					</div>
 					<div className="note-view-update">
-						{/* {formatDistanceToNow(parseISO(note?.updatedAt))} ago */}
+						Last edited <UpdatedAt updatedAt={note?.updatedAt} />
 					</div>
 					<div onClick={editNote}>
 						<input
