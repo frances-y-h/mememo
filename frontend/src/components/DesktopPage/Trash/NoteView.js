@@ -18,11 +18,8 @@ const NoteView = () => {
 		// const ago = formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y");
 
 		const deleteNote = async () => {
-			console.log("click");
-
 			await dispatch(trashActions.deleteOneTrash(noteId));
-
-			// history.push("/trash")
+			history.push("/trash");
 		};
 
 		const putBack = async () => {
