@@ -2,14 +2,14 @@ import { useParams, Link } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useTagModal } from "../../../context/TagModalContext";
+import { useModal } from "../../../context/ModalContext";
 import { useNotification } from "../../../context/NotificationContext";
 
 import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
 
 const NotePage = () => {
-	const { setToggleModal } = useTagModal();
+	const { setToggleTagModal } = useModal();
 	const { noteId } = useParams();
 	const dispatch = useDispatch();
 	const note = useSelector((state) => state.notes[noteId]);
@@ -266,7 +266,7 @@ const NotePage = () => {
 							}}
 						></i>
 						<div className="note-tag-dd hidden" ref={tagDD}>
-							<div className="tag cursor" onClick={() => setToggleModal("")}>
+							<div className="tag cursor" onClick={() => setToggleTagModal("")}>
 								<i className="fa-solid fa-circle-plus"></i> New Tag
 							</div>
 							{tagDDList?.map((tag) => (

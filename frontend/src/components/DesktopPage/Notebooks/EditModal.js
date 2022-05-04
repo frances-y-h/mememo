@@ -1,64 +1,50 @@
 import { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+
 import { useModal } from "../../../context/ModalContext";
-import { useNotification } from "../../../context/NotificationContext";
 
 import * as notebooksActions from "../../../store/notebooks";
 
-const NewNotebookModal = () => {
+const EditModal = ({ notebook }) => {
+	const dispatch = useDispatch();
+	const notebooks = useSelector((state) => state.notebooks);
+
 	const [name, setName] = useState("");
 	const [disable, setDisable] = useState(true);
 	const [errors, setErrors] = useState([]);
+	const notebookId = notebook.id;
 
-	const dispatch = useDispatch();
-	const history = useHistory();
-
-	const notebooks = useSelector((state) => state.notebooks);
-
-	const { setToggleNotification, setNotificationMsg } = useNotification();
+	const { toggleEditNotebookModal, setToggleEditNotebookModal } = useModal();
 
 	const inputErr = useRef();
-
-	const { toggleNewNotebookModal, setToggleNewNotebookModal } = useModal();
-
-	const cancel = (e) => {
-		e.stopPropagation();
-		setToggleNewNotebookModal("hidden");
-		setName("");
-	};
+	const editModal = useRef();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const notebook = { name };
+		const notebook = { id: notebookId, name };
 
-		// dispatch name , create in database, get back notebook id
-		const newNotebook = await dispatch(notebooksActions.addNotebook(notebook));
+		await dispatch(notebooksActions.editNotebook(notebook));
+		setToggleEditNotebookModal("hidden");
+	};
 
-		// close modal
-		setToggleNewNotebookModal("hidden");
-
-		// show notification notebook created
-		setNotificationMsg(`Notebook "${newNotebook.name}" created`);
-		setToggleNotification("");
-
-		// Reset name
-		setName("");
-
-		// redirect to new notebook
-		history.push(`/notebooks/${newNotebook.id}`);
-
-		setTimeout(() => {
-			setToggleNotification("notification-move");
-		}, 4000);
+	const cancel = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setToggleEditNotebookModal("hidden");
 	};
 
 	useEffect(() => {
+		setName(notebook?.name);
+	}, [notebook?.id]);
+
+	useEffect(() => {
 		const nameExists = Object.values(notebooks).some(
-			(notebook) => notebook?.name === name
+			(notebook) =>
+				notebook?.name === name && notebook?.id !== parseInt(notebookId, 10)
 		);
 
-		if (name.length <= 0 || name.length > 255) {
+		if (name?.length <= 0 || name?.length > 255) {
 			setErrors("Must be between 1 and 255 characters");
 			inputErr.current.classList.remove("hidden");
 			setDisable(true);
@@ -74,12 +60,11 @@ const NewNotebookModal = () => {
 	}, [name]);
 
 	return (
-		<div className={`modalBgTag ${toggleNewNotebookModal}`} onClick={cancel}>
+		<div className={`modalBgTag ${toggleEditNotebookModal}`} onClick={cancel}>
 			<form className="form-control" onClick={(e) => e.stopPropagation()}>
-				<div className="modal-title">Create new notebook</div>
+				<div className="modal-title">Rename Notebook</div>
 				<div className="modal-content">
-					Notebooks are useful for grouping notes around a common topic. They
-					can be private or shared.
+					What would you like to name this notebook?
 					<div className="modal-x" onClick={cancel}>
 						X
 					</div>
@@ -108,7 +93,7 @@ const NewNotebookModal = () => {
 						onClick={handleSubmit}
 						disabled={disable}
 					>
-						Create
+						Rename
 					</button>
 				</div>
 			</form>
@@ -116,4 +101,4 @@ const NewNotebookModal = () => {
 	);
 };
 
-export default NewNotebookModal;
+export default EditModal;

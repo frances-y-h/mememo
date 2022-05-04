@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useTagModal } from "../../../context/TagModalContext";
+import { useModal } from "../../../context/ModalContext";
 
 import * as tagsActions from "../../../store/tags";
 
 const NewTagModal = () => {
-	const { toggleModal, setToggleModal } = useTagModal();
+	const { toggleTagModal, setToggleTagModal } = useModal();
 	const dispatch = useDispatch();
 
 	const tags = useSelector((state) => state.tags);
@@ -32,7 +32,7 @@ const NewTagModal = () => {
 		setName("");
 		setColor("777777");
 
-		setToggleModal("hidden");
+		setToggleTagModal("hidden");
 	};
 
 	// validator
@@ -64,16 +64,16 @@ const NewTagModal = () => {
 
 	return (
 		<div
-			className={`modalBgTag ${toggleModal}`}
+			className={`modalBgTag ${toggleTagModal}`}
 			ref={modalBg}
-			onClick={() => setToggleModal("hidden")}
+			onClick={() => setToggleTagModal("hidden")}
 		>
 			<form
 				className="form-control"
 				onSubmit={handleSubmit}
 				onClick={(e) => e.stopPropagation()}
 			>
-				<div className="modal-x" onClick={() => setToggleModal("hidden")}>
+				<div className="modal-x" onClick={() => setToggleTagModal("hidden")}>
 					<i className="fa-solid fa-xmark fa-lg"></i>
 				</div>
 				<div className="form-group form-gap30">

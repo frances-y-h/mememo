@@ -3,11 +3,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import TagModalProvider from "../../context/TagModalContext";
-import TrashModalProvider from "../../context/TrashModalContext";
+import ModalProvider from "../../context/ModalContext";
 import NotificationProvider from "../../context/NotificationContext";
 import DisableEditProvider from "../../context/DisableEditContext";
-import NewNotebookModalProvider from "../../context/NewNotebookModalContext";
 
 import * as notebooksActions from "../../store/notebooks";
 import * as notesActions from "../../store/notes";
@@ -42,37 +40,33 @@ const DesktopPage = () => {
 
 	return (
 		<div className="desktop-container">
-			<NewNotebookModalProvider>
-				<DisableEditProvider>
-					<NotificationProvider>
-						<TrashModalProvider>
-							<TagModalProvider>
-								<Navigation sessionUser={sessionUser} />
-								<Switch>
-									<Route path="/desktop">
-										<Desktop />
-									</Route>
-									<Route path="/notes">
-										<NotesPage />
-									</Route>
-									<Route path="/notebooks">
-										<NotebooksPage />
-									</Route>
-									<Route path={["/tags", "/tags/:tagId"]}>
-										<TagsPage />
-									</Route>
-									<Route path="/trash">
-										<TrashPage />
-									</Route>
-								</Switch>
-								<TrashModal />
-								<Notification />
-								<NewNotebookModal />
-							</TagModalProvider>
-						</TrashModalProvider>
-					</NotificationProvider>
-				</DisableEditProvider>
-			</NewNotebookModalProvider>
+			<DisableEditProvider>
+				<NotificationProvider>
+					<ModalProvider>
+						<Navigation sessionUser={sessionUser} />
+						<Switch>
+							<Route path="/desktop">
+								<Desktop />
+							</Route>
+							<Route path="/notes">
+								<NotesPage />
+							</Route>
+							<Route path="/notebooks">
+								<NotebooksPage />
+							</Route>
+							<Route path={["/tags", "/tags/:tagId"]}>
+								<TagsPage />
+							</Route>
+							<Route path="/trash">
+								<TrashPage />
+							</Route>
+						</Switch>
+						<TrashModal />
+						<Notification />
+						<NewNotebookModal />
+					</ModalProvider>
+				</NotificationProvider>
+			</DisableEditProvider>
 		</div>
 	);
 };

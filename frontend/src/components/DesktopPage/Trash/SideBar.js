@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import { useTrashModal } from "../../../context/TrashModalContext";
+import { useModal } from "../../../context/ModalContext";
 
 import NoteCard from "./NoteCard";
 
 const SideBar = () => {
 	const trash = useSelector((state) => state.trash);
-	const { setToggleTrashModal } = useTrashModal();
+	const { setToggleTrashModal } = useModal();
 
 	return (
 		<div className="note-sidebar">

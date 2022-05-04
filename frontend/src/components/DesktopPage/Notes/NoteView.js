@@ -2,7 +2,7 @@ import { useParams, Link, Redirect, useHistory } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useTagModal } from "../../../context/TagModalContext";
+import { useModal } from "../../../context/ModalContext";
 import { useNotification } from "../../../context/NotificationContext";
 import { useDisableEdit } from "../../../context/DisableEditContext";
 
@@ -24,7 +24,7 @@ const NoteView = () => {
 	const tags = useSelector((state) => state.tags);
 
 	const { setToggleNotification, setNotificationMsg } = useNotification();
-	const { setToggleModal } = useTagModal();
+	const { setToggleTagModal } = useModal();
 	const { disableEdit, setDisableEdit } = useDisableEdit();
 
 	const [title, setTitle] = useState("");
@@ -381,7 +381,10 @@ const NoteView = () => {
 								}}
 							></i>
 							<div className="note-tag-dd hidden" ref={tagDD}>
-								<div className="tag cursor" onClick={() => setToggleModal("")}>
+								<div
+									className="tag cursor"
+									onClick={() => setToggleTagModal("")}
+								>
 									<i className="fa-solid fa-circle-plus"></i> New Tag
 								</div>
 								{tagDDList?.map((tag) => (

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
-import { useNewNotebookModal } from "../../context/NewNotebookModalContext";
+import { useModal } from "../../context/ModalContext";
 
 const Notebooks = () => {
 	const history = useHistory();
@@ -12,7 +12,7 @@ const Notebooks = () => {
 	const [showNotebooks, setShowNotebooks] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
 
-	const { setToggleNewNotebookModal } = useNewNotebookModal();
+	const { setToggleNewNotebookModal } = useModal();
 
 	const notebooksDDDiv = useRef();
 	const notebooksCaret = useRef();

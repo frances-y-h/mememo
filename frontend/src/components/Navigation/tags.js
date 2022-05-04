@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useTagModal } from "../../context/TagModalContext";
+import { useModal } from "../../context/ModalContext";
 
 import NewTagModal from "../DesktopPage/Tools/newTagModal";
 
 const Tags = () => {
-	const { setToggleModal } = useTagModal();
+	const { setToggleTagModal } = useModal();
 	const tags = Object.values(useSelector((state) => state.tags));
 	const [showTags, setShowTags] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -63,7 +63,7 @@ const Tags = () => {
 					onMouseLeave={() => setShowTooltip(false)}
 					onClick={(e) => {
 						e.stopPropagation();
-						setToggleModal("");
+						setToggleTagModal("");
 					}}
 				>
 					<i className="fa-solid fa-circle-plus nav-add"></i>
@@ -87,7 +87,10 @@ const Tags = () => {
 							</div>
 						</Link>
 					))}
-				<div className="nav-dd-div nav-new" onClick={() => setToggleModal("")}>
+				<div
+					className="nav-dd-div nav-new"
+					onClick={() => setToggleTagModal("")}
+				>
 					<i className="fa-regular fa-plus"></i>
 					<i className="fa-solid fa-tags"></i>
 					<div className="nav-dd-title">New Tag</div>

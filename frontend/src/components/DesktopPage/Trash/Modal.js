@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
 
-import { useTrashModal } from "../../../context/TrashModalContext";
+import { useModal } from "../../../context/ModalContext";
 import { useNotification } from "../../../context/NotificationContext";
 import * as trashActions from "../../../store/trash";
 
 const Modal = () => {
-	const { toggleTrashModal, setToggleTrashModal } = useTrashModal();
+	const { toggleTrashModal, setToggleTrashModal } = useModal();
 	const { setToggleNotification, setNotificationMsg } = useNotification();
 	const dispatch = useDispatch();
 

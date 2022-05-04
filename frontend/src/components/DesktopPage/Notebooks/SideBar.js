@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import NoteCard from "./NoteCard";
-// import NewNotebookModal from "../Tools/NewNotebookModal";
+import EditModal from "./EditModal";
+
+import { useModal } from "../../../context/ModalContext";
 
 import * as notebooksActions from "../../../store/notebooks";
 
@@ -14,9 +16,13 @@ const SideBar = () => {
 	const [name, setName] = useState("");
 	const [disable, setDisable] = useState(true);
 	const [errors, setErrors] = useState([]);
+	const [deleteMsg, setDeleteMsg] = useState("");
+	const { setToggleEditNotebookModal } = useModal();
 
 	const inputErr = useRef();
 	const editModal = useRef();
+	const editTooltip = useRef();
+	const deleteTooltip = useRef();
 
 	const notebooks = useSelector((state) => state.notebooks);
 	const notebook = useSelector((state) => state.notebooks[notebookId]);
@@ -25,48 +31,40 @@ const SideBar = () => {
 			note?.notebookId === parseInt(notebookId, 10) && note?.trash === false
 	);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const notebook = { id: notebookId, name };
-
-		await dispatch(notebooksActions.editNotebook(notebook));
-		editModal?.current?.classList.add("hidden");
-	};
-
-	const cancel = (e) => {
-		e.preventDefault();
-		e.stopPropagation();
-		editModal?.current?.classList.add("hidden");
-	};
-
 	const showModal = () => {
-		editModal?.current?.classList.remove("hidden");
+		setToggleEditNotebookModal("");
 	};
 
 	useEffect(() => {
 		setName(notebook?.name);
+
+		if (Object.keys(notebooks)[0] === notebookId) {
+			setDeleteMsg("Cannot delete primary notebook");
+		} else {
+			setDeleteMsg("Delete");
+		}
 	}, [notebookId]);
 
-	useEffect(() => {
-		const nameExists = Object.values(notebooks).some(
-			(notebook) =>
-				notebook?.name === name && notebook?.id !== parseInt(notebookId, 10)
-		);
+	// useEffect(() => {
+	// 	const nameExists = Object.values(notebooks).some(
+	// 		(notebook) =>
+	// 			notebook?.name === name && notebook?.id !== parseInt(notebookId, 10)
+	// 	);
 
-		if (name?.length <= 0 || name?.length > 255) {
-			setErrors("Must be between 1 and 255 characters");
-			inputErr.current.classList.remove("hidden");
-			setDisable(true);
-		} else if (nameExists) {
-			setErrors("Name already exists");
-			inputErr.current.classList.remove("hidden");
-			setDisable(true);
-		} else {
-			inputErr.current.classList.add("hidden");
-			setErrors("");
-			setDisable(false);
-		}
-	}, [name]);
+	// 	if (name?.length <= 0 || name?.length > 255) {
+	// 		setErrors("Must be between 1 and 255 characters");
+	// 		inputErr.current.classList.remove("hidden");
+	// 		setDisable(true);
+	// 	} else if (nameExists) {
+	// 		setErrors("Name already exists");
+	// 		inputErr.current.classList.remove("hidden");
+	// 		setDisable(true);
+	// 	} else {
+	// 		inputErr.current.classList.add("hidden");
+	// 		setErrors("");
+	// 		setDisable(false);
+	// 	}
+	// }, [name]);
 
 	return (
 		<>
@@ -82,8 +80,42 @@ const SideBar = () => {
 						<div className="note-title-ctrl-count">
 							Total {notes?.length} notes
 						</div>
-						<div className="note-title-empty" onClick={showModal}>
-							Rename
+						<div className="note-title-ctrl">
+							<div
+								className="note-title-empty tooltip"
+								onClick={showModal}
+								onMouseEnter={() =>
+									editTooltip?.current.classList.remove("hidden")
+								}
+								onMouseLeave={() =>
+									editTooltip?.current.classList.add("hidden")
+								}
+							>
+								<i className="fa-solid fa-pen-to-square"></i>
+								<span className="icon-tooltiptext hidden" ref={editTooltip}>
+									Rename
+								</span>
+							</div>
+							<div
+								className="tooltip"
+								onMouseEnter={() =>
+									deleteTooltip?.current.classList.remove("hidden")
+								}
+								onMouseLeave={() =>
+									deleteTooltip?.current.classList.add("hidden")
+								}
+							>
+								<button
+									className="note-title-empty"
+									disabled={Object.keys(notebooks)[0] === notebookId}
+									onClick={showModal}
+								>
+									<i className="fa-solid fa-trash-can"></i>
+									<span className="icon-tooltiptext hidden" ref={deleteTooltip}>
+										{deleteMsg}
+									</span>
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -91,8 +123,9 @@ const SideBar = () => {
 					<NoteCard notebookId={notebookId} noteId={noteId} />
 				</div>
 			</div>
+			<EditModal notebook={notebook} />
 			{/* Edit modal */}
-			<div className="modalBgTag hidden" ref={editModal} onClick={cancel}>
+			{/* <div className="modalBgTag hidden" ref={editModal} onClick={cancel}>
 				<form className="form-control" onClick={(e) => e.stopPropagation()}>
 					<div className="modal-title">Rename Notebook</div>
 					<div className="modal-content">
@@ -129,7 +162,7 @@ const SideBar = () => {
 						</button>
 					</div>
 				</form>
-			</div>
+			</div> */}
 		</>
 	);
 };
