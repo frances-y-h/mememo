@@ -5,7 +5,7 @@ const TagsPage = () => {
 	return (
 		<Switch>
 			<Route path="/tags/:id">
-				<TagPage title={"Tag"} />
+				<TagPage />
 			</Route>
 		</Switch>
 	);

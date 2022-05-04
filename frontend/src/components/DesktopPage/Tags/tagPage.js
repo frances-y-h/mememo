@@ -8,7 +8,7 @@ import NoteCard from "./noteCard";
 import NoteView from "../Notes/NoteView";
 import RedirectPage from "./RedirectPage";
 
-function TagPage({ title }) {
+function TagPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { id } = useParams();
@@ -130,7 +130,7 @@ function TagPage({ title }) {
 						<div className="note-title-wrap">
 							<div className="note-title-icon">
 								{icon}
-								<div className="note-title">{title}</div>
+								<div className="note-title">Tag</div>
 							</div>
 							<div
 								className="note-title-edit"

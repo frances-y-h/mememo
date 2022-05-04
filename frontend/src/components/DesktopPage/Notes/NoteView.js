@@ -197,12 +197,12 @@ const NoteView = () => {
 		setTitle(note?.title);
 		setContent(note?.content);
 		setTagsArr(note?.Tags);
-		setDisableEdit(true);
 		saveBtn?.current?.classList.add("hidden");
 		addTag?.current?.classList.add("hidden");
 		removeTagIcon.current.forEach((span) => {
 			span?.classList.add("hidden");
 		});
+		setDisableEdit(true);
 	}, [noteId]);
 
 	useEffect(() => {
@@ -383,7 +383,7 @@ const NoteView = () => {
 								</div>
 								{tagDDList?.map((tag) => (
 									<div
-										key={tag.id}
+										key={tag?.id}
 										className="tag cursor"
 										style={{ backgroundColor: `#${tag?.color}` }}
 										onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
