@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
+import { useNewNotebookModal } from "../../context/NewNotebookModalContext";
+
 const Notebooks = () => {
 	const history = useHistory();
 
@@ -9,6 +11,8 @@ const Notebooks = () => {
 
 	const [showNotebooks, setShowNotebooks] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
+
+	const { setToggleNewNotebookModal } = useNewNotebookModal();
 
 	const notebooksDDDiv = useRef();
 	const notebooksCaret = useRef();
@@ -55,6 +59,10 @@ const Notebooks = () => {
 					className="nav-div-right  tooltip"
 					onMouseEnter={() => setShowTooltip(true)}
 					onMouseLeave={() => setShowTooltip(false)}
+					onClick={(e) => {
+						e.stopPropagation();
+						setToggleNewNotebookModal("");
+					}}
 				>
 					<i className="fa-solid fa-circle-plus nav-add"></i>
 					<span className="navTooltiptext hidden" ref={tooltip}>
@@ -73,7 +81,13 @@ const Notebooks = () => {
 							</div>
 						</Link>
 					))}
-				<div className="nav-dd-div nav-new">
+				<div
+					className="nav-dd-div nav-new"
+					onClick={(e) => {
+						e.stopPropagation();
+						setToggleNewNotebookModal("");
+					}}
+				>
 					<i className="fa-regular fa-plus"></i>
 					<i className="fa-solid fa-book"></i>
 					<div className="nav-dd-title">New Notebook</div>

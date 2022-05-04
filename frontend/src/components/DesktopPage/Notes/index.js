@@ -2,7 +2,6 @@ import { Route } from "react-router-dom";
 
 import SideBar from "./SideBar";
 import NoteView from "./NoteView";
-// import NotePage from "../Tags/notePage";
 
 const NotesPage = () => {
 	return (
