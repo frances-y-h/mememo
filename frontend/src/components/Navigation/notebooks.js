@@ -8,6 +8,9 @@ const Notebooks = () => {
 	const history = useHistory();
 
 	const notebooks = useSelector((state) => state.notebooks);
+	const notebooksOrdered = Object.values(notebooks).sort((a, b) =>
+		b.updatedAt.localeCompare(a.updatedAt)
+	);
 
 	const [showNotebooks, setShowNotebooks] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -72,15 +75,14 @@ const Notebooks = () => {
 			</div>
 			{/* Notebook dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notebooksDDDiv}>
-				{Object.values(notebooks)[0] &&
-					Object.values(notebooks).map((notebook) => (
-						<Link key={notebook.id} to={`/notebooks/${notebook.id}`}>
-							<div className="nav-dd-div">
-								<i className="fa-solid fa-book"></i>
-								<div className="nav-dd-title">{notebook.name}</div>
-							</div>
-						</Link>
-					))}
+				{notebooksOrdered.map((notebook) => (
+					<Link key={notebook?.id} to={`/notebooks/${notebook?.id}`}>
+						<div className="nav-dd-div">
+							<i className="fa-solid fa-book"></i>
+							<div className="nav-dd-title">{notebook?.name}</div>
+						</div>
+					</Link>
+				))}
 				<div
 					className="nav-dd-div nav-new"
 					onClick={(e) => {

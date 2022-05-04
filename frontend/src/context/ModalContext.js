@@ -10,6 +10,8 @@ export default function ModalProvider({ children }) {
 	const [toggleTrashModal, setToggleTrashModal] = useState("hidden");
 	const [toggleEditNotebookModal, setToggleEditNotebookModal] =
 		useState("hidden");
+	const [toggleDeleteNotebookModal, setToggleDeleteNotebookModal] =
+		useState("hidden");
 
 	return (
 		<ModalContext.Provider
@@ -22,6 +24,8 @@ export default function ModalProvider({ children }) {
 				setToggleTrashModal,
 				toggleEditNotebookModal,
 				setToggleEditNotebookModal,
+				toggleDeleteNotebookModal,
+				setToggleDeleteNotebookModal,
 			}}
 		>
 			{children}

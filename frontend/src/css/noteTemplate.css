@@ -34,34 +34,6 @@
 	align-items: center;
 }
 
-.note-title-empty,
-.note-title-edit {
-	font-size: 12px;
-	padding: 4px 8px;
-	border-radius: 3px;
-	transition: all 0.5s;
-	cursor: pointer;
-}
-.note-title-edit {
-	font-size: 12px;
-}
-
-.note-title-empty:hover,
-.note-title-edit:hover {
-	background-color: var(--mid3);
-}
-
-.note-title-empty {
-	font-size: 12px;
-	display: flex;
-	text-align: center;
-	border: 1px solid gray;
-}
-
-.note-title-empty:hover {
-	background-color: lightgray;
-}
-
 .note-title {
 	font-weight: bold;
 	overflow: hidden;
@@ -205,9 +177,11 @@
 	padding: 2px 5px;
 	border-radius: 3px;
 	background-color: var(--paper);
-	opacity: 0;
+	opacity: 1;
 	transition: all 1s;
 	cursor: pointer;
+	display: flex;
+	gap: 5px;
 }
 
 .note-view-notebook-move:hover {

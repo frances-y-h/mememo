@@ -16,8 +16,8 @@ const NoteView = () => {
 	const history = useHistory();
 
 	const notes = useSelector((state) => state.notes);
-	const notesOrdered = Object.values(notes).sort(
-		(a, b) => b.updatedAt - a.updatedAt
+	const notesOrdered = Object.values(notes).sort((a, b) =>
+		b.updatedAt.localeCompare(a.updatedAt)
 	);
 	let note = useSelector((state) => state.notes[noteId]);
 	const notebooks = useSelector((state) => state.notebooks);
@@ -51,7 +51,6 @@ const NoteView = () => {
 			notebookId: Object.keys(notebooks)[0],
 			trash: false,
 			Tags: [],
-			// updatedAt: new Date(),
 		};
 	}
 
@@ -63,12 +62,7 @@ const NoteView = () => {
 	const editNote = () => {
 		if (disableEdit) {
 			setDisableEdit(false);
-			// saveBtn.current.classList.remove("hidden");
-			// addTag.current.classList.remove("hidden");
 
-			// removeTagIcon.current.forEach((span) => {
-			// 	span?.classList.remove("hidden");
-			// });
 			setNotificationMsg("Start adding something!");
 			setToggleNotification("");
 
@@ -203,12 +197,12 @@ const NoteView = () => {
 		setTitle(note?.title);
 		setContent(note?.content);
 		setTagsArr(note?.Tags);
-		setDisableEdit(true);
 		saveBtn?.current?.classList.add("hidden");
 		addTag?.current?.classList.add("hidden");
 		removeTagIcon.current.forEach((span) => {
 			span?.classList.add("hidden");
 		});
+		setDisableEdit(true);
 	}, [noteId]);
 
 	useEffect(() => {
@@ -262,7 +256,7 @@ const NoteView = () => {
 							<div className="notebook-move-dd-wrap">
 								<div className="note-view-notebook-move" onClick={openDD}>
 									<i className="fa-solid fa-arrow-right-to-bracket"> </i>
-									other notebook
+									Move to another notebook
 								</div>
 								<div className="notebook-move-dd hidden" ref={moveDD}>
 									<div className="notebook-move-dd-div">Move to...</div>
@@ -271,7 +265,7 @@ const NoteView = () => {
 											key={notebook?.id}
 											className="notebook-move-dd-div"
 											onClick={() => {
-												moveToNotebook(notebook.id);
+												moveToNotebook(notebook?.id);
 											}}
 										>
 											{notebook?.name}
@@ -351,7 +345,7 @@ const NoteView = () => {
 					</div>
 					{/* Tags section */}
 					{/* show mini remove icon when in edit mode */}
-					<div className="note-view-tags">
+					<div className="note-view-tags" onClick={editNote}>
 						{tagsArr?.map((tag, idx) => (
 							<div key={tag.id} className="note-view-tag">
 								<div
@@ -404,7 +398,14 @@ const NoteView = () => {
 			</>
 		);
 	} else {
-		return <div>no notes</div>;
+		return (
+			<div className="notebook-bg">
+				<div className="notebook-container">
+					<img src="/images/logo.svg" alt="bee" className="fly-bee" />
+					<div className="notebook-ctnr-title">No notes in this notebook</div>
+				</div>
+			</div>
+		);
 	}
 };
 

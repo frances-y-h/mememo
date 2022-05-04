@@ -7,7 +7,10 @@ import NewTagModal from "../DesktopPage/Tools/newTagModal";
 
 const Tags = () => {
 	const { setToggleTagModal } = useModal();
-	const tags = Object.values(useSelector((state) => state.tags));
+	const tags = useSelector((state) => state.tags);
+	const tagsOrdered = Object.values(tags).sort((a, b) =>
+		b.updatedAt.localeCompare(a.updatedAt)
+	);
 	const [showTags, setShowTags] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
 
@@ -74,19 +77,18 @@ const Tags = () => {
 			</div>
 			{/* Tags Dropdown */}
 			<div className="nav-dd  nav-dropdown-hide" ref={tagsDDDiv}>
-				{tags[0] &&
-					tags.map((tag) => (
-						<Link to={`/tags/${tag.id}`} key={tag.id}>
-							<div className="nav-dd-div nav-dd-div-tight">
-								<div
-									className="tag tag-sm"
-									style={{ backgroundColor: `#${tag.color}` }}
-								>
-									{tag.name}
-								</div>
+				{tagsOrdered.map((tag) => (
+					<Link to={`/tags/${tag?.id}`} key={tag?.id}>
+						<div className="nav-dd-div nav-dd-div-tight">
+							<div
+								className="tag tag-sm"
+								style={{ backgroundColor: `#${tag?.color}` }}
+							>
+								{tag?.name}
 							</div>
-						</Link>
-					))}
+						</div>
+					</Link>
+				))}
 				<div
 					className="nav-dd-div nav-new"
 					onClick={() => setToggleTagModal("")}

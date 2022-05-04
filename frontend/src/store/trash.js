@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 // Actions
 const GET_ALL_TRASH = "trash/GET_ALL_TRASH";
-const PUT_BACK = "trash/PUT_BACK";
+const PUT_BACK_DELETE = "trash/PUT_BACK_DELTE";
 const EMPTY_TRASH = "trash/EMPTY_TRASH";
 
 // Action Creators
@@ -13,9 +13,9 @@ const getTrash = (trash) => {
 	};
 };
 
-export const putBack = (noteId) => {
+export const putBackDelete = (noteId) => {
 	return {
-		type: PUT_BACK,
+		type: PUT_BACK_DELETE,
 		noteId,
 	};
 };
@@ -31,6 +31,15 @@ export const getAllTrash = () => async (dispatch) => {
 	const response = await csrfFetch("/api/trash");
 	const data = await response.json();
 	dispatch(getTrash(data));
+	return response;
+};
+
+export const deleteOneTrash = (noteId) => async (dispatch) => {
+	const response = await csrfFetch(`/api/trash/${noteId}`, {
+		method: "DELETE",
+	});
+	const data = await response.json();
+	dispatch(putBackDelete(data));
 	return response;
 };
 
@@ -57,7 +66,7 @@ const trashReducer = (state = initialState, action) => {
 				newState[el.id] = el;
 			});
 			return newState;
-		case PUT_BACK:
+		case PUT_BACK_DELETE:
 			newState = { ...state };
 			delete newState[action.noteId];
 			return newState;

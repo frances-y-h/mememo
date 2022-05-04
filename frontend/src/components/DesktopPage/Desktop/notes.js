@@ -66,16 +66,27 @@ const Notes = () => {
 							</div>
 						</Link>
 					))}
-				<Link to="notes/new">
-					<div className="desktop-note dk-note-new">
-						<img
-							className="dk-note-new-circle"
-							src="/images/icon/note-new-circle.svg"
-							alt="Add Note"
-						/>
-						<div className="dk-note-new-title">Create new note</div>
-					</div>
-				</Link>
+
+				<div
+					className="desktop-note dk-note-new"
+					onClick={() => {
+						setDisableEdit(false);
+						setNotificationMsg("Start adding something!");
+						setToggleNotification("");
+
+						setTimeout(() => {
+							setToggleNotification("notification-move");
+						}, 2000);
+						history.push("/notes/new");
+					}}
+				>
+					<img
+						className="dk-note-new-circle"
+						src="/images/icon/note-new-circle.svg"
+						alt="Add Note"
+					/>
+					<div className="dk-note-new-title">Create new note</div>
+				</div>
 			</div>
 			<div className="desktop-notes-btm"></div>
 		</div>
