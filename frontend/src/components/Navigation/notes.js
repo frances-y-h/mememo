@@ -12,6 +12,9 @@ const Notes = () => {
 	const { setToggleNotification, setNotificationMsg } = useNotification();
 
 	const notes = useSelector((state) => state.notes);
+	const notesOrdered = Object.values(notes).sort((a, b) =>
+		b.updatedAt.localeCompare(a.updatedAt)
+	);
 
 	const [showNotes, setShowNotes] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -82,15 +85,14 @@ const Notes = () => {
 			</div>
 			{/* notes dropdown */}
 			<div className="nav-dd nav-dropdown-hide" ref={notesDDDiv}>
-				{Object.values(notes)[0] &&
-					Object.values(notes).map((note) => (
-						<Link to={`/notes/${note?.id}`}>
-							<div className="nav-dd-div" key={note?.id}>
-								<i className="fa-regular fa-file-lines"></i>
-								<div className="nav-dd-title">{note?.title}</div>
-							</div>
-						</Link>
-					))}
+				{notesOrdered.map((note) => (
+					<Link to={`/notes/${note?.id}`} key={note?.id}>
+						<div className="nav-dd-div">
+							<i className="fa-regular fa-file-lines"></i>
+							<div className="nav-dd-title">{note?.title}</div>
+						</div>
+					</Link>
+				))}
 
 				<div
 					className="nav-dd-div nav-new"

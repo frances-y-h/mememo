@@ -48,6 +48,11 @@
 	gap: 20px;
 }
 
+.all-notebooks-title-wrap {
+	display: flex;
+	justify-content: space-between;
+}
+
 .all-notebooks-title {
 	font-weight: bold;
 	display: flex;

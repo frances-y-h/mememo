@@ -1,4 +1,4 @@
-import { useParams, Redirect, Switch, Route } from "react-router-dom";
+import { useParams, useHistory, Switch, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef, useEffect, useState } from "react";
 import * as tagsActions from "../../../store/tags";
@@ -6,13 +6,14 @@ import * as notesActions from "../../../store/notes";
 
 import NoteCard from "./noteCard";
 import NoteView from "../Notes/NoteView";
+import RedirectPage from "./RedirectPage";
 
 function TagPage({ title }) {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const { id } = useParams();
 	const tags = Object.values(useSelector((state) => state.tags));
 	const tag = useSelector((state) => state.tags[id]);
-	// const userId = useSelector((state) => state.session.user.id);
 
 	const [disable, setDisable] = useState(true);
 	const [tagErr, setTagErr] = useState("");
@@ -75,7 +76,8 @@ function TagPage({ title }) {
 		// need to make sure notes tag info updated
 		await dispatch(notesActions.getAllNotes());
 		modalBg.current.classList.add("hidden");
-		<Redirect to="/tags" />;
+
+		history.push(`/tags/${tags[0].id}`);
 	};
 
 	useEffect(() => {
@@ -83,11 +85,11 @@ function TagPage({ title }) {
 			setName(tag?.name);
 			setColor(tag?.color);
 			setTagNotes(tag?.Notes?.length);
-			editTag.current.classList.remove("hidden");
+			editTag?.current?.classList.remove("hidden");
 		} else {
 			setName("");
 			setColor("");
-			editTag.current.classList.add("hidden");
+			editTag?.current?.classList.add("hidden");
 		}
 	}, [id, tag?.name, tag?.color, tag?.Notes?.length]);
 
@@ -149,6 +151,9 @@ function TagPage({ title }) {
 				<Switch>
 					<Route path="/tags/:tagId/notes/:noteId">
 						<NoteView />
+					</Route>
+					<Route path="/tags/:tagId">
+						<RedirectPage tagId={id} />
 					</Route>
 				</Switch>
 			</main>

@@ -16,8 +16,8 @@ const NoteView = () => {
 	const history = useHistory();
 
 	const notes = useSelector((state) => state.notes);
-	const notesOrdered = Object.values(notes).sort(
-		(a, b) => b.updatedAt - a.updatedAt
+	const notesOrdered = Object.values(notes).sort((a, b) =>
+		b.updatedAt.localeCompare(a.updatedAt)
 	);
 	let note = useSelector((state) => state.notes[noteId]);
 	const notebooks = useSelector((state) => state.notebooks);
@@ -51,7 +51,6 @@ const NoteView = () => {
 			notebookId: Object.keys(notebooks)[0],
 			trash: false,
 			Tags: [],
-			// updatedAt: new Date(),
 		};
 	}
 
@@ -63,12 +62,7 @@ const NoteView = () => {
 	const editNote = () => {
 		if (disableEdit) {
 			setDisableEdit(false);
-			// saveBtn.current.classList.remove("hidden");
-			// addTag.current.classList.remove("hidden");
 
-			// removeTagIcon.current.forEach((span) => {
-			// 	span?.classList.remove("hidden");
-			// });
 			setNotificationMsg("Start adding something!");
 			setToggleNotification("");
 
@@ -268,7 +262,7 @@ const NoteView = () => {
 									<div className="notebook-move-dd-div">Move to...</div>
 									{Object.values(notebooks).map((notebook) => (
 										<div
-											key={notebook?.id}
+											key={notebook.id}
 											className="notebook-move-dd-div"
 											onClick={() => {
 												moveToNotebook(notebook.id);
@@ -389,7 +383,7 @@ const NoteView = () => {
 								</div>
 								{tagDDList?.map((tag) => (
 									<div
-										key={tag?.id}
+										key={tag.id}
 										className="tag cursor"
 										style={{ backgroundColor: `#${tag?.color}` }}
 										onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
