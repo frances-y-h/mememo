@@ -203,6 +203,12 @@ const NoteView = () => {
 		setTitle(note?.title);
 		setContent(note?.content);
 		setTagsArr(note?.Tags);
+		setDisableEdit(true);
+		saveBtn?.current?.classList.add("hidden");
+		addTag?.current?.classList.add("hidden");
+		removeTagIcon.current.forEach((span) => {
+			span?.classList.add("hidden");
+		});
 	}, [noteId]);
 
 	useEffect(() => {
@@ -236,160 +242,163 @@ const NoteView = () => {
 
 	if (notes) {
 		return (
-			<div className="note-view">
+			<>
+				{/* modal background */}
 				<div
 					className="modalBg1 hidden"
 					ref={modalBg}
 					onClick={moveNotebookDD}
 				></div>
-				<div className="note-view-notebook-wrap">
-					<div className="pad5">
-						<Link
-							to={`/notebooks/${note.notebookId}`}
-							className="note-view-notebook"
-						>
-							<i className="fa-solid fa-book"></i>
-							{notebooks[note.notebookId]?.name}
-						</Link>
-						<div className="notebook-move-dd-wrap">
-							<div className="note-view-notebook-move" onClick={openDD}>
-								<i className="fa-solid fa-arrow-right-to-bracket"> </i>
-								other notebook
+				<div className="note-view">
+					<div className="note-view-notebook-wrap">
+						<div className="pad5">
+							<Link
+								to={`/notebooks/${note.notebookId}`}
+								className="note-view-notebook"
+							>
+								<i className="fa-solid fa-book"></i>
+								{notebooks[note.notebookId]?.name}
+							</Link>
+							<div className="notebook-move-dd-wrap">
+								<div className="note-view-notebook-move" onClick={openDD}>
+									<i className="fa-solid fa-arrow-right-to-bracket"> </i>
+									other notebook
+								</div>
+								<div className="notebook-move-dd hidden" ref={moveDD}>
+									<div className="notebook-move-dd-div">Move to...</div>
+									{Object.values(notebooks).map((notebook) => (
+										<div
+											key={notebook?.id}
+											className="notebook-move-dd-div"
+											onClick={() => {
+												moveToNotebook(notebook.id);
+											}}
+										>
+											{notebook?.name}
+										</div>
+									))}
+								</div>
 							</div>
-							<div className="notebook-move-dd hidden" ref={moveDD}>
-								<div className="notebook-move-dd-div">Move to...</div>
-								{Object.values(notebooks).map((notebook) => (
+						</div>
+						<div className="note-view-notebook-edit">
+							<div className="tooltip">
+								<i
+									className="fa-solid fa-floppy-disk hidden"
+									ref={saveBtn}
+									onClick={saveNote}
+									onMouseEnter={() =>
+										saveTooltip?.current.classList.toggle("hidden")
+									}
+									onMouseLeave={() =>
+										saveTooltip?.current.classList.toggle("hidden")
+									}
+								></i>
+								<span className="icon-tooltiptext hidden" ref={saveTooltip}>
+									Save
+								</span>
+							</div>
+							<div
+								className="tooltip"
+								onMouseEnter={() =>
+									editTooltip.current.classList.toggle("hidden")
+								}
+								onMouseLeave={() =>
+									editTooltip.current.classList.toggle("hidden")
+								}
+							>
+								<i className="fa-solid fa-pen-to-square" onClick={editNote}></i>
+								<span className="icon-tooltiptext hidden" ref={editTooltip}>
+									Edit
+								</span>
+							</div>
+							<div
+								className="tooltip"
+								onMouseEnter={() =>
+									deleteTooltip?.current.classList.toggle("hidden")
+								}
+								onMouseLeave={() =>
+									deleteTooltip?.current.classList.toggle("hidden")
+								}
+							>
+								<i className="fa-solid fa-trash-can" onClick={moveToTrash}></i>
+								<span className="icon-tooltiptext hidden" ref={deleteTooltip}>
+									Trash
+								</span>
+							</div>
+						</div>
+					</div>
+					<div className="note-view-update">
+						{/* {formatDistanceToNow(parseISO(note?.updatedAt))} ago */}
+					</div>
+					<div onClick={editNote}>
+						<input
+							type="text"
+							value={title}
+							className="note-view-title"
+							disabled={disableEdit}
+							placeholder="New Title"
+							onChange={(e) => setTitle(e.target.value)}
+						/>
+					</div>
+					<div onClick={editNote}>
+						<textarea
+							value={content}
+							className="note-view-content"
+							disabled={disableEdit}
+							placeholder="Say something..."
+							onChange={(e) => setContent(e.target.value)}
+						/>
+					</div>
+					{/* Tags section */}
+					{/* show mini remove icon when in edit mode */}
+					<div className="note-view-tags">
+						{tagsArr?.map((tag, idx) => (
+							<div key={tag.id} className="note-view-tag">
+								<div
+									className="tag"
+									style={{ backgroundColor: `#${tag?.color}` }}
+								>
+									{tag?.name}
+								</div>
+								<span
+									className="note-tags-remove hidden"
+									onClick={() => removeTag(tag.id)}
+									ref={(el) => {
+										removeTagIcon.current[idx] = el;
+									}}
+								>
+									<i className="fa-solid fa-circle-minus"></i>
+								</span>
+							</div>
+						))}
+						<div className="note-tag-dd-wrap">
+							<i
+								className="fa-solid fa-circle-plus hidden"
+								ref={addTag}
+								onClick={() => {
+									tagDD?.current.classList.remove("hidden");
+									modalBg?.current.classList.remove("hidden");
+								}}
+							></i>
+							<div className="note-tag-dd hidden" ref={tagDD}>
+								<div className="tag cursor" onClick={() => setToggleModal("")}>
+									<i className="fa-solid fa-circle-plus"></i> New Tag
+								</div>
+								{tagDDList?.map((tag) => (
 									<div
-										key={notebook?.id}
-										className="notebook-move-dd-div"
-										onClick={() => {
-											moveToNotebook(notebook.id);
-										}}
+										key={tag?.id}
+										className="tag cursor"
+										style={{ backgroundColor: `#${tag?.color}` }}
+										onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
 									>
-										{notebook?.name}
+										{tag?.name}
 									</div>
 								))}
 							</div>
 						</div>
 					</div>
-					<div className="note-view-notebook-edit">
-						<div className="tooltip">
-							<i
-								className="fa-solid fa-floppy-disk hidden"
-								ref={saveBtn}
-								onClick={saveNote}
-								onMouseEnter={() =>
-									saveTooltip?.current.classList.toggle("hidden")
-								}
-								onMouseLeave={() =>
-									saveTooltip?.current.classList.toggle("hidden")
-								}
-							></i>
-							<span className="icon-tooltiptext hidden" ref={saveTooltip}>
-								Save
-							</span>
-						</div>
-						<div
-							className="tooltip"
-							onMouseEnter={() =>
-								editTooltip.current.classList.toggle("hidden")
-							}
-							onMouseLeave={() =>
-								editTooltip.current.classList.toggle("hidden")
-							}
-						>
-							<i className="fa-solid fa-pen-to-square" onClick={editNote}></i>
-							<span className="icon-tooltiptext hidden" ref={editTooltip}>
-								Edit
-							</span>
-						</div>
-						<div
-							className="tooltip"
-							onMouseEnter={() =>
-								deleteTooltip?.current.classList.toggle("hidden")
-							}
-							onMouseLeave={() =>
-								deleteTooltip?.current.classList.toggle("hidden")
-							}
-						>
-							<i className="fa-solid fa-trash-can" onClick={moveToTrash}></i>
-							<span className="icon-tooltiptext hidden" ref={deleteTooltip}>
-								Trash
-							</span>
-						</div>
-					</div>
 				</div>
-				<div className="note-view-update">
-					{/* {formatDistanceToNow(parseISO(note?.updatedAt))} ago */}
-				</div>
-				<div onClick={editNote}>
-					<input
-						type="text"
-						value={title}
-						className="note-view-title"
-						disabled={disableEdit}
-						placeholder="New Title"
-						onChange={(e) => setTitle(e.target.value)}
-					/>
-				</div>
-				<div onClick={editNote}>
-					<textarea
-						value={content}
-						className="note-view-content"
-						disabled={disableEdit}
-						placeholder="Say something..."
-						onChange={(e) => setContent(e.target.value)}
-					/>
-				</div>
-				{/* Tags section */}
-				{/* show mini remove icon when in edit mode */}
-				<div className="note-view-tags">
-					{tagsArr?.map((tag, idx) => (
-						<div key={tag.id} className="note-view-tag">
-							<div
-								className="tag"
-								style={{ backgroundColor: `#${tag?.color}` }}
-							>
-								{tag?.name}
-							</div>
-							<span
-								className="note-tags-remove hidden"
-								onClick={() => removeTag(tag.id)}
-								ref={(el) => {
-									removeTagIcon.current[idx] = el;
-								}}
-							>
-								<i className="fa-solid fa-circle-minus"></i>
-							</span>
-						</div>
-					))}
-					<div className="note-tag-dd-wrap">
-						<i
-							className="fa-solid fa-circle-plus hidden"
-							ref={addTag}
-							onClick={() => {
-								tagDD?.current.classList.remove("hidden");
-								modalBg?.current.classList.remove("hidden");
-							}}
-						></i>
-						<div className="note-tag-dd hidden" ref={tagDD}>
-							<div className="tag cursor" onClick={() => setToggleModal("")}>
-								<i className="fa-solid fa-circle-plus"></i> New Tag
-							</div>
-							{tagDDList?.map((tag) => (
-								<div
-									key={tag?.id}
-									className="tag cursor"
-									style={{ backgroundColor: `#${tag?.color}` }}
-									onClick={() => setTagsArr([...tagsArr, tag])} // when clicked will add to tagsArr
-								>
-									{tag?.name}
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-			</div>
+			</>
 		);
 	} else {
 		return <div>no notes</div>;

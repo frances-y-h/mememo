@@ -1,15 +1,25 @@
-import { useSelector } from "react-redux";
+import { Switch, Route } from "react-router-dom";
+
+import SideBar from "./SideBar";
+import NoteView from "../Notes/NoteView";
+import RedirectPage from "./RedirectPage";
 
 const NotebooksPage = () => {
-	const notebooks = useSelector((state) => state.notebooks);
-
 	return (
-		<main>
-			<h1>Notebook Page</h1>
-			{Object.values(notebooks)[0] &&
-				Object.values(notebooks).map((notebook) => (
-					<div key={notebook.id}>{notebook.name}</div>
-				))}
+		<main className="note-control">
+			<Switch>
+				<Route path="/notebooks" exact>
+					<div>All notes</div>
+				</Route>
+				<Route path="/notebooks/:notebookId" exact>
+					<SideBar />
+					<RedirectPage />
+				</Route>
+				<Route path="/notebooks/:notebookId/:noteId" exact>
+					<SideBar />
+					<NoteView />
+				</Route>
+			</Switch>
 		</main>
 	);
 };

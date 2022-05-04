@@ -33,6 +33,8 @@ function App() {
 						"/notes",
 						"/notes/:noteId",
 						"/notebooks",
+						"/notebooks/:notebookId",
+						"/notebooks/:notebookId/:noteId",
 						"/tags",
 						"/tags/:tagId",
 						"/trash",

@@ -26,7 +26,7 @@ const Modal = () => {
 			onClick={() => setToggleTrashModal("hidden")}
 		>
 			<div className="form-control" onClick={(e) => e.stopPropagation()}>
-				<div className="trash-modal-title">
+				<div className="modal-title">
 					<div>Empty Trash?</div>
 					<div
 						className="modal-x"
@@ -35,11 +35,11 @@ const Modal = () => {
 						X
 					</div>
 				</div>
-				<div className="trash-modal-content">
+				<div className="modal-content">
 					Are you sure you want to empty the trash? All items in the trash will
 					be permanently deleted and cannot be restored.
 				</div>
-				<div className="trash-modal-btn-wrap">
+				<div className="modal-btn-wrap-border">
 					<button
 						className="btn btn-black"
 						onClick={() => setToggleTrashModal("hidden")}
