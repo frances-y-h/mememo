@@ -2,6 +2,7 @@ import { Switch, Route } from "react-router-dom";
 
 import SideBar from "./SideBar";
 import NoteView from "../Notes/NoteView";
+import RedirectPage from "./RedirectPage";
 
 const NotebooksPage = () => {
 	return (
@@ -13,7 +14,7 @@ const NotebooksPage = () => {
 				</Route>
 				<Route path="/notebooks/:notebookId" exact>
 					<SideBar />
-					<div>Here</div>
+					<RedirectPage />
 				</Route>
 				<Route path="/notebooks/:notebookId/:noteId" exact>
 					<SideBar />

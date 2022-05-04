@@ -28,7 +28,7 @@ const SideBar = () => {
 				</div>
 			</div>
 			<div className="note-card-wrap">
-				<NoteCard notebookId={notebookId} />
+				<NoteCard notebookId={notebookId} noteId={noteId} />
 			</div>
 		</div>
 	);

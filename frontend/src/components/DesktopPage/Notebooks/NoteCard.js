@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
 
-const NoteCard = ({ notebookId }) => {
+const NoteCard = ({ notebookId, noteId }) => {
 	const notebook = useSelector((state) => state.notebooks[notebookId]);
 	const notes = Object.values(useSelector((state) => state?.notes))?.filter(
 		(note) =>
