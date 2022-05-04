@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/ModalContext";
+import { useNotification } from "../../../context/NotificationContext";
 
 import * as notebooksActions from "../../../store/notebooks";
 import * as notesActions from "../../../store/notes";
@@ -8,8 +10,10 @@ import * as trashActions from "../../../store/trash";
 
 const DeleteModal = ({ notebook }) => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const { toggleDeleteNotebookModal, setToggleDeleteNotebookModal } =
 		useModal();
+	const { setToggleNotification, setNotificationMsg } = useNotification();
 
 	const cancel = () => {
 		setToggleDeleteNotebookModal("hidden");
@@ -25,6 +29,17 @@ const DeleteModal = ({ notebook }) => {
 		await dispatch(trashActions.getAllTrash());
 
 		// notification about notebook deleted and notes moved to trash
+		setToggleDeleteNotebookModal("hidden");
+		setNotificationMsg(
+			"Notebook delete. Any notes inside the notebook has been moved to trash"
+		);
+		setToggleNotification("");
+
+		setTimeout(() => {
+			setToggleNotification("notification-move");
+		}, 4000);
+
+		history.push("/notebooks");
 	};
 
 	return (
