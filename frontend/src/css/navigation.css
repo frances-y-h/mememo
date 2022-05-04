@@ -57,6 +57,10 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	position: relative;
+	overflow-x: auto;
+	overflow-y: auto;
+	flex-wrap: nowrap;
+	-webkit-overflow-scrolling: touch;
 }
 
 .nav-top,
