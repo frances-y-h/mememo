@@ -9,7 +9,6 @@ const NotebooksPage = () => {
 		<main className="note-control">
 			<Switch>
 				<Route path="/notebooks" exact>
-					<SideBar />
 					<div>All notes</div>
 				</Route>
 				<Route path="/notebooks/:notebookId" exact>

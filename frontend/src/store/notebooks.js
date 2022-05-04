@@ -27,9 +27,22 @@ export const getAllNotebooks = () => async (dispatch) => {
 	return response;
 };
 
+// payload does not have notebook.id
 export const addNotebook = (notebook) => async (dispatch) => {
 	const response = await csrfFetch("/api/notebooks/", {
 		method: "POST",
+		body: JSON.stringify(notebook),
+	});
+
+	const data = await response.json();
+	dispatch(addUpdateNotebook(data));
+	return data;
+};
+
+// payload have notebook.id
+export const editNotebook = (notebook) => async (dispatch) => {
+	const response = await csrfFetch(`/api/notebooks/${notebook.id}`, {
+		method: "PATCH",
 		body: JSON.stringify(notebook),
 	});
 

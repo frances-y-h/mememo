@@ -42,4 +42,22 @@ router.post(
 	})
 );
 
+router.patch(
+	"/:notebookId(\\d+)",
+	requireAuth,
+	validateNotebook,
+	asyncHandler(async (req, res) => {
+		const notebookId = parseInt(req.params.notebookId, 10);
+		const { name } = req.body;
+
+		const notebookToUpdate = await Notebook.findByPk(notebookId);
+
+		notebookToUpdate.name = name;
+
+		const notebook = await notebookToUpdate.save();
+
+		res.json(notebook);
+	})
+);
+
 module.exports = router;
