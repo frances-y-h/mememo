@@ -11,7 +11,8 @@ import * as trashActions from "../../../store/trash";
 
 const NoteView = () => {
 	// check if there is note id from use params, if not, redirect to most recent note
-	const { noteId } = useParams();
+	const { noteId, notebookId: notebookParamsId } = useParams();
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -148,6 +149,10 @@ const NoteView = () => {
 			setTimeout(() => {
 				setToggleNotification("notification-move");
 			}, 2000);
+
+			if (notebookParamsId) {
+				history.push(`/notebooks/${notebookId}/${noteId}`);
+			}
 		} else {
 			moveDD.current.classList.add("hidden");
 			modalBg.current.classList.add("hidden");
