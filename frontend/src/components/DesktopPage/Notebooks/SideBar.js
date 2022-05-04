@@ -92,7 +92,7 @@ const SideBar = () => {
 				</div>
 			</div>
 			{/* Edit modal */}
-			<div className="modalBgTag" ref={editModal} onClick={cancel}>
+			<div className="modalBgTag hidden" ref={editModal} onClick={cancel}>
 				<form className="form-control" onClick={(e) => e.stopPropagation()}>
 					<div className="modal-title">Rename Notebook</div>
 					<div className="modal-content">
