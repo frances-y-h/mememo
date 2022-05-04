@@ -78,6 +78,9 @@
 	color: white;
 	background-color: var(--mid4);
 	border: 2px solid var(--mid2);
+	display: flex;
+	gap: 10px;
+	align-items: center;
 }
 
 .btn-mid1-solid:disabled {
@@ -87,4 +90,33 @@
 .btn-alert-solid {
 	color: white;
 	background-color: var(--alert1);
+}
+
+/* sidebar buttons */
+.note-title-empty,
+.note-title-edit {
+	font-size: 12px;
+	padding: 4px 8px;
+	border-radius: 3px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+.note-title-edit {
+	font-size: 12px;
+}
+
+.note-title-empty:hover,
+.note-title-edit:hover {
+	background-color: var(--mid3);
+}
+
+.note-title-empty {
+	font-size: 12px;
+	display: flex;
+	text-align: center;
+	border: 1px solid gray;
+}
+
+.note-title-empty:hover {
+	background-color: lightgray;
 }

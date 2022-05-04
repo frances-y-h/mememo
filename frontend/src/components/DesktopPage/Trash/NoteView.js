@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { formatDistanceToNow, parseISO } from "date-fns";
 
@@ -9,6 +9,7 @@ import * as trashActions from "../../../store/trash";
 const NoteView = () => {
 	const { noteId } = useParams();
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const note = useSelector((state) => state.trash[noteId]);
 	const [notifications, setNotifications] = useState("");
 	const notification = useRef(null);
@@ -16,10 +17,18 @@ const NoteView = () => {
 	if (note) {
 		// const ago = formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y");
 
+		const deleteNote = async () => {
+			console.log("click");
+
+			await dispatch(trashActions.deleteOneTrash(noteId));
+
+			// history.push("/trash")
+		};
+
 		const putBack = async () => {
 			const putBack = { title: note.title, trash: false };
 			await dispatch(notesActions.trashNote(noteId, putBack));
-			dispatch(trashActions.putBack(noteId));
+			dispatch(trashActions.putBackDelete(noteId));
 			dispatch(notesActions.putBack(note));
 			setNotifications("Put back to notebook");
 			notification?.current?.classList?.remove("notification-move");
@@ -37,9 +46,14 @@ const NoteView = () => {
 							<i className="fa-solid fa-book"></i>
 							{note?.Notebook?.name}
 						</div>
-						<div className="btn btn-mid1-solid" onClick={putBack}>
-							<i className="fa-solid fa-arrow-right-to-bracket"></i>
-							Put back to notebook
+						<div className="btn-wrap-gap20">
+							<div className="btn btn-m btn-alert-solid" onClick={deleteNote}>
+								Delete this note
+							</div>
+							<div className="btn btn-m btn-mid1-solid" onClick={putBack}>
+								<i className="fa-solid fa-arrow-right-to-bracket"></i>
+								Put back to notebook
+							</div>
 						</div>
 					</div>
 					<div className="note-view-update">Last edited ### ago</div>

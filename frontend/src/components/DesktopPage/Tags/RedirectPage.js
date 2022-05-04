@@ -6,8 +6,8 @@ const RedirectPage = ({ tagId }) => {
 		const arr = [];
 
 		Object.values(state.notes).forEach((note) => {
-			note.Tags.forEach((tag) => {
-				if (tag.id === parseInt(tagId, 10)) {
+			note?.Tags.forEach((tag) => {
+				if (tag?.id === parseInt(tagId, 10)) {
 					arr.push(note);
 				}
 			});
@@ -20,8 +20,6 @@ const RedirectPage = ({ tagId }) => {
 		b.updatedAt.localeCompare(a.updatedAt)
 	);
 
-	// tags/:tagId/notes/:noteId
-
-	return <Redirect to={`/tags/${tagId}/notes/${notesOrdered[0].id}`} />;
+	return <Redirect to={`/tags/${tagId}/notes/${notesOrdered[0]?.id}`} />;
 };
 export default RedirectPage;

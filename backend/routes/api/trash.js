@@ -26,6 +26,27 @@ router.get(
 );
 
 router.delete(
+	"/:noteId(\\d+)",
+	requireAuth,
+	asyncHandler(async (req, res) => {
+		const noteId = parseInt(req.params.noteId, 10);
+
+		const noteToDelete = await Note.findByPk(noteId, {
+			include: Tag,
+		});
+
+		if (noteToDelete.Tags.length > 0) {
+			for (let i = 0; i < noteToDelete.Tags.length; i++) {
+				let tagId = noteToDelete.Tags[i].id;
+				await JoinNoteTag.destroy({ where: { tagId, noteId } });
+			}
+		}
+		await noteToDelete.destroy();
+		res.json(noteId);
+	})
+);
+
+router.delete(
 	"/",
 	requireAuth,
 	asyncHandler(async (req, res) => {

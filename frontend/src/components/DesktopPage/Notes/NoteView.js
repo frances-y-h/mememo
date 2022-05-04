@@ -256,16 +256,16 @@ const NoteView = () => {
 							<div className="notebook-move-dd-wrap">
 								<div className="note-view-notebook-move" onClick={openDD}>
 									<i className="fa-solid fa-arrow-right-to-bracket"> </i>
-									other notebook
+									Move to another notebook
 								</div>
 								<div className="notebook-move-dd hidden" ref={moveDD}>
 									<div className="notebook-move-dd-div">Move to...</div>
 									{Object.values(notebooks).map((notebook) => (
 										<div
-											key={notebook.id}
+											key={notebook?.id}
 											className="notebook-move-dd-div"
 											onClick={() => {
-												moveToNotebook(notebook.id);
+												moveToNotebook(notebook?.id);
 											}}
 										>
 											{notebook?.name}
@@ -345,7 +345,7 @@ const NoteView = () => {
 					</div>
 					{/* Tags section */}
 					{/* show mini remove icon when in edit mode */}
-					<div className="note-view-tags">
+					<div className="note-view-tags" onClick={editNote}>
 						{tagsArr?.map((tag, idx) => (
 							<div key={tag.id} className="note-view-tag">
 								<div
