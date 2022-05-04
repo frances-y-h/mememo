@@ -11,7 +11,7 @@ const NotebooksPage = () => {
 					<SideBar />
 					<div>All notes</div>
 				</Route>
-				<Route path="/notebooks/:notebookId/" exact>
+				<Route path="/notebooks/:notebookId" exact>
 					<SideBar />
 					<div>Here</div>
 				</Route>
