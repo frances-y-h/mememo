@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { formatDistanceToNow, parseISO } from "date-fns";
 
 import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
+
+import UpdatedAt from "../Tools/UpdatedAt";
 
 const NoteView = () => {
 	const { noteId } = useParams();
@@ -15,8 +16,6 @@ const NoteView = () => {
 	const notification = useRef(null);
 
 	if (note) {
-		// const ago = formatDistanceToNow(parseISO(note?.updatedAt), "MMM d, y");
-
 		const deleteNote = async () => {
 			await dispatch(trashActions.deleteOneTrash(noteId));
 			history.push("/trash");
@@ -53,7 +52,10 @@ const NoteView = () => {
 							</div>
 						</div>
 					</div>
-					<div className="note-view-update">Last edited ### ago</div>
+					<div className="note-view-update">
+						Last edited
+						<UpdatedAt updatedAt={note?.updatedAt} />
+					</div>
 					<div className="note-view-title note-in-trash">{note?.title}</div>
 					<div className="note-view-content note-in-trash">{note?.content}</div>
 					<div className="note-view-tags">

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { formatDistanceToNow, parseISO } from "date-fns";
+
+import UpdatedAt from "../Tools/UpdatedAt";
 
 const NoteCard = () => {
 	const trash = useSelector((state) => state.trash);
@@ -28,7 +29,7 @@ const NoteCard = () => {
 									))}
 							</div>
 							<div className="note-update">
-								{/* {formatDistanceToNow(parseISO(note?.updatedAt))} ago */}
+								<UpdatedAt updatedAt={note?.updatedAt} />
 							</div>
 						</div>
 					</Link>

@@ -5,8 +5,13 @@ import { Link, useHistory } from "react-router-dom";
 import { useDisableEdit } from "../../../context/DisableEditContext";
 import { useNotification } from "../../../context/NotificationContext";
 
+import UpdatedAt from "../Tools/UpdatedAt";
+
 const Notes = () => {
-	const notes = Object.values(useSelector((state) => state.notes));
+	const notes = useSelector((state) => state.notes);
+	const notesOrdered = Object.values(notes).sort((a, b) =>
+		b.updatedAt.localeCompare(a.updatedAt)
+	);
 	const history = useHistory();
 	const { setDisableEdit } = useDisableEdit();
 	const { setToggleNotification, setNotificationMsg } = useNotification();
@@ -41,31 +46,29 @@ const Notes = () => {
 				</div>
 			</div>
 			<div className="dt-notes-wrap">
-				{notes[0] &&
-					notes?.map((note) => (
-						<Link key={note.id} to={`/notes/${note?.id}`}>
-							<div className="desktop-note">
-								<div className="dk-note-title">{note?.title}</div>
-								<div className="dk-note-update">
-									{/* {formatDistanceToNow(parseISO(note?.updatedAt ?? new Date()))} */}
-									ago
-								</div>
-								<div className="dk-note-content">{note?.content}</div>
-								<div className="dk-note-tags">
-									{note?.Tags[0] &&
-										note?.Tags?.map((tag) => (
-											<div
-												key={tag.id}
-												className="tag"
-												style={{ backgroundColor: `#${tag?.color}` }}
-											>
-												{tag?.name}
-											</div>
-										))}
-								</div>
+				{notesOrdered.map((note) => (
+					<Link key={note?.id} to={`/notes/${note?.id}`}>
+						<div className="desktop-note">
+							<div className="dk-note-title">{note?.title}</div>
+							<div className="dk-note-update">
+								<UpdatedAt updatedAt={note?.updatedAt} />
 							</div>
-						</Link>
-					))}
+							<div className="dk-note-content">{note?.content}</div>
+							<div className="dk-note-tags">
+								{note?.Tags[0] &&
+									note?.Tags?.map((tag) => (
+										<div
+											key={tag.id}
+											className="tag"
+											style={{ backgroundColor: `#${tag?.color}` }}
+										>
+											{tag?.name}
+										</div>
+									))}
+							</div>
+						</div>
+					</Link>
+				))}
 
 				<div
 					className="desktop-note dk-note-new"
