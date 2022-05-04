@@ -19,7 +19,6 @@ router.get(
 				Tag,
 			],
 			where: { trash: true },
-			order: [["updatedAt", "DESC"]],
 		});
 		// trash as array
 		res.json(trash);

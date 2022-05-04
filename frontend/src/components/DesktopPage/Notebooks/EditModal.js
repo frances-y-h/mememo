@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
 import { useModal } from "../../../context/ModalContext";
 
 import * as notebooksActions from "../../../store/notebooks";
@@ -13,12 +11,11 @@ const EditModal = ({ notebook }) => {
 	const [name, setName] = useState("");
 	const [disable, setDisable] = useState(true);
 	const [errors, setErrors] = useState([]);
-	const notebookId = notebook.id;
+	const notebookId = notebook?.id;
 
 	const { toggleEditNotebookModal, setToggleEditNotebookModal } = useModal();
 
 	const inputErr = useRef();
-	const editModal = useRef();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -61,7 +58,11 @@ const EditModal = ({ notebook }) => {
 
 	return (
 		<div className={`modalBgTag ${toggleEditNotebookModal}`} onClick={cancel}>
-			<form className="form-control" onClick={(e) => e.stopPropagation()}>
+			<form
+				className="form-control"
+				onClick={(e) => e.stopPropagation()}
+				onSubmit={handleSubmit}
+			>
 				<div className="modal-title">Rename Notebook</div>
 				<div className="modal-content">
 					What would you like to name this notebook?
@@ -90,7 +91,6 @@ const EditModal = ({ notebook }) => {
 					<button
 						className="btn btn-mid1-solid"
 						type="submit"
-						onClick={handleSubmit}
 						disabled={disable}
 					>
 						Rename

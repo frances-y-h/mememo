@@ -80,6 +80,10 @@
 	border: 2px solid var(--mid2);
 }
 
+.btn-mid1-solid:disabled {
+	border: 2px solid gray;
+}
+
 .btn-alert-solid {
 	color: white;
 	background-color: var(--alert1);

@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Notebook } = require("../../db/models");
+const { Notebook, Note } = require("../../db/models");
 
 const router = express.Router();
 
@@ -57,6 +57,42 @@ router.patch(
 		const notebook = await notebookToUpdate.save();
 
 		res.json(notebook);
+	})
+);
+
+router.delete(
+	"/:notebookId(\\d+)",
+	requireAuth,
+	asyncHandler(async (req, res, next) => {
+		const userId = req.user.id;
+		const notebookId = parseInt(req.params.notebookId, 10);
+		const firstNotebook = await Notebook.findAll({
+			where: { userId },
+			order: [["id", "ASC"]],
+			limit: 1,
+		});
+
+		// make sure the notebook being deleted is note the primary notebook (first notebook)
+		if (notebookId !== firstNotebook[0].id) {
+			// move all notes with current notebookId to trash and unassociate notebook that will be destroy
+			const notes = await Note.findAll({ where: { notebookId } });
+
+			for (let i = 0; i < notes.length; i++) {
+				let note = notes[i];
+				note.notebookId = firstNotebook[0].id;
+				note.trash = true;
+				await note.save();
+			}
+
+			const notebookToDestory = await Notebook.destroy({
+				where: { id: notebookId },
+			});
+
+			res.json(notebookId);
+		} else {
+			const err = new Error("Cannot delete primary notebook");
+			next(err);
+		}
 	})
 );
 

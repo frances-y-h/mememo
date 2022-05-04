@@ -4,20 +4,20 @@ import { useSelector, useDispatch } from "react-redux";
 
 import NoteCard from "./NoteCard";
 import EditModal from "./EditModal";
+import DeleteModal from "./DeleteModal";
 
 import { useModal } from "../../../context/ModalContext";
 
-import * as notebooksActions from "../../../store/notebooks";
-
 const SideBar = () => {
 	const { notebookId, noteId } = useParams();
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
-	const [name, setName] = useState("");
-	const [disable, setDisable] = useState(true);
-	const [errors, setErrors] = useState([]);
+	// const [name, setName] = useState("");
+	// const [disable, setDisable] = useState(true);
+	// const [errors, setErrors] = useState([]);
 	const [deleteMsg, setDeleteMsg] = useState("");
-	const { setToggleEditNotebookModal } = useModal();
+	const { setToggleEditNotebookModal, setToggleDeleteNotebookModal } =
+		useModal();
 
 	const inputErr = useRef();
 	const editModal = useRef();
@@ -36,7 +36,7 @@ const SideBar = () => {
 	};
 
 	useEffect(() => {
-		setName(notebook?.name);
+		// setName(notebook?.name);
 
 		if (Object.keys(notebooks)[0] === notebookId) {
 			setDeleteMsg("Cannot delete primary notebook");
@@ -44,27 +44,6 @@ const SideBar = () => {
 			setDeleteMsg("Delete");
 		}
 	}, [notebookId]);
-
-	// useEffect(() => {
-	// 	const nameExists = Object.values(notebooks).some(
-	// 		(notebook) =>
-	// 			notebook?.name === name && notebook?.id !== parseInt(notebookId, 10)
-	// 	);
-
-	// 	if (name?.length <= 0 || name?.length > 255) {
-	// 		setErrors("Must be between 1 and 255 characters");
-	// 		inputErr.current.classList.remove("hidden");
-	// 		setDisable(true);
-	// 	} else if (nameExists) {
-	// 		setErrors("Name already exists");
-	// 		inputErr.current.classList.remove("hidden");
-	// 		setDisable(true);
-	// 	} else {
-	// 		inputErr.current.classList.add("hidden");
-	// 		setErrors("");
-	// 		setDisable(false);
-	// 	}
-	// }, [name]);
 
 	return (
 		<>
@@ -108,7 +87,7 @@ const SideBar = () => {
 								<button
 									className="note-title-empty"
 									disabled={Object.keys(notebooks)[0] === notebookId}
-									onClick={showModal}
+									onClick={() => setToggleDeleteNotebookModal("")}
 								>
 									<i className="fa-solid fa-trash-can"></i>
 									<span className="icon-tooltiptext hidden" ref={deleteTooltip}>
@@ -124,45 +103,7 @@ const SideBar = () => {
 				</div>
 			</div>
 			<EditModal notebook={notebook} />
-			{/* Edit modal */}
-			{/* <div className="modalBgTag hidden" ref={editModal} onClick={cancel}>
-				<form className="form-control" onClick={(e) => e.stopPropagation()}>
-					<div className="modal-title">Rename Notebook</div>
-					<div className="modal-content">
-						What would you like to name this notebook?
-						<div className="modal-x" onClick={cancel}>
-							X
-						</div>
-					</div>
-					<div className="form-input-ctrl tooltip">
-						<i className="fa-solid fa-book"></i>
-						<input
-							type="text"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-							required
-							placeholder="Notebook Name"
-							className="input"
-						/>
-						<span ref={inputErr} className="tooltiptext">
-							{errors}
-						</span>
-					</div>
-					<div className="modal-btn-wrap">
-						<button className="btn btn-black" onClick={cancel}>
-							Cancel
-						</button>
-						<button
-							className="btn btn-mid1-solid"
-							type="submit"
-							onClick={handleSubmit}
-							disabled={disable}
-						>
-							Rename
-						</button>
-					</div>
-				</form>
-			</div> */}
+			<DeleteModal notebook={notebook} />
 		</>
 	);
 };
