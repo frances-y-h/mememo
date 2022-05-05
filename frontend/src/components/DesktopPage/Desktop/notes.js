@@ -58,7 +58,7 @@ const Notes = () => {
 								{note?.Tags[0] &&
 									note?.Tags?.map((tag) => (
 										<div
-											key={tag.id}
+											key={tag?.id}
 											className="tag"
 											style={{ backgroundColor: `#${tag?.color}` }}
 										>
