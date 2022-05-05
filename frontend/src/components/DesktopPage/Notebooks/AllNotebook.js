@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import EachNote from "./EachNote";
 
+import * as notesActions from "../../../store/notes";
+
 const AllNotebook = ({ notebook }) => {
+	const dispatch = useDispatch();
+
 	const notes = useSelector((state) => {
 		const arr = [];
 		Object.values(state.notes).forEach((note) => {
@@ -18,17 +22,27 @@ const AllNotebook = ({ notebook }) => {
 
 	const [basket, setBasket] = useState(notes);
 
-	const [{ isOver }, dropRef] = useDrop({
+	const [{ canDrop, isOver }, dropRef] = useDrop({
 		accept: "note",
 		drop: (item) =>
 			setBasket((basket) =>
 				!basket.some((el) => el.id === item.id) ? [...basket, item] : basket
 			),
-		collect: (monitor) => ({ isOver: monitor.isOver() }),
+		collect: (monitor) => ({
+			isOver: monitor.isOver(),
+			canDrop: monitor.canDrop(),
+		}),
 	});
 
 	useEffect(() => {
-		console.log(basket);
+		if (
+			basket[basket.length - 1] &&
+			basket[basket.length - 1].notebookId !== notebook.id
+		) {
+			const moveNote = basket[basket.length - 1];
+			moveNote.notebookId = notebook.id;
+			dispatch(notesActions.editNote(moveNote.id, moveNote));
+		}
 	}, [basket]);
 
 	return (
@@ -40,16 +54,6 @@ const AllNotebook = ({ notebook }) => {
 					<div className="all-notebook-total">Total {notes?.length} notes</div>
 				</div>
 			</Link>
-			{/* <div>
-				{notes.map((note) => (
-					<EachNote
-						draggable
-						note={note}
-						key={note?.id}
-						notebookId={notebook?.id}
-					/>
-				))}
-			</div> */}
 			<div style={{ height: "100px" }} ref={dropRef}>
 				{basket.map((note) => (
 					<EachNote note={note} notebookId={notebook?.id} />
