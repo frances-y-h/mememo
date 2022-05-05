@@ -151,6 +151,12 @@
 	align-items: center;
 }
 
+.note-view-nb-edit-icon i {
+	font-size: 18px;
+	border: 1px solid black;
+	color: black;
+}
+
 .note-view-notebook {
 	gap: 5px;
 	font-size: 14px;
