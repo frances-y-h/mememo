@@ -108,6 +108,7 @@
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	white-space: normal;
+	color: var(--dark1);
 }
 
 .note-update {
@@ -148,6 +149,12 @@
 .note-view-notebook-edit {
 	display: flex;
 	align-items: center;
+}
+
+.note-view-nb-edit-icon i {
+	font-size: 18px;
+	border: 1px solid black;
+	color: black;
 }
 
 .note-view-notebook {

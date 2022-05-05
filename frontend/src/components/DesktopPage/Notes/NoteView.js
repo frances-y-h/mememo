@@ -1,5 +1,5 @@
 import { useParams, Link, Redirect, useHistory } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useModal } from "../../../context/ModalContext";
@@ -10,6 +10,7 @@ import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
 
 import UpdatedAt from "../Tools/UpdatedAt";
+import Editor from "./Quill";
 
 const NoteView = () => {
 	// check if there is note id from use params, if not, redirect to most recent note
@@ -34,6 +35,7 @@ const NoteView = () => {
 	const [content, setContent] = useState("");
 	const [tagsArr, setTagsArr] = useState([]);
 	const [tagDDList, setTagDDList] = useState([]);
+	const [value, setValue] = useState("");
 
 	const moveDD = useRef(null);
 	const modalBg = useRef(null);
@@ -55,6 +57,7 @@ const NoteView = () => {
 			trash: false,
 			Tags: [],
 		};
+		setDisableEdit(false);
 	}
 
 	const openDD = () => {
@@ -282,7 +285,7 @@ const NoteView = () => {
 							</div>
 						</div>
 						<div className="note-view-notebook-edit">
-							<div className="tooltip">
+							<div className="note-view-nb-edit-icon tooltip">
 								<i
 									className="fa-solid fa-floppy-disk hidden"
 									ref={saveBtn}
@@ -299,7 +302,7 @@ const NoteView = () => {
 								</span>
 							</div>
 							<div
-								className="tooltip"
+								className="note-view-nb-edit-icon tooltip"
 								onMouseEnter={() =>
 									editTooltip.current.classList.toggle("hidden")
 								}
@@ -313,7 +316,7 @@ const NoteView = () => {
 								</span>
 							</div>
 							<div
-								className="tooltip"
+								className="note-view-nb-edit-icon tooltip"
 								onMouseEnter={() =>
 									deleteTooltip?.current.classList.toggle("hidden")
 								}
@@ -331,6 +334,7 @@ const NoteView = () => {
 					<div className="note-view-update">
 						Last edited <UpdatedAt updatedAt={note?.updatedAt} />
 					</div>
+
 					<div onClick={editNote}>
 						<input
 							type="text"
@@ -342,13 +346,7 @@ const NoteView = () => {
 						/>
 					</div>
 					<div onClick={editNote}>
-						<textarea
-							value={content}
-							className="note-view-content"
-							disabled={disableEdit}
-							placeholder="Say something..."
-							onChange={(e) => setContent(e.target.value)}
-						/>
+						<Editor content={content} setContent={setContent} />
 					</div>
 					{/* Tags section */}
 					{/* show mini remove icon when in edit mode */}

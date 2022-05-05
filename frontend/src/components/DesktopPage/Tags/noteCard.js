@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import UpdatedAt from "../Tools/UpdatedAt";
+import NoteContent from "../Notes/NoteContent";
 
 const NoteCard = ({ tagId }) => {
 	const notes = useSelector((state) => {
@@ -29,7 +30,7 @@ const NoteCard = ({ tagId }) => {
 			<Link to={`/tags/${tagId}/notes/${note.id}`} key={note.id}>
 				<div className="note-box">
 					<div className="note-title">{note.title}</div>
-					<div className="note-content">{note.content}</div>
+					<NoteContent content={note?.content} />
 					<div className="dk-note-tags">
 						{note &&
 							note.Tags.map((tag) => (

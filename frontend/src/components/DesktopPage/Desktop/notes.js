@@ -6,6 +6,7 @@ import { useDisableEdit } from "../../../context/DisableEditContext";
 import { useNotification } from "../../../context/NotificationContext";
 
 import UpdatedAt from "../Tools/UpdatedAt";
+import NoteContent from "./noteContent";
 
 const Notes = () => {
 	const notes = useSelector((state) => state.notes);
@@ -53,12 +54,13 @@ const Notes = () => {
 							<div className="dk-note-update">
 								<UpdatedAt updatedAt={note?.updatedAt} />
 							</div>
-							<div className="dk-note-content">{note?.content}</div>
+							<NoteContent content={note?.content} />
+
 							<div className="dk-note-tags">
 								{note?.Tags[0] &&
 									note?.Tags?.map((tag) => (
 										<div
-											key={tag.id}
+											key={tag?.id}
 											className="tag"
 											style={{ backgroundColor: `#${tag?.color}` }}
 										>
