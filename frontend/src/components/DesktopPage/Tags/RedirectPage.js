@@ -20,6 +20,17 @@ const RedirectPage = ({ tagId }) => {
 		b.updatedAt.localeCompare(a.updatedAt)
 	);
 
-	return <Redirect to={`/tags/${tagId}/notes/${notesOrdered[0]?.id}`} />;
+	if (notesOrdered[0]) {
+		return <Redirect to={`/tags/${tagId}/notes/${notesOrdered[0]?.id}`} />;
+	} else {
+		return (
+			<div className="notebook-bg">
+				<div className="notebook-container">
+					<img src="/images/logo.svg" alt="bee" className="fly-bee" />
+					<div className="notebook-ctnr-title">No notes with this tag</div>
+				</div>
+			</div>
+		);
+	}
 };
 export default RedirectPage;
