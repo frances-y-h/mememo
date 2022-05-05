@@ -1,5 +1,9 @@
+import React, { useState, useEffect } from "react";
+import { useDrop } from "react-dnd";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import EachNote from "./EachNote";
 
 const AllNotebook = ({ notebook }) => {
 	const notes = useSelector((state) => {
@@ -12,6 +16,21 @@ const AllNotebook = ({ notebook }) => {
 		return arr;
 	});
 
+	const [basket, setBasket] = useState(notes);
+
+	const [{ isOver }, dropRef] = useDrop({
+		accept: "note",
+		drop: (item) =>
+			setBasket((basket) =>
+				!basket.some((el) => el.id === item.id) ? [...basket, item] : basket
+			),
+		collect: (monitor) => ({ isOver: monitor.isOver() }),
+	});
+
+	useEffect(() => {
+		console.log(basket);
+	}, [basket]);
+
 	return (
 		<div>
 			<Link to={`/notebooks/${notebook?.id}`}>
@@ -21,17 +40,21 @@ const AllNotebook = ({ notebook }) => {
 					<div className="all-notebook-total">Total {notes?.length} notes</div>
 				</div>
 			</Link>
-			<div>
+			{/* <div>
 				{notes.map((note) => (
-					<Link
+					<EachNote
+						draggable
+						note={note}
 						key={note?.id}
-						to={`/notebooks/${notebook?.id}/${note?.id}`}
-						className="all-note-div"
-					>
-						<i className="fa-solid fa-file-lines"></i>
-						{note?.title}
-					</Link>
+						notebookId={notebook?.id}
+					/>
 				))}
+			</div> */}
+			<div style={{ height: "100px" }} ref={dropRef}>
+				{basket.map((note) => (
+					<EachNote note={note} notebookId={notebook?.id} />
+				))}
+				{isOver && <div>Drop Here!</div>}
 			</div>
 		</div>
 	);

@@ -5,6 +5,9 @@ import "./index.css";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import App from "./App";
 
 import configureStore from "./store";
@@ -24,11 +27,13 @@ if (process.env.NODE_ENV !== "production") {
 
 const Root = () => {
 	return (
-		<Provider store={store}>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
-		</Provider>
+		<DndProvider backend={HTML5Backend}>
+			<Provider store={store}>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</Provider>
+		</DndProvider>
 	);
 };
 
