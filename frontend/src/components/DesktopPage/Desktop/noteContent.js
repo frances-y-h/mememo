@@ -3,7 +3,7 @@ const NoteContent = ({ content }) => {
 		<div
 			className="dk-note-content"
 			dangerouslySetInnerHTML={{
-				__html: content.replace(/<([\w =":(,);\/-]+)>*/g, ""),
+				__html: content?.replace(/<([\w =":(,);\/-]+)>*/g, ""),
 			}}
 		></div>
 	);

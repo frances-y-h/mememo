@@ -1,8 +1,6 @@
 import { useParams, Link, Redirect, useHistory } from "react-router-dom";
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 import { useModal } from "../../../context/ModalContext";
 import { useNotification } from "../../../context/NotificationContext";
@@ -12,6 +10,7 @@ import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
 
 import UpdatedAt from "../Tools/UpdatedAt";
+import Quill from "./Quill";
 
 const NoteView = () => {
 	// check if there is note id from use params, if not, redirect to most recent note
@@ -244,59 +243,6 @@ const NoteView = () => {
 		return <Redirect to={`/notes/${notesOrdered[0]?.id}`} />;
 	}
 
-	const modules = {
-		toolbar: [
-			[{ header: [1, 2, false] }],
-			["bold", "italic", "underline", "strike", "blockquote"],
-			[
-				{
-					color: [
-						"#000000",
-						"#e60000",
-						"#ff9900",
-						"#ffff00",
-						"#008a00",
-						"#0066cc",
-						"#9933ff",
-					],
-				},
-				{
-					background: [
-						"#000000",
-						"#e60000",
-						"#ff9900",
-						"#ffff00",
-						"#008a00",
-						"#0066cc",
-						"#9933ff",
-					],
-				},
-				{ list: "ordered" },
-				{ list: "bullet" },
-				{ indent: "-1" },
-				{ indent: "+1" },
-			],
-			["link", "image"],
-			["clean"],
-		],
-	};
-
-	const formats = [
-		"header",
-		"bold",
-		"italic",
-		"underline",
-		"strike",
-		"blockquote",
-		"color",
-		"background",
-		"list",
-		"bullet",
-		"indent",
-		"link",
-		"image",
-	];
-
 	if (notes) {
 		return (
 			<>
@@ -397,14 +343,9 @@ const NoteView = () => {
 							onChange={(e) => setTitle(e.target.value)}
 						/>
 					</div>
-					<ReactQuill
-						theme="snow"
-						value={content}
-						onChange={setContent}
-						modules={modules}
-						formats={formats}
-						readOnly
-					/>
+					<div onClick={editNote}>
+						<Quill content={content} setContent={setContent} />
+					</div>
 					{/* Tags section */}
 					{/* show mini remove icon when in edit mode */}
 					<div className="note-view-tags" onClick={editNote}>

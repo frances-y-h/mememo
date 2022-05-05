@@ -57,7 +57,12 @@ const NoteView = () => {
 						<UpdatedAt updatedAt={note?.updatedAt} />
 					</div>
 					<div className="note-view-title note-in-trash">{note?.title}</div>
-					<div className="note-view-content note-in-trash">{note?.content}</div>
+					<div
+						className="note-view-content note-in-trash"
+						dangerouslySetInnerHTML={{
+							__html: note?.content,
+						}}
+					></div>
 					<div className="note-view-tags">
 						{note && Object.values(note?.Tags)[0] ? (
 							Object.values(note?.Tags).map((tag) => (
