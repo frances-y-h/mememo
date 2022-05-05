@@ -10,6 +10,8 @@ import * as notesActions from "../../../store/notes";
 const AllNotebook = ({ notebook }) => {
 	const dispatch = useDispatch();
 
+	const checkNotes = useSelector((state) => state.notes);
+
 	const notes = useSelector((state) => {
 		const arr = [];
 		Object.values(state.notes).forEach((note) => {
@@ -20,7 +22,7 @@ const AllNotebook = ({ notebook }) => {
 		return arr;
 	});
 
-	const [basket, setBasket] = useState(notes);
+	const [basket, setBasket] = useState([]);
 
 	const [{ canDrop, isOver }, dropRef] = useDrop({
 		accept: "note",
@@ -33,6 +35,10 @@ const AllNotebook = ({ notebook }) => {
 			canDrop: monitor.canDrop(),
 		}),
 	});
+
+	useEffect(() => {
+		setBasket(notes);
+	}, [checkNotes]);
 
 	useEffect(() => {
 		if (
