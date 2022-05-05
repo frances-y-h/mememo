@@ -10,10 +10,6 @@ const Editor = ({ content, setContent }) => {
 	const [readOnly, setReadonly] = useState(false);
 	const [theme, setTheme] = useState("snow");
 
-	const CustomToolbar = () => {
-		<div id="toolbar"></div>;
-	};
-
 	const modules = {
 		toolbar: [
 			[{ header: [1, 2, false] }],
@@ -103,7 +99,7 @@ const Editor = ({ content, setContent }) => {
 				{ indent: "+1" },
 				{ align: [] },
 			],
-			["link", "image", "emoji"],
+			["link", "image"],
 			["clean"],
 		],
 	};
@@ -123,7 +119,6 @@ const Editor = ({ content, setContent }) => {
 		"align",
 		"link",
 		"image",
-		"emoji",
 	];
 
 	useEffect(() => {
@@ -137,15 +132,18 @@ const Editor = ({ content, setContent }) => {
 	}, [disableEdit]);
 
 	return (
-		<ReactQuill
-			theme={theme}
-			value={content}
-			onChange={setContent}
-			modules={modules}
-			formats={formats}
-			readOnly={readOnly}
-			placeholder="Say something..."
-		/>
+		<>
+			{/* <CustomToolbar /> */}
+			<ReactQuill
+				theme={theme}
+				value={content}
+				onChange={setContent}
+				modules={modules}
+				formats={formats}
+				readOnly={readOnly}
+				placeholder="Say something..."
+			/>
+		</>
 	);
 };
 
