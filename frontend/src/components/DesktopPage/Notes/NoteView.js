@@ -50,7 +50,7 @@ const NoteView = () => {
 	const deleteTooltip = useRef(null);
 
 	// if there is param, but param is "new", which will return "undefined for note"
-	if (!note) {
+	if (noteId === "new") {
 		note = {
 			title: "",
 			content: "",
@@ -67,6 +67,7 @@ const NoteView = () => {
 	};
 
 	const editNote = () => {
+		if (!noteId) history.push("/notes/new");
 		if (disableEdit) {
 			setDisableEdit(false);
 
@@ -210,8 +211,8 @@ const NoteView = () => {
 	};
 
 	useEffect(() => {
-		setTitle(note.title);
-		setContent(note.content);
+		setTitle(note?.title);
+		setContent(note?.content);
 		setTagsArr(note?.Tags);
 		saveBtn?.current?.classList.add("hidden");
 		addTag?.current?.classList.add("hidden");
@@ -246,11 +247,11 @@ const NoteView = () => {
 		}
 	}, [disableEdit]);
 
-	if (notes && !noteId) {
+	if (notesOrdered[0] && !noteId) {
 		return <Redirect to={`/notes/${notesOrdered[0]?.id}`} />;
 	}
 
-	if (notes) {
+	if (noteId !== "undefined") {
 		return (
 			<>
 				{/* modal background */}
@@ -263,11 +264,11 @@ const NoteView = () => {
 					<div className="note-view-notebook-wrap">
 						<div className="pad5">
 							<Link
-								to={`/notebooks/${note.notebookId}`}
+								to={`/notebooks/${note?.notebookId}`}
 								className="note-view-notebook"
 							>
 								<i className="fa-solid fa-book"></i>
-								{notebooks[note.notebookId]?.name}
+								{notebooks[note?.notebookId]?.name}
 							</Link>
 							<div className="notebook-move-dd-wrap">
 								<div className="note-view-notebook-move" onClick={openDD}>
@@ -415,7 +416,7 @@ const NoteView = () => {
 			<div className="notebook-bg">
 				<div className="notebook-container">
 					<img src="/images/logo.svg" alt="bee" className="fly-bee" />
-					<div className="notebook-ctnr-title">No notes in this notebook</div>
+					<div className="notebook-ctnr-title">No notes</div>
 				</div>
 			</div>
 		);

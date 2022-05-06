@@ -56,7 +56,7 @@ const Favorite = () => {
 	// set basket on initial load
 	useEffect(() => {
 		setBasket(favorites);
-	}, []);
+	}, [JSON.stringify(favorites)]);
 
 	return (
 		<>
@@ -77,7 +77,7 @@ const Favorite = () => {
 			</div>
 			{/* favorite dropdown */}
 			<div className="nav-dd  nav-dropdown-hide" ref={favDDDiv}>
-				{basket.map((noteId, i) => renderMove(noteId, i))}
+				{basket?.map((noteId, i) => renderMove(noteId, i))}
 			</div>
 		</>
 	);
