@@ -146,7 +146,7 @@ const sessionReducer = (state = initialState, action) => {
 		case ADD_FAVORITE:
 			newState = { ...state };
 			if (!newState.user.favorite.some((id) => id === action.noteId)) {
-				newState.user.favorite.unshift(action.noteId);
+				newState.user.favorite = [...state.user.favorite, action.noteId];
 			}
 			return newState;
 		case REMOVE_FAVORITE:
