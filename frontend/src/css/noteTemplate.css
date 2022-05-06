@@ -39,10 +39,11 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	-webkit-box-orient: vertical;
-	white-space: normal;
+	white-space: nowrap;
 	display: flex;
 	align-items: center;
 	gap: 5px;
+	width: 120px;
 }
 
 .note-title i {
@@ -107,6 +108,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	-webkit-line-clamp: 1;
 	width: 100%;
 }
 
@@ -275,15 +277,20 @@
 
 .note-view-title-fav-wrap {
 	display: flex;
+	flex-direction: row;
 	align-items: center;
 	padding: 20px;
 	gap: 20px;
 }
 
+.note-view-title-div {
+	width: 100%;
+}
 .note-view-title {
 	font-size: 24px;
 	font-weight: bold;
 	border: none;
+	width: 100%;
 }
 
 .note-view-content {

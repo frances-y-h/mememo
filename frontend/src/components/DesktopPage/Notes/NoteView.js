@@ -349,7 +349,7 @@ const NoteView = () => {
 					</div>
 					<div className="note-view-title-fav-wrap">
 						<Favorite noteId={note?.id} />
-						<div onClick={editNote}>
+						<div onClick={editNote} className="note-view-title-div">
 							<input
 								type="text"
 								value={title}

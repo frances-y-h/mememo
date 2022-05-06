@@ -33,8 +33,8 @@ const NoteCard = ({ tagId }) => {
 					<Link to={`/tags/${tagId}/notes/${note.id}`} key={note.id}>
 						<div className="note-box">
 							<div className="note-title">
-								{note.title}
 								<Favorite noteId={note?.id} />
+								{note.title}
 							</div>
 							<NoteContent content={note?.content} />
 							<div className="dk-note-tags">
