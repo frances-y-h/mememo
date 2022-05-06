@@ -193,7 +193,8 @@ const NoteView = () => {
 			}, 2000);
 			history.push("/notes");
 		} else {
-			setNotificationMsg("Plase save note first");
+			history.push("/notes");
+			setNotificationMsg("New note not saved");
 			setToggleNotification("");
 
 			setTimeout(() => {

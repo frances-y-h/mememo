@@ -11,8 +11,6 @@ const NoteCard = () => {
 		b.updatedAt.localeCompare(a.updatedAt)
 	);
 
-	// const favorites = useSelector((state) => state.session.user.favorite);
-
 	if (notesOrdered.length) {
 		return (
 			<>

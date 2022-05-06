@@ -10,7 +10,6 @@ import { useModal } from "../../../context/ModalContext";
 
 const SideBar = () => {
 	const { notebookId, noteId } = useParams();
-	// const dispatch = useDispatch();
 
 	const [deleteMsg, setDeleteMsg] = useState("");
 	const { setToggleEditNotebookModal, setToggleDeleteNotebookModal } =
@@ -31,8 +30,6 @@ const SideBar = () => {
 	};
 
 	useEffect(() => {
-		// setName(notebook?.name);
-
 		if (Object.keys(notebooks)[0] === notebookId) {
 			setDeleteMsg("Cannot delete primary notebook");
 		} else {

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import UpdatedAt from "../Tools/UpdatedAt";
 import NoteContent from "../Notes/NoteContent";
+import Favorite from "../Tools/Favorite";
 
 const NoteCard = ({ notebookId, noteId }) => {
 	const notes = Object.values(useSelector((state) => state?.notes))?.filter(
@@ -20,7 +21,10 @@ const NoteCard = ({ notebookId, noteId }) => {
 				{notesOrdered.map((note) => (
 					<Link to={`/notebooks/${notebookId}/${note?.id}`} key={note?.id}>
 						<div className="note-box">
-							<div className="note-title">{note?.title}</div>
+							<div className="note-title">
+								{note?.title}
+								<Favorite noteId={note?.id} />
+							</div>
 							<NoteContent content={note?.content} />
 							<div className="dk-note-tags">
 								{note &&
