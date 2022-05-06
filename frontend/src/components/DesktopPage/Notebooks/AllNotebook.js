@@ -60,11 +60,15 @@ const AllNotebook = ({ notebook }) => {
 					<div className="all-notebook-total">Total {notes?.length} notes</div>
 				</div>
 			</Link>
-			<div style={{ height: "100px" }} ref={dropRef}>
+			<div ref={dropRef}>
 				{basket.map((note) => (
 					<EachNote note={note} notebookId={notebook?.id} />
 				))}
-				{isOver && <div>Drop Here!</div>}
+				<div className="notebook-dnd-div">
+					<i className="fa-solid fa-circle-arrow-down"></i>
+					Drag and drop notes here
+				</div>
+				{/* {isOver && <div>Move notes here!</div>} */}
 			</div>
 		</div>
 	);
