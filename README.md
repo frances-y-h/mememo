@@ -1,8 +1,8 @@
-# memeo
+# mememo
 
 A powerful memo app for hard working bees
 
-[memeo](https://mememo.herokuapp.com/)
+[mememo](https://mememo.herokuapp.com/)
 
 ## Technologies used
 
@@ -11,7 +11,3 @@ Redux
 Flexbox, Grid, CSS Modules
 Express
 Sequelize
-
-## Todo
-
-finish trash => Delete this note
