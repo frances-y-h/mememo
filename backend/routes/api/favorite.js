@@ -16,6 +16,22 @@ router.get(
 	})
 );
 
+router.put(
+	"/",
+	requireAuth,
+	asyncHandler(async (req, res) => {
+		const userId = req.user.id;
+		const user = await User.findByPk(userId);
+		const { favorite } = req.body; // get back array
+
+		user.favorite = favorite;
+
+		await user.save();
+
+		res.json(favorite); // set array in object
+	})
+);
+
 router.post(
 	"/:noteId(\\d+)",
 	requireAuth,
@@ -28,6 +44,7 @@ router.post(
 		if (!newFav.some((id) => id === noteId)) {
 			newFav.unshift(noteId);
 		}
+		console.log(newFav);
 		user.favorite = newFav;
 		await user.save();
 

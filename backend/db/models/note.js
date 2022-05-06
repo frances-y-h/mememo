@@ -30,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
 			otherKey: "tagId",
 			foreignKey: "noteId",
 		});
-		Note.hasOne(models.Favorite, { foreignKey: "noteId" });
 	};
 	return Note;
 };
