@@ -263,6 +263,12 @@ const NoteView = () => {
 				<div className="note-view">
 					<div className="note-view-notebook-wrap">
 						<div className="pad5">
+							<Link className="note-view-notebook" to="/notebooks">
+								<i className="fa-solid fa-book"></i>
+								All Notebooks
+							</Link>
+
+							<i className="fa-solid fa-chevron-right note-view-nb-arrow"></i>
 							<Link
 								to={`/notebooks/${note?.notebookId}`}
 								className="note-view-notebook"

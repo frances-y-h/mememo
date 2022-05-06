@@ -142,7 +142,7 @@
 .note-view {
 	background-color: var(--paper);
 	display: grid;
-	grid-template-rows: 50px 30px 66px auto 33px;
+	grid-template-rows: 50px 30px 66px auto 50px;
 }
 
 .note-view-notebook-wrap {
@@ -183,6 +183,11 @@
 	gap: 5px;
 	align-items: center;
 	position: relative;
+}
+
+.note-view-nb-arrow {
+	color: gray;
+	font-size: 12px;
 }
 
 .note-view-notebook-move {
@@ -293,6 +298,7 @@
 	border-top: 1px solid lightgray;
 	padding: 5px;
 	display: flex;
+	flex-wrap: wrap;
 	gap: 5px;
 	align-items: center;
 	background-color: var(--paper);
