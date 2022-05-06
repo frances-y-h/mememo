@@ -72,11 +72,13 @@ router.post(
 	})
 );
 
+// update or move to trash
 router.patch(
 	"/:noteId(\\d+)",
 	requireAuth,
 	validateNotes,
 	asyncHandler(async (req, res) => {
+		const userId = req.user.id;
 		const noteId = parseInt(req.params.noteId, 10);
 		const { title, content, notebookId, trash, tagsArr } = req.body;
 
@@ -95,6 +97,11 @@ router.patch(
 		}
 
 		noteToUpdate.trash = trash;
+		if (trash === true) {
+			const user = await User.findByPk(userId);
+			user.favorite = user.favorite.filter((id) => id !== noteId);
+			await user.save();
+		}
 
 		if (tagsArr) {
 			// get the ids of the tags

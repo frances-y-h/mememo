@@ -1,0 +1,12 @@
+.fa-star.fa-solid {
+	color: var(--mid3);
+}
+
+.fa-star.fa-regular {
+	color: gray;
+}
+
+.fa-star.fa-solid.nav,
+.fa-star.fa-regular.nav {
+	color: white;
+}

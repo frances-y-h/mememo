@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
 			scratchPad: {
 				type: DataTypes.TEXT,
 			},
+			favorite: {
+				type: DataTypes.ARRAY(DataTypes.INTEGER),
+			},
 		},
 		{
 			defaultScope: {
@@ -64,8 +67,8 @@ module.exports = (sequelize, DataTypes) => {
 	};
 
 	User.prototype.toSafeObject = function () {
-		const { id, username, email, avatarUrl, scratchPad } = this;
-		return { id, username, email, avatarUrl, scratchPad };
+		const { id, username, email, avatarUrl, scratchPad, favorite } = this;
+		return { id, username, email, avatarUrl, scratchPad, favorite };
 	};
 
 	User.prototype.validatePassword = function (password) {

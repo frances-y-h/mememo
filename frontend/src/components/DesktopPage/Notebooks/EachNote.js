@@ -1,6 +1,5 @@
 import React from "react";
 import { useDrag } from "react-dnd";
-
 import { Link } from "react-router-dom";
 
 const EachNote = ({ note, notebookId }) => {

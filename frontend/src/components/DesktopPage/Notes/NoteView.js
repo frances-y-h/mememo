@@ -8,9 +8,11 @@ import { useDisableEdit } from "../../../context/DisableEditContext";
 
 import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
+import * as sessionActions from "../../../store/session";
 
 import UpdatedAt from "../Tools/UpdatedAt";
 import Editor from "./Quill";
+import Favorite from "../Tools/Favorite";
 
 const NoteView = () => {
 	// check if there is note id from use params, if not, redirect to most recent note
@@ -35,7 +37,6 @@ const NoteView = () => {
 	const [content, setContent] = useState("");
 	const [tagsArr, setTagsArr] = useState([]);
 	const [tagDDList, setTagDDList] = useState([]);
-	const [value, setValue] = useState("");
 
 	const moveDD = useRef(null);
 	const modalBg = useRef(null);
@@ -49,7 +50,7 @@ const NoteView = () => {
 	const deleteTooltip = useRef(null);
 
 	// if there is param, but param is "new", which will return "undefined for note"
-	if (!note) {
+	if (noteId === "new") {
 		note = {
 			title: "",
 			content: "",
@@ -66,6 +67,7 @@ const NoteView = () => {
 	};
 
 	const editNote = () => {
+		if (!noteId) history.push("/notes/new");
 		if (disableEdit) {
 			setDisableEdit(false);
 
@@ -176,6 +178,10 @@ const NoteView = () => {
 				title,
 				trash: true,
 			};
+
+			// remove from favorite array both from database and store
+			await dispatch(sessionActions.removeFromFavorite(noteId));
+
 			await dispatch(notesActions.trashNote(noteId, note));
 			await dispatch(trashActions.getAllTrash());
 			setNotificationMsg("Moved to Trash");
@@ -188,7 +194,8 @@ const NoteView = () => {
 			}, 2000);
 			history.push("/notes");
 		} else {
-			setNotificationMsg("Plase save note first");
+			history.push("/notes");
+			setNotificationMsg("New note not saved");
 			setToggleNotification("");
 
 			setTimeout(() => {
@@ -240,11 +247,11 @@ const NoteView = () => {
 		}
 	}, [disableEdit]);
 
-	if (notes && !noteId) {
+	if (notesOrdered[0] && !noteId) {
 		return <Redirect to={`/notes/${notesOrdered[0]?.id}`} />;
 	}
 
-	if (notes) {
+	if ((notesOrdered[0] && noteId !== "undefined") || noteId === "new") {
 		return (
 			<>
 				{/* modal background */}
@@ -256,12 +263,18 @@ const NoteView = () => {
 				<div className="note-view">
 					<div className="note-view-notebook-wrap">
 						<div className="pad5">
+							<Link className="note-view-notebook" to="/notebooks">
+								<i className="fa-solid fa-book"></i>
+								All Notebooks
+							</Link>
+
+							<i className="fa-solid fa-chevron-right note-view-nb-arrow"></i>
 							<Link
-								to={`/notebooks/${note.notebookId}`}
+								to={`/notebooks/${note?.notebookId}`}
 								className="note-view-notebook"
 							>
 								<i className="fa-solid fa-book"></i>
-								{notebooks[note.notebookId]?.name}
+								{notebooks[note?.notebookId]?.name}
 							</Link>
 							<div className="notebook-move-dd-wrap">
 								<div className="note-view-notebook-move" onClick={openDD}>
@@ -334,16 +347,18 @@ const NoteView = () => {
 					<div className="note-view-update">
 						Last edited <UpdatedAt updatedAt={note?.updatedAt} />
 					</div>
-
-					<div onClick={editNote}>
-						<input
-							type="text"
-							value={title}
-							className="note-view-title"
-							disabled={disableEdit}
-							placeholder="New Title"
-							onChange={(e) => setTitle(e.target.value)}
-						/>
+					<div className="note-view-title-fav-wrap">
+						<Favorite noteId={note?.id} />
+						<div onClick={editNote}>
+							<input
+								type="text"
+								value={title}
+								className="note-view-title"
+								disabled={disableEdit}
+								placeholder="New Title"
+								onChange={(e) => setTitle(e.target.value)}
+							/>
+						</div>
 					</div>
 					<div onClick={editNote}>
 						<Editor content={content} setContent={setContent} />
@@ -407,7 +422,7 @@ const NoteView = () => {
 			<div className="notebook-bg">
 				<div className="notebook-container">
 					<img src="/images/logo.svg" alt="bee" className="fly-bee" />
-					<div className="notebook-ctnr-title">No notes in this notebook</div>
+					<div className="notebook-ctnr-title">No notes</div>
 				</div>
 			</div>
 		);

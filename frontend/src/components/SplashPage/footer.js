@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
 	return (
 		<footer>
@@ -14,7 +16,7 @@ const Footer = () => {
 				</ul>
 			</div>
 			<div className="footer-copyright">
-				copyright © Frances Lau | Resource used
+				<Link to="/about">copyright © Frances (Huang) Lau | Resource used</Link>
 			</div>
 		</footer>
 	);

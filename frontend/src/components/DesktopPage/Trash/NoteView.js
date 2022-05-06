@@ -56,7 +56,9 @@ const NoteView = () => {
 						Last edited
 						<UpdatedAt updatedAt={note?.updatedAt} />
 					</div>
-					<div className="note-view-title note-in-trash">{note?.title}</div>
+					<div className="note-view-title-fav-wrap">
+						<div className="note-view-title note-in-trash">{note?.title}</div>
+					</div>
 					<div
 						className="note-view-content note-in-trash"
 						dangerouslySetInnerHTML={{

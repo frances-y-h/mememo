@@ -18,7 +18,7 @@ function App() {
 	return (
 		isLoaded && (
 			<Switch>
-				<Route path="/" exact>
+				<Route path={["/", "/about"]} exact>
 					<SplashPage />
 				</Route>
 				<Route path="/login">

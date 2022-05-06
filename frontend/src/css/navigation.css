@@ -49,7 +49,7 @@
 	width: 20%;
 	max-width: 175px;
 	background-color: var(--dark2);
-	height: 100vh;
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	font-size: 13px;

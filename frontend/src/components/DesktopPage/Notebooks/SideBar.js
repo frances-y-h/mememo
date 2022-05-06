@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import NoteCard from "./NoteCard";
 import EditModal from "./EditModal";
@@ -10,17 +10,11 @@ import { useModal } from "../../../context/ModalContext";
 
 const SideBar = () => {
 	const { notebookId, noteId } = useParams();
-	// const dispatch = useDispatch();
 
-	// const [name, setName] = useState("");
-	// const [disable, setDisable] = useState(true);
-	// const [errors, setErrors] = useState([]);
 	const [deleteMsg, setDeleteMsg] = useState("");
 	const { setToggleEditNotebookModal, setToggleDeleteNotebookModal } =
 		useModal();
 
-	const inputErr = useRef();
-	const editModal = useRef();
 	const editTooltip = useRef();
 	const deleteTooltip = useRef();
 
@@ -36,8 +30,6 @@ const SideBar = () => {
 	};
 
 	useEffect(() => {
-		// setName(notebook?.name);
-
 		if (Object.keys(notebooks)[0] === notebookId) {
 			setDeleteMsg("Cannot delete primary notebook");
 		} else {

@@ -1,0 +1,69 @@
+.about-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding: 10px;
+}
+
+.frances-img {
+	width: 200px;
+}
+
+.frances-name {
+	font-size: 24px;
+	font-family: "Signika Negative", sans-serif;
+}
+
+.frances-slogan {
+	font-size: 13px;
+}
+
+.about-logo-wrap {
+	display: flex;
+	gap: 10px;
+	padding-top: 10px;
+}
+
+.about-logo {
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+}
+
+.about-divider {
+	width: 50px;
+	border-top: 10px dotted var(--mid1);
+	padding-bottom: 30px;
+	margin-top: 30px;
+}
+
+.about-resources {
+	font-weight: bold;
+	padding: 5px 10px;
+	background-color: var(--mid3);
+	border-radius: 30px;
+	color: white;
+	text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+}
+
+.about-resource {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+}
+
+.about-resource-title,
+.about-resource-link {
+	font-size: 12px;
+	text-align: center;
+}
+
+.about-resource-title {
+	font-weight: bold;
+}
+
+.about-resource-link {
+	color: var(--mid4);
+}

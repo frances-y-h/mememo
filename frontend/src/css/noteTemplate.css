@@ -40,6 +40,13 @@
 	text-overflow: ellipsis;
 	-webkit-box-orient: vertical;
 	white-space: normal;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.note-title i {
+	font-size: 10px;
 }
 
 .note-title-ctrl {
@@ -135,7 +142,7 @@
 .note-view {
 	background-color: var(--paper);
 	display: grid;
-	grid-template-rows: 50px 30px 66px auto 33px;
+	grid-template-rows: 50px 30px 66px auto 50px;
 }
 
 .note-view-notebook-wrap {
@@ -176,6 +183,11 @@
 	gap: 5px;
 	align-items: center;
 	position: relative;
+}
+
+.note-view-nb-arrow {
+	color: gray;
+	font-size: 12px;
 }
 
 .note-view-notebook-move {
@@ -257,8 +269,14 @@
 	gap: 3px;
 }
 
-.note-view-title {
+.note-view-title-fav-wrap {
+	display: flex;
+	align-items: center;
 	padding: 20px;
+	gap: 20px;
+}
+
+.note-view-title {
 	font-size: 24px;
 	font-weight: bold;
 	border: none;
@@ -280,6 +298,7 @@
 	border-top: 1px solid lightgray;
 	padding: 5px;
 	display: flex;
+	flex-wrap: wrap;
 	gap: 5px;
 	align-items: center;
 	background-color: var(--paper);

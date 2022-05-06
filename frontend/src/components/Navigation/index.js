@@ -1,4 +1,5 @@
 import Home from "./home.js";
+import Favorite from "./favorite";
 import User from "./user.js";
 import Notes from "./notes.js";
 import Notebooks from "./notebooks.js";
@@ -10,6 +11,7 @@ const Navigation = ({ sessionUser, notes }) => {
 		<nav className="navbar">
 			<User sessionUser={sessionUser} />
 			<Home />
+			<Favorite />
 			<Notes notes={notes} />
 			<Notebooks />
 			<Tags />
