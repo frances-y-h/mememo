@@ -32,6 +32,7 @@ const NoteView = () => {
 			setTimeout(() => {
 				notification?.current?.classList?.add("notification-move");
 			}, 2000);
+			history.push("/trash");
 		};
 
 		return (
