@@ -51,8 +51,8 @@ const SplashPage = () => {
 										REMEMBER EVERYTHING
 									</div>
 									<div className="splash-example-description">
-										Make notes more useful by adding text, images, audio, scans,
-										PDFs, and documents.
+										Make notes more useful by adding text, text, rich text, and
+										more text.
 									</div>
 								</div>
 								<div className="splash-example-div">
