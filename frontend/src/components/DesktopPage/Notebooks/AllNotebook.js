@@ -62,7 +62,7 @@ const AllNotebook = ({ notebook }) => {
 			</Link>
 			<div ref={dropRef}>
 				{basket.map((note) => (
-					<EachNote note={note} notebookId={notebook?.id} />
+					<EachNote key={note?.id} note={note} notebookId={notebook?.id} />
 				))}
 
 				<div className="notebook-dnd-div">

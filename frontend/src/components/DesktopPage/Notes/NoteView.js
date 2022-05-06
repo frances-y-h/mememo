@@ -251,7 +251,7 @@ const NoteView = () => {
 		return <Redirect to={`/notes/${notesOrdered[0]?.id}`} />;
 	}
 
-	if (noteId !== "undefined") {
+	if ((notesOrdered[0] && noteId !== "undefined") || noteId === "new") {
 		return (
 			<>
 				{/* modal background */}
