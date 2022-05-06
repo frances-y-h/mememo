@@ -1,7 +1,17 @@
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDrop } from "react-dnd";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
+import EachNote from "./EachNote";
+
+import * as notesActions from "../../../store/notes";
+
 const AllNotebook = ({ notebook }) => {
+	const dispatch = useDispatch();
+
+	const checkNotes = useSelector((state) => state.notes);
+
 	const notes = useSelector((state) => {
 		const arr = [];
 		Object.values(state.notes).forEach((note) => {
@@ -12,6 +22,35 @@ const AllNotebook = ({ notebook }) => {
 		return arr;
 	});
 
+	const [basket, setBasket] = useState([]);
+
+	const [{ canDrop, isOver }, dropRef] = useDrop({
+		accept: "note",
+		drop: (item) =>
+			setBasket((basket) =>
+				!basket.some((el) => el.id === item.id) ? [...basket, item] : basket
+			),
+		collect: (monitor) => ({
+			isOver: monitor.isOver(),
+			canDrop: monitor.canDrop(),
+		}),
+	});
+
+	useEffect(() => {
+		setBasket(notes);
+	}, [checkNotes]);
+
+	useEffect(() => {
+		if (
+			basket[basket.length - 1] &&
+			basket[basket.length - 1].notebookId !== notebook.id
+		) {
+			const moveNote = basket[basket.length - 1];
+			moveNote.notebookId = notebook.id;
+			dispatch(notesActions.editNote(moveNote.id, moveNote));
+		}
+	}, [basket]);
+
 	return (
 		<div>
 			<Link to={`/notebooks/${notebook?.id}`}>
@@ -21,17 +60,15 @@ const AllNotebook = ({ notebook }) => {
 					<div className="all-notebook-total">Total {notes?.length} notes</div>
 				</div>
 			</Link>
-			<div>
-				{notes.map((note) => (
-					<Link
-						key={note?.id}
-						to={`/notebooks/${notebook?.id}/${note?.id}`}
-						className="all-note-div"
-					>
-						<i className="fa-solid fa-file-lines"></i>
-						{note?.title}
-					</Link>
+			<div ref={dropRef}>
+				{basket.map((note) => (
+					<EachNote note={note} notebookId={notebook?.id} />
 				))}
+				<div className="notebook-dnd-div">
+					<i className="fa-solid fa-circle-arrow-down"></i>
+					Drag and drop notes here
+				</div>
+				{/* {isOver && <div>Move notes here!</div>} */}
 			</div>
 		</div>
 	);

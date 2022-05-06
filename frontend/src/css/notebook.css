@@ -33,7 +33,6 @@
 	justify-content: center;
 	padding: 30px;
 	width: 100%;
-	height: 100vh;
 }
 
 .all-notebooks-ctnr {
@@ -71,11 +70,14 @@
 	background-color: var(--mid4);
 	padding: 5px;
 	font-size: 14px;
+
 	display: flex;
 	gap: 5px;
 	color: white;
 	text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
 	align-items: center;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .all-notebook-total {
@@ -86,9 +88,17 @@
 }
 
 .all-note-div {
-	padding: 5px 5px 5px 20px;
-	font-size: 13px;
+	padding: 7px;
+	font-size: 14px;
+	font-weight: bold;
 	background-color: var(--paper);
+	display: flex;
+	gap: 7px;
+	align-items: center;
+}
+
+.all-note-div-note {
+	width: 100%;
 	display: flex;
 	gap: 7px;
 	align-items: center;
@@ -104,4 +114,30 @@
 
 .all-note-div i {
 	color: gray;
+}
+
+.all-note-div .grip {
+	color: rgb(206, 206, 206);
+	cursor: grab;
+}
+
+.all-note-div .grip:active {
+	cursor: grabbing;
+}
+
+/* drag and drop */
+
+.notebook-dnd-div {
+	padding: 5px;
+	border: 1px dotted lightgray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	font-size: 12px;
+	background-color: lightgray;
+	box-shadow: inset 3px 3px 0px rgba(255, 255, 255, 1),
+		inset -3px -3px 0px rgba(255, 255, 255, 1);
+	color: gray;
+	opacity: 0.4;
 }
