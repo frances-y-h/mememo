@@ -99,7 +99,7 @@ const Editor = ({ content, setContent }) => {
 				{ indent: "+1" },
 				{ align: [] },
 			],
-			["link", "image"],
+			["link"],
 			["clean"],
 		],
 	};
@@ -118,7 +118,6 @@ const Editor = ({ content, setContent }) => {
 		"indent",
 		"align",
 		"link",
-		"image",
 	];
 
 	useEffect(() => {
