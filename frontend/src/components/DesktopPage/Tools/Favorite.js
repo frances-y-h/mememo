@@ -25,8 +25,6 @@ const Favorite = ({ noteId }) => {
 		}
 	};
 
-	// console.log(favorites.some((id) => id === noteId));
-
 	useEffect(() => {
 		if (favorites.some((id) => id === noteId)) {
 			setIsFavorite(true);
@@ -37,7 +35,6 @@ const Favorite = ({ noteId }) => {
 			star?.current?.classList.remove("fa-solid");
 			star?.current?.classList.add("fa-regular");
 		}
-		console.log(isFavorite);
 	}, [noteId]);
 
 	return (

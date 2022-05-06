@@ -28,7 +28,6 @@ const NoteView = () => {
 	let note = useSelector((state) => state.notes[noteId]);
 	const notebooks = useSelector((state) => state.notebooks);
 	const tags = useSelector((state) => state.tags);
-	const favorites = useSelector((state) => state.session.user.favorite);
 
 	const { setToggleNotification, setNotificationMsg } = useNotification();
 	const { setToggleTagModal } = useModal();
@@ -179,11 +178,8 @@ const NoteView = () => {
 				trash: true,
 			};
 
-			// remove from favorite array when move note to trash
-			const isFavorite = favorites.includes(noteId);
-			if (isFavorite) {
-				dispatch(sessionActions.removeFavorite(noteId));
-			}
+			// remove from favorite array both from database and store
+			await dispatch(sessionActions.removeFromFavorite(noteId));
 
 			await dispatch(notesActions.trashNote(noteId, note));
 			await dispatch(trashActions.getAllTrash());
