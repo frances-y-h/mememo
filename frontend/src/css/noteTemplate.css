@@ -257,8 +257,14 @@
 	gap: 3px;
 }
 
-.note-view-title {
+.note-view-title-fav-wrap {
+	display: flex;
+	align-items: center;
 	padding: 20px;
+	gap: 20px;
+}
+
+.note-view-title {
 	font-size: 24px;
 	font-weight: bold;
 	border: none;

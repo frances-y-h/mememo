@@ -28,6 +28,9 @@ module.exports = {
 			scratchPad: {
 				type: Sequelize.TEXT,
 			},
+			favorite: {
+				type: Sequelize.ARRAY(Sequelize.INTEGER),
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

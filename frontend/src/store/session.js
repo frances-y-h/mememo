@@ -7,6 +7,10 @@ const REMOVE_USER = "session/REMOVE_USER";
 // Scratch pad
 const UPDATE_PAD = "scratchPad/UPDATE_PAD";
 
+// Favorite
+const ADD_FAVORITE = "/favorite/ADD_FAVORITE";
+const REMOVE_FAVORITE = "/favorite/REMOVE_FAVORITE";
+
 // Action Creators
 const setUser = (user) => {
 	return {
@@ -26,6 +30,21 @@ const updatePad = (pad) => {
 	return {
 		type: UPDATE_PAD,
 		pad,
+	};
+};
+
+// Favorite
+export const addFavorite = (noteId) => {
+	return {
+		type: ADD_FAVORITE,
+		noteId,
+	};
+};
+
+export const removeFavorite = (noteId) => {
+	return {
+		type: REMOVE_FAVORITE,
+		noteId,
 	};
 };
 
@@ -87,6 +106,25 @@ export const updateScratchPad = (pad) => async (dispatch) => {
 	return data;
 };
 
+// Favorite Thunks
+export const addToFavorite = (noteId) => async (dispatch) => {
+	const response = await csrfFetch(`/api/favorite/${noteId}`, {
+		method: "POST",
+	});
+	const data = await response.json();
+	dispatch(addFavorite(data));
+	return data;
+};
+
+export const removeFromFavorite = (noteId) => async (dispatch) => {
+	const response = await csrfFetch(`/api/favorite/${noteId}`, {
+		method: "DELETE",
+	});
+	const data = await response.json();
+	dispatch(removeFavorite(data));
+	return data;
+};
+
 // Reducer
 const initialState = { user: null };
 
@@ -104,6 +142,18 @@ const sessionReducer = (state = initialState, action) => {
 		case UPDATE_PAD:
 			newState = { ...state };
 			newState.user.scratchPad = action.pad;
+			return newState;
+		case ADD_FAVORITE:
+			newState = { ...state };
+			if (!newState.user.favorite.some((id) => id === action.noteId)) {
+				newState.user.favorite.unshift(action.noteId);
+			}
+			return newState;
+		case REMOVE_FAVORITE:
+			newState = { ...state };
+			newState.user.favorite = newState.user.favorite.filter(
+				(id) => id !== action.noteId
+			);
 			return newState;
 		default:
 			return state;

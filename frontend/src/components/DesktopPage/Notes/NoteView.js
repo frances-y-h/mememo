@@ -8,9 +8,11 @@ import { useDisableEdit } from "../../../context/DisableEditContext";
 
 import * as notesActions from "../../../store/notes";
 import * as trashActions from "../../../store/trash";
+import * as sessionActions from "../../../store/session";
 
 import UpdatedAt from "../Tools/UpdatedAt";
 import Editor from "./Quill";
+import Favorite from "../Tools/Favorite";
 
 const NoteView = () => {
 	// check if there is note id from use params, if not, redirect to most recent note
@@ -26,6 +28,7 @@ const NoteView = () => {
 	let note = useSelector((state) => state.notes[noteId]);
 	const notebooks = useSelector((state) => state.notebooks);
 	const tags = useSelector((state) => state.tags);
+	const favorites = useSelector((state) => state.session.user.favorite);
 
 	const { setToggleNotification, setNotificationMsg } = useNotification();
 	const { setToggleTagModal } = useModal();
@@ -35,7 +38,6 @@ const NoteView = () => {
 	const [content, setContent] = useState("");
 	const [tagsArr, setTagsArr] = useState([]);
 	const [tagDDList, setTagDDList] = useState([]);
-	const [value, setValue] = useState("");
 
 	const moveDD = useRef(null);
 	const modalBg = useRef(null);
@@ -176,6 +178,13 @@ const NoteView = () => {
 				title,
 				trash: true,
 			};
+
+			// remove from favorite array when move note to trash
+			const isFavorite = favorites.includes(noteId);
+			if (isFavorite) {
+				dispatch(sessionActions.removeFavorite(noteId));
+			}
+
 			await dispatch(notesActions.trashNote(noteId, note));
 			await dispatch(trashActions.getAllTrash());
 			setNotificationMsg("Moved to Trash");
@@ -204,8 +213,8 @@ const NoteView = () => {
 	};
 
 	useEffect(() => {
-		setTitle(note?.title);
-		setContent(note?.content);
+		setTitle(note.title);
+		setContent(note.content);
 		setTagsArr(note?.Tags);
 		saveBtn?.current?.classList.add("hidden");
 		addTag?.current?.classList.add("hidden");
@@ -334,16 +343,18 @@ const NoteView = () => {
 					<div className="note-view-update">
 						Last edited <UpdatedAt updatedAt={note?.updatedAt} />
 					</div>
-
-					<div onClick={editNote}>
-						<input
-							type="text"
-							value={title}
-							className="note-view-title"
-							disabled={disableEdit}
-							placeholder="New Title"
-							onChange={(e) => setTitle(e.target.value)}
-						/>
+					<div className="note-view-title-fav-wrap">
+						<Favorite noteId={note?.id} />
+						<div onClick={editNote}>
+							<input
+								type="text"
+								value={title}
+								className="note-view-title"
+								disabled={disableEdit}
+								placeholder="New Title"
+								onChange={(e) => setTitle(e.target.value)}
+							/>
+						</div>
 					</div>
 					<div onClick={editNote}>
 						<Editor content={content} setContent={setContent} />

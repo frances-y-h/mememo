@@ -25,8 +25,8 @@ const NoteCard = ({ tagId }) => {
 		b.updatedAt.localeCompare(a.updatedAt)
 	);
 
-	if (notes && notes[0]) {
-		return notes.map((note) => (
+	if (notes && OrderedNotes[0]) {
+		return OrderedNotes.map((note) => (
 			<Link to={`/tags/${tagId}/notes/${note.id}`} key={note.id}>
 				<div className="note-box">
 					<div className="note-title">{note.title}</div>

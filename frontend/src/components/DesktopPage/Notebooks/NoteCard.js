@@ -5,7 +5,6 @@ import UpdatedAt from "../Tools/UpdatedAt";
 import NoteContent from "../Notes/NoteContent";
 
 const NoteCard = ({ notebookId, noteId }) => {
-	const notebook = useSelector((state) => state.notebooks[notebookId]);
 	const notes = Object.values(useSelector((state) => state?.notes))?.filter(
 		(note) =>
 			note?.notebookId === parseInt(notebookId, 10) && note?.trash === false

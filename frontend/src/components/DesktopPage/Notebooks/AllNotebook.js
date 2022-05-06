@@ -66,9 +66,8 @@ const AllNotebook = ({ notebook }) => {
 				))}
 				<div className="notebook-dnd-div">
 					<i className="fa-solid fa-circle-arrow-down"></i>
-					Drag and drop notes here
+					Drag and drop to move notes in notebooks
 				</div>
-				{/* {isOver && <div>Move notes here!</div>} */}
 			</div>
 		</div>
 	);
