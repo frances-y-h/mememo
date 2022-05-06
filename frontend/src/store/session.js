@@ -10,6 +10,7 @@ const UPDATE_PAD = "scratchPad/UPDATE_PAD";
 // Favorite
 const ADD_FAVORITE = "/favorite/ADD_FAVORITE";
 const REMOVE_FAVORITE = "/favorite/REMOVE_FAVORITE";
+const UPDATE_FAVORITES = "/favorite/UPDATE_FAVORITES";
 
 // Action Creators
 const setUser = (user) => {
@@ -45,6 +46,13 @@ export const removeFavorite = (noteId) => {
 	return {
 		type: REMOVE_FAVORITE,
 		noteId,
+	};
+};
+
+const updateFavorites = (favorite) => {
+	return {
+		type: UPDATE_FAVORITES,
+		favorite, // favorites array
 	};
 };
 
@@ -116,6 +124,17 @@ export const addToFavorite = (noteId) => async (dispatch) => {
 	return data;
 };
 
+export const updateFavoritesArr = (favorite) => async (dispatch) => {
+	const body = JSON.stringify({ favorite }); // put array into object
+	const response = await csrfFetch("/api/favorite", {
+		method: "PUT",
+		body,
+	});
+	const data = await response.json();
+	dispatch(updateFavorites(data)); // dispatch array
+	return data;
+};
+
 export const removeFromFavorite = (noteId) => async (dispatch) => {
 	const response = await csrfFetch(`/api/favorite/${noteId}`, {
 		method: "DELETE",
@@ -142,6 +161,10 @@ const sessionReducer = (state = initialState, action) => {
 		case UPDATE_PAD:
 			newState = { ...state };
 			newState.user.scratchPad = action.pad;
+			return newState;
+		case UPDATE_FAVORITES:
+			newState = { ...state };
+			newState.user.favorite = [...action.favorite];
 			return newState;
 		case ADD_FAVORITE:
 			newState = { ...state };

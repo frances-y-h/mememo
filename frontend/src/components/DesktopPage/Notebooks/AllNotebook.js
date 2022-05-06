@@ -64,6 +64,7 @@ const AllNotebook = ({ notebook }) => {
 				{basket.map((note) => (
 					<EachNote note={note} notebookId={notebook?.id} />
 				))}
+
 				<div className="notebook-dnd-div">
 					<i className="fa-solid fa-circle-arrow-down"></i>
 					Drag and drop to move notes in notebooks

@@ -116,12 +116,12 @@
 	color: gray;
 }
 
-.all-note-div .grip {
+.grip {
 	color: rgb(206, 206, 206);
 	cursor: grab;
 }
 
-.all-note-div .grip:active {
+.grip:active {
 	cursor: grabbing;
 }
 
