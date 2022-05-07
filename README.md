@@ -1,4 +1,4 @@
-<h1 align="center">mememo</h1>
+<h1 align="center">🐝 mememo</h1>
 
 <h3 align="center">A powerful memo app for hard working bees.</h3>
 
