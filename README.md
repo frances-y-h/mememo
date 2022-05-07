@@ -42,7 +42,7 @@ Linkedin | Github
 
 ### Getting started
 1. Clone this repository
-`git clone `
+`git clone git@github.com:frances-y-h/mememo.git`
 2. Install dependencies
 `npm install`
 3. Create a .env file based on the example with proper settings for your development environment
