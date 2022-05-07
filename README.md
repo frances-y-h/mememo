@@ -12,7 +12,7 @@
 <img width="866" alt="Screen Shot 2022-05-06 at 6 31 31 PM" src="https://user-images.githubusercontent.com/97005157/167232667-8c150ab3-f8b6-42e7-aa5a-ed45a44bdf9c.png">
 Splash page
 <br><br>
-<!-- Put this wherever you would like your player to appear -->
+
 <img
   style="width: 100%; margin: auto; display: block;"
   class="vidyard-player-embed"
@@ -22,22 +22,19 @@ Splash page
   data-type="inline"
 />
 Click to play demo video.
+<br><br>
+![Screen Shot 2022-05-07 at 8 30 43 AM](https://user-images.githubusercontent.com/97005157/167261089-28e53377-24f6-44c2-b5b9-d8d56e79408e.png)
 
+Organize your notes with colorful tags.
+<br><br>
+![Screen Shot 2022-05-07 at 8 49 07 AM](https://user-images.githubusercontent.com/97005157/167261811-e54dcd34-d417-4e23-a26a-06e5d813e5d0.png)
+Organize notebooks by drag and drops
 
-## About the project
+<a href="https://github.com/frances-y-h/mememo/wiki">Git Wiki</a>
 
-### Technologies used
+## mememo at a Glance
 
-* [React.js](https://reactjs.org/)
-* [Redux](https://redux.js.org/)
-* [Javascript](https://www.javascript.com/)
-* [PostgresSQL](https://www.postgresql.org/)
-* [Sequelize](https://sequelize.org/)
-* [Express.js](https://expressjs.com/)
-* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
-
-### Contact
-<a href="https://www.linkedin.com/in/frances-huang-660607156">Linkedin</a> | <a href="https://github.com/frances-y-h">Github</a>
+mememo is a full stack application that allows users to write, tag, and manage their notes. Users are require to sign up for an account to use any of the service. Organizing are much easier with mememo's multiple tags system. Favorite is a shortcut that allows user to sort their favorite notes in the desired order.
 
 ### Getting started
 1. Clone this repository
@@ -59,4 +56,22 @@ npx dotenv sequelize db:seed:all
 6. Run `npm start` in folder "backend", then run `npm start` in folder "frontend"
 7. Have fun!
 
+
+### Application Architecture
+mememo is built on React and Redux frontend with Express backennd, using PostgresSQL as a database.
+
+#### Techonologies Used
+* [React.js](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [Javascript](https://www.javascript.com/)
+* [PostgresSQL](https://www.postgresql.org/)
+* [Sequelize](https://sequelize.org/)
+* [Express.js](https://expressjs.com/)
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+
+### Conclusion and Next Steps
+The next step for mememo is to broaden the functionality of notes, such as adding images, lists and reminders, even videos.
+
+### Contact
+<a href="https://www.linkedin.com/in/frances-huang-660607156">Linkedin</a> | <a href="https://github.com/frances-y-h">Github</a>
 
