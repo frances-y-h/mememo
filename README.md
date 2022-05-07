@@ -37,5 +37,21 @@ Click to play demo video.
 * [Express.js](https://expressjs.com/)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
+### Contact
+Linkedin | Github
+
+### Getting started
+1. Clone this repository
+`git clone `
+2. Install dependencies
+`npm install`
+3. Create a .env file based on the example with proper settings for your development environment
+4. Setup your PostgreSQL user, password and database and make sure it matches your .env file
+5. Migrate and seed your database
+`npx dotenv sequelize db:create`
+`npx dotenv sequelize db:migrate`
+`npx dotenv sequelize db:seed:all`
+6. Run `npm start` in folder "backend", then run `npm start` in folder "frontend"
+7. Have fun!
 
 
