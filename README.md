@@ -1,11 +1,12 @@
-# mememo 
+<h1 align="center">mememo</h1>
 
-A powerful memo app for hard working bees.
+<h3 align="center">A powerful memo app for hard working bees.</h3>
 
- mememo's core functionality includs notes, notebooks, tags, and favorites. With mememo's rich text editing, it is best for note taking and online diary.
+<p align="center">mememo's core functionality includs notes, notebooks, tags, and favorites. 
+ With mememo's rich text editing, it is best for note taking and online diary.</p>
 
 
-[mememo Live Demo](https://mememo.herokuapp.com/)
+<a align="center" href="https://mememo.herokuapp.com/">mememo Live Demo</a>
 
 
 <img width="866" alt="Screen Shot 2022-05-06 at 6 31 31 PM" src="https://user-images.githubusercontent.com/97005157/167232667-8c150ab3-f8b6-42e7-aa5a-ed45a44bdf9c.png">
