@@ -5,14 +5,55 @@ const Footer = () => {
 		<footer>
 			<div className="footer-top">
 				<ul className="tech-wrap">
-					<li>React</li>
-					<li>Redux</li>
-					<li>Flexbox</li>
-					<li>Grid</li>
-					<li>CSS Modules</li>
-					<li>Express</li>
-					<li>Sequelize</li>
-					<li>PostgreSQL</li>
+					<li>
+						<a href="https://reactjs.org/" target="_blank">
+							React
+						</a>
+					</li>
+					<li>
+						<a href="https://redux.js.org/" target="_blank">
+							Redux
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox"
+							target="_blank"
+						>
+							Flexbox
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns"
+							target="_blank"
+						>
+							Grid
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://developer.mozilla.org/en-US/docs/Web/CSS"
+							target="_blank"
+						>
+							CSS Modules
+						</a>
+					</li>
+					<li>
+						<a href="https://expressjs.com/" target="_blank">
+							Express
+						</a>
+					</li>
+					<li>
+						<a href="https://sequelize.org/" target="_blank">
+							Sequelize
+						</a>
+					</li>
+					<li>
+						<a href="https://www.postgresql.org/" target="_blank">
+							PostgreSQL
+						</a>
+					</li>
 				</ul>
 			</div>
 			<div className="footer-copyright">

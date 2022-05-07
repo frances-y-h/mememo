@@ -40,6 +40,9 @@ const Navigation = () => {
 				</div>
 			</NavLink>
 			<div className="navigation-links">
+				<NavLink to="/about" className="btn btn-no-border">
+					About
+				</NavLink>
 				<div className="btn btn-no-border" onClick={demoLogin}>
 					Demo Login
 				</div>
