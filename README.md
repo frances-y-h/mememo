@@ -30,7 +30,6 @@ Organize your notes with colorful tags.
 ![Screen Shot 2022-05-07 at 8 49 07 AM](https://user-images.githubusercontent.com/97005157/167261811-e54dcd34-d417-4e23-a26a-06e5d813e5d0.png)
 Organize notebooks by drag and drops
 
-<a href="https://github.com/frances-y-h/mememo/wiki">Git Wiki</a>
 
 ## mememo at a Glance
 
@@ -73,5 +72,6 @@ mememo is built on React and Redux frontend with Express backennd, using Postgre
 The next step for mememo is to broaden the functionality of notes, such as adding images, lists and reminders, even videos.
 
 ### Contact
-<a href="https://www.linkedin.com/in/frances-huang-660607156">Linkedin</a> | <a href="https://github.com/frances-y-h">Github</a>
+<a href="https://www.linkedin.com/in/frances-huang-660607156">Linkedin</a> | <a href="https://github.com/frances-y-h">Github</a> | 
+<a href="https://github.com/frances-y-h/mememo/wiki">Git Wiki for mememo</a>
 
