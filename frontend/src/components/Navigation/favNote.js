@@ -67,9 +67,11 @@ const FavNote = ({ index, moveFavorite, noteId }) => {
 	drag(drop(ref));
 
 	return (
-		<div ref={ref} data-handler-id={handlerId}>
+		<div
+		// ref={ref} data-handler-id={handlerId}
+		>
 			<Link to={`/notes/${noteId}`}>
-				<div className="nav-dd-div grip">
+				<div className="nav-dd-div ">
 					<i className="fa-regular fa-star nav"></i>
 					<div className="nav-dd-title">{notes[noteId]?.title}</div>
 					{isDragging && "😱"}
