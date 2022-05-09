@@ -180,7 +180,7 @@ const NoteView = () => {
 			};
 
 			// remove from favorite array both from database and store
-			await dispatch(sessionActions.removeFromFavorite(noteId));
+			// await dispatch(sessionActions.removeFromFavorite(noteId));
 
 			await dispatch(notesActions.trashNote(noteId, note));
 			await dispatch(trashActions.getAllTrash());
@@ -348,7 +348,7 @@ const NoteView = () => {
 						Last edited <UpdatedAt updatedAt={note?.updatedAt} />
 					</div>
 					<div className="note-view-title-fav-wrap">
-						<Favorite noteId={note?.id} />
+						{/* <Favorite noteId={note?.id} /> */}
 						<div onClick={editNote} className="note-view-title-div">
 							<input
 								type="text"

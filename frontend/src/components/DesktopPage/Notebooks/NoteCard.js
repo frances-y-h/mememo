@@ -22,7 +22,7 @@ const NoteCard = ({ notebookId, noteId }) => {
 					<Link to={`/notebooks/${notebookId}/${note?.id}`} key={note?.id}>
 						<div className="note-box">
 							<div className="note-title">
-								<Favorite noteId={note?.id} />
+								{/* <Favorite noteId={note?.id} /> */}
 								{note?.title}
 							</div>
 							<NoteContent content={note?.content} />

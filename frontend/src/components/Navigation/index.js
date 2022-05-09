@@ -11,7 +11,7 @@ const Navigation = ({ sessionUser, notes }) => {
 		<nav className="navbar">
 			<User sessionUser={sessionUser} />
 			<Home />
-			<Favorite />
+			{/* <Favorite /> */}
 			<Notes notes={notes} />
 			<Notebooks />
 			<Tags />
