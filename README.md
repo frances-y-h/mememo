@@ -2,7 +2,7 @@
 
 <h3 align="center">A powerful memo app for hard working bees.</h3>
 
-<p align="center">mememo's core functionality includs notes, notebooks, tags, and favorites. 
+<p align="center">mememo's core functionality includes notes, notebooks, tags, and favorites. 
  With mememo's rich text editing, it is best for note taking and online diary.</p>
 
 
