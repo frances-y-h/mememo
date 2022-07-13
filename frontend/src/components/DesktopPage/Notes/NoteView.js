@@ -360,7 +360,10 @@ const NoteView = () => {
 							/>
 						</div>
 					</div>
-					<div onClick={editNote}>
+					<div
+						// className="editor-wrapper"
+						onClick={editNote}
+					>
 						<Editor content={content} setContent={setContent} />
 					</div>
 					{/* Tags section */}

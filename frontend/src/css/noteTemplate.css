@@ -86,7 +86,7 @@
 	cursor: pointer;
 	height: 100px;
 	display: grid;
-	grid-template-rows: 20px auto auto 14px;
+	grid-template-rows: 20px auto 36px 14px;
 	transition: all 0.25s;
 	flex: 0 0 auto;
 }
@@ -121,6 +121,7 @@
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	white-space: normal;
+	line-height: 16px;
 	color: var(--dark1);
 }
 
@@ -357,6 +358,13 @@
 	font-size: 14px;
 	display: flex;
 	flex-wrap: nowrap;
+}
+
+div.ql-container {
+	height: calc(100vh - 250px);
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-y: auto;
 }
 
 @media screen and (min-width: 1000px) {

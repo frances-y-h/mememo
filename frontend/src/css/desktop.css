@@ -144,7 +144,8 @@ main {
 	display: -webkit-box;
 	overflow: hidden;
 	font-size: 12px;
-	padding: 5px 0px;
+	line-height: 14px;
+	padding: 0px 0px;
 	height: 55px;
 	text-overflow: ellipsis;
 	-webkit-line-clamp: 4;
@@ -155,8 +156,10 @@ main {
 .dk-note-tags {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: flex-end;
 	overflow: hidden;
 	gap: 3px;
+	padding-bottom: 3px;
 }
 
 .dk-note-new {
